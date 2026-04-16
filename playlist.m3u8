@@ -1,0 +1,144 @@
+#EXTM3U
+#EXTINF:-1 tvg-logo="https://i.imgur.com/9YVp1SF.png" tvg-id="MNB.mn@HD",1100 MNB HD
+https://cdn4.skygo.mn/live/disk1/MNB/HLSv3-FTA/MNB.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ys3TJT0.png" tvg-id="UBS-1.mn",1110 UBS Fast
+https://cdn4.skygo.mn/live/disk1/UBSHD/HLSv3-FTA/UBSHD.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/RUclKKz.jpeg" tvg-id="EducationTV.mn@HD",1120 Education FAST HD
+https://cdn4.skygo.mn/live/disk1/Education/HLSv3-FTA/Education.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/cTJgvP1.png" tvg-id="SBN.mn@HD",1130 SBN
+https://cdn4.skygo.mn/live/disk1/SBN/HLSv3-FTA/SBN.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/pboiiXT.png" tvg-id="TV9.mn",1140 TV9
+https://cdn4.skygo.mn/live/disk1/TV9HD/HLSv3-FTA/TV9HD.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/bkdEOQp.png" tvg-id="CentralTV.mn@HD",1150 Central Television FAST
+https://cdn4.skygo.mn/live/disk1/Ekh_Oron/HLSv3-FTA/Ekh_Oron.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/w91Y2V2.png" tvg-id="MongolTV.mn",1160 Mongol TV FAST
+https://cdn4.skygo.mn/live/disk1/Mongol_HD/HLSv3-FTA/Mongol_HD.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/wuAxR74.png" tvg-id="NTV.mn",1170 NTV fast
+https://cdn4.skygo.mn/live/disk1/NTVHD/HLSv3-FTA/NTVHD.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/HsJe8uK.png" tvg-id="TV25.mn",1180 MN25 FAST 
+https://cdn4.skygo.mn/live/disk1/MN25/HLSv3-FTA/MN25.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/2Xs8HNA.png" tvg-id="EagleNews.mn",1190 Eagle FAST
+https://cdn4.skygo.mn/live/disk1/Eagle/HLSv3-FTA/Eagle.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/mhjuLaz.png" tvg-id="ETV.mn",1200 ETVF HD
+https://cdn4.skygo.mn/live/disk1/ETV/HLSv3-FTA/ETV.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/iB5P1oI.png" tvg-id="Tengertv.mn@HD",1210 Tenger HD
+https://cdn4.skygo.mn/live/disk1/VTV/HLSv3-FTA/VTV.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.aptoide.com/imgs/1/c/9/1c9c3b2b606776b5dd19ff9e1b9d9953_fgraphic.png" tvg-id="FashionTVParisLOriginal.fr@HD",1220 Nosey HD
+https://wurlnosey.global.transmit.live/hls/678a8e220d785cafbf154147/v1/nosey_2/samsung_us/latest/main/hls/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/nSlgmS1.jpeg" tvg-id="AFV.us@SD",1230 Ninja Kids
+https://d3868b4ny0rgdf.cloudfront.net/playlist.m3u8
+#EXTINF:-1 tvg-id="3ABNInternational.us@SD",1240 Brat TV
+https://brat-samsung-us.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/FhrlJdI.jpeg" tvg-id="ToonGoggles.us@SD",1250 Toon Goggles
+https://stream-us-east-1.getpublica.com/playlist.m3u8?network_id=37
+#EXTINF:-1 tvg-logo="https://static.zuragt.mn/uploads/channels/dream.png" tvg-id="Dreambox.mn@SD",1260 Dreambox
+https://cdn4.skygo.mn/live/disk1/Dreambox/HLSv3-FTA/Dreambox.m3u8
+#EXTINF:-1 tvg-logo="" tvg-id="Domkino.ru@SD", 1270 KIDDO HD
+https://streams2.sofast.tv/sofastplayout/8258122f-b4c0-416b-a2db-8407847f0c3c_1000015692_HLS/master.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/R5jI8fh.png" tvg-id="4kTravel.us@SD",1280 4K TRAVEL
+https://streams2.sofast.tv/sofastplayout/33c31ac4-51fa-46ae-afd0-0d1fe5e60a80_0_HLS/master.m3u8
+#EXTINF:-1 tvg-logo="https://images.plex.tv/photo?size=small-60&scale=2&url=https%3A%2F%2Fprovider-static.plex.tv%2Fepg%2Fcms%2Fproduction%2F8cf9c131-2d92-4d91-86b1-22ef458d703f%2Freuters_reutersnow_1RDX.png" tvg-id="",1290 Reuters
+https://epg.provider.plex.tv/library/parts/5e20b730f2f8d5003d739db7-5eea71d65252710041e0ccbc/variant.m3u8?x-plex-token=gZLuGs-zVbea-uiHYpHk&x-plex-advertising-identifier=&x-plex-client-identifier=adabc57f-7667-466e-a97e-819c7a00201b&x-plex-playback-id=p_c94f586b-b6da-406c-bdbb-430e02db3f9d&x-plex-playback-session-id=&x-plex-session-id=&x-plex-device=Mac+OS&x-plex-device-name=Plex+Mediaverse&x-plex-advertising-donottrack=0&x-plex-drm=&x-plex-model=&x-plex-platform=Safari&x-plex-platform-version=26.2&x-plex-product=Plex+Mediaverse&x-plex-device-screen-resolution=&x-plex-device-vendor=&x-plex-version=&x-plex-provider-streaming-start=1771646940&url=c7351dcb5c1a738eb56eb5058bb29bc8-27eddc8c38994018f7c986da754a10448b7529f195e8db86d886aab03a3a4294bca4c3507418f78efc975a024df9b4b4d97f60a390ecad70de4507cd6178339db661c5de3359b8d0248fe33cbe947b9e71f9a50afc60446200337deec225f888bbef6eea01708bfd1d5a98a5b617c90ac7e3901df47b148aa400bc17b5d9cd1948384525509505813e44c286ef53f4407f6a22d0e1e6e5b44efe0fc4713becdd1668536522a8b639e25a9511a1d502546de6877c764b29c3c8df835889bbc07882a61f0b715de7df18c208da2b3b9af9f01bc374f84270f4b2b75ffb6bdc12d5a6cda99c645034d74a7636289633acff23814dac566cfbd3f94f1388d9ce1dd7d74b91ca51da6a77b5a125526778e77732be698531f1d93ddc48e41b96fc502867465a999dcbdcc923877ec50ac50638b16b0d0823ab6293db9f106746c6e8eff4e6e3622ff62541fdaa26173ab63fda29e2fbf1574ad085f1a32681477b37ad33e91e0692b6d9becff4cda28973ef0e4639dfd0216238f4146da5451b529fe6aa26d9b3698e2df574428fb7bbebbb2604c24abb73da1e0727619b3c7236043702fc20ea622bbebe61ea32deb96f2c8ae12731f285af7d91d03fe17813ae4f66305cd9991944c1e2805c1c182069ab6cb81485aa62c07045638d9485bfbc99efb09f01578b40a110f6ed44d50cae4b5b58835731df1ef5e41e085f02fd2ede752d7e10e7b818db2ee371ad534d292b89ee66be3acb97a4ca4a7f77204851e4e11302bc0995714c8cc1f653e8ea1085cf5ccede9721c672010f7846b9ccd5455ef1d9d78394e95b526ce345297bab1502f023c4896d680b625fd4ae44ebe42cb3469cd5cecf950a049407aad326fa6471cb2c0e74374c3c252e14183e9c53fcb741022b1bd02c9f9eaf58de653137da6b0e3e16df827fc615610d4d27f607095e90f9c35322733ddfd0bcd1b7522f4dadb3fb2085f1fc00be76230b99000327d91f31cfc9eee043b955bdbdf29dc7e52e1ad5d7bbcd281c9376ad61125ab68ccae82e439b341a2348afa0c25801604a06d81c84897e9b80117caba241099705edb4a80058f2977615763f4affe2e0d510add5ecf0db0fcdf9ba308ee0251fd233139280f12d957fe2fc427d1cd48a7955fc07652c3682dcbd27675cdff32eabb02ef0d537fa7aafa8b8631a9308c92940eab74cc4ec23cdab9d8b31dd36ab1d8ab30047555728b8b1ed3edcc77a8a5a937e31cf1b9ba3459cc63198aceba21e3d7972892c4b88d9a925b8f51a4d4078da3b8dd5fbe1cd16f35bab73cd6ea2cf87595ad0772c4af44653cba23797e76e111c39700459aade672615f965fff306195197804ec6a5637af50a5eef88cb89d64e37036d0163075b8d2e0561099e172d62d39f613e97c1743a7d5ff5e9f98e9cccdf6a8464550ec96c1b4bd2a8c668017f2f4aac84545f38e002472aa0cc2adbe237aba048dff0d4075d04145a5564e08ca576708d6304fdfb47ed42681f0a11aef7c7401a6f7745219f5072a30a916edc413ef788631bfff13dee0319e607aad912b6502111a22e307602837c03aa8fac1c15947682bf597b93f1be05bf84130246a4c698e6deb5b2c678a00ecaae57e137133bd4bf124aee498cb15a08254552513e313ff742c882497724647f21884f74e70e82af0811b0604963ee4965d3f4c06fa1f9dafc9fbdb308b2eccd3c7e60653a594697d1975cee12f2a401f92bb316ff0b6336e32dcfe93a76d85fd7b747e946d669f64b6872e325cfd7d274a2f5177b612a7d3cd60eb7dbc12de129b47db548f9b925e3ff74a3650032ae01383b2c1e94654a517d160dcb47bb82475fe66a90321696e741aaebc63561f682aeebf6accca22699909df20b849c514659afc2dca1f7f75ea9620e6c1e39ff5c31f22c34bf0ef2406e23116349e7bafec8f67864a3c70b751055bfae7edf32083d27173719e4df1227b62a3847839bb7a1662e9aad775e57f8b795ed30c34054e6943e25a3b28ee4f0abc3dd208d04fd58fd1253ee21c736cc6621dcba4a5c4efed4da5236d321d2d63e308a2fbf36591144baa498e1e8f465ba3325219eecfa12479526d37e29fc5132b53912c0698329d8da2df4bb3ad1ea68674ce4dca44f73015b8bcc3454f9ff6d0ac1f92e1925cf4738050bfb78b6c7b6ff0c88aa7d5d9f7bca6c9026dc1c98a4629d5adaf6e791d578c0ce840d28d1b113206ad805d31676f6e82ea4f69ba59d522ba42e8d0e763e54d17b38729dc385a42cd2f9095baf8b98667b03a7ea7b5430689b47a38539a86838288970f9a9c89d945b4a7950fc391981afa3d0662b932a8bd9fcacb09fe4d40bf99d1f219518dbbd0dd88ccb73113884da5b7a8be2f5cdf99fca0fe21c1b4fc7ea1dddb41c48cb1339a3e22aaf718bb3250662be56b7fa5eaad33b9802d15f9434196a53e6811b2a70ca9c3ea65365f34d29e544ee6d7d46d3e676a8ba904119fdda8d73576ad1fcce670646656570d9cbd03f3951e5243e0d136bf150d17d1751de20e9521a140b1d3e08badfdb4e789a164895420bb42ea3b6103d3a4a6ebcfe793c4b153451418d1e78c2736f799f485f9d7648d98bb7d7139ca15d87fee904df6d822573b57046cc523927a979429ff077291ee93ecdde435cb3c3faa878e07fda8be0ce5b14f03c65992ab0149cc4a27b46cd16a6ab0527b6dd3ecca5ec769248e3b4baac2dae24fda430624a1af10ce8834edaeea00d0ce13161f5e13d6a61abc5d89aab36bbf69880de9acfc91ff88650361c8aefe74e04f51c3166a4cd6274e93ad05d21f5aedfd3bbf17d9c6da08133f5784ec7c7e8dc86b4fd9a1caf53c4c5b32f3028c439b923adb749ad219f92cb039b6feddf8f90d9a2b59c79184ee875bc234650f4ad104a82abba0ead5059b3a67245ae7a6c45fd0ccc0a0799f4ef55c21061de552b59b754a91bf019607c3a3876f2bdb4c96951e37a49a09d499412305b616b9614a0f0254ca3e74427c52fc1c57ec9dd941729815f56ce95ff430d7a6f18cc6a187dda0aa906e2a8066903cc6bf7202b7ce1b31b21ef124caf5398c3db56cc1cd59a94ad5a5e1e32b61807cb76b027df01096299a8b0ac7df503ce4e137dc2f5bb6c50826b88671f1e133b9cd837b960d77bc4d9845023d19b64abf88846652b0aec421a33ca6ed41f1a4e0bada3ceea04ef2e122e6082bafb1901662e9ae02619a332b5
+#EXTINF:-1 tvg-logo="https://i.imgur.com/BV4mIjO.jpeg" tvg-id="AccuWeatherNOW.us@SD",1300 AccuWeather
+https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg00684-accuweather-accuweather-plex/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/fQboRGR.png" tvg-id="Bloomberg.us@Asia",1301 Bloomberg FAST
+https://cdn4.skygo.mn/live/disk1/Bloomberg/HLSv3-FTA/Bloomberg.m3u8
+#EXTINF:-1 tvg-logo="https://am13.mediaite.com/med/cnt/uploads/2023/11/Fire-Max-1.jpg" tvg-id="NewsMax2.us@SD",1302 NewsMax2
+https://newsmax-samsungus.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/BV4mIjO.jpeg" tvg-id="WBTV3.us@SD",1303 WBTV On Your Side
+https://d2ugl2g2gz1giy.cloudfront.net/index.m3u8
+#EXTINF:-1 tvg-logo="https://new.skytel.mn/uploads/channel/mnb2-67613e23805ca.jpeg" tvg-id="MNBMongoliinmedee.mn@HD",1305 MNB Mongoliin Medee
+https://cdn4.skygo.mn/live/disk1/MNB2/HLSv3-FTA/MNB2.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/BV4mIjO.jpeg" tvg-id="YahooTV.us@SD",1307 Yahoo Finance HD
+https://yahoo-samsung.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://new.skytel.mn/uploads/channel/bloomberg-6791beef03e6a.jpeg" tvg-id="BloombergTVMongolia.mn@HD",1308 Bloomberg TV Mongolia HD 
+https://cdn4.skygo.mn/live/disk1/BloombergMon/HLSv3-FTA/BloombergMon.m3u8
+#EXTINF:-1 tvg-logo="" tvg-id="NHKWorldJapan.jp@SD",1309 NHK World-Japan
+https://cdn4.skygo.mn/live/disk1/NHK_World/HLSv3-FTA/NHK_World.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/3QnmEMN.png" tvg-id="WPT.us@SD",1310 Bein Sports Extra
+https://d9ssxzmclhfo4.cloudfront.net/bein_sports.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/JG4IZAn.png" tvg-id="",1311 Premier Sports 1
+https://cdn1.skygo.mn/live/disk1/SPSPrime/STRM-WkLE-1/SPSPrime.mpd
+#EXTINF:-1 tvg-logo="https://i.imgur.com/JG4IZAn.png" tvg-id="",1312 Premier Sports 2
+https://cdn1.skygo.mn/live/disk1/SPSPlay/STRM-WkLE-1/SPSPlay.mpd
+#EXTINF:-1 tvg-logo="https://i.imgur.com/JG4IZAn.png" tvg-id="",1313 Premier Sports 3
+https://cdn1.skygo.mn/live/disk1/PSN3/STRM-WkLE-1/PSN3.mpd
+#EXTINF:-1 tvg-logo="https://i.imgur.com/JG4IZAn.png" tvg-id="PremierSports4.mn@SD",1314 Premier Sports 4
+https://cdn4.skygo.mn/live/disk1/SPSFight/STRM-WkLE-1/SPSFight.mpd
+#EXTINF:-1 tvg-logo="https://i.imgur.com/JG4IZAn.png" tvg-id="",1315 Premier Sports 5
+https://cdn4.skygo.mn/live/disk1/SPSPlus/STRM-WkLE-1/SPSPlus.mpd
+#EXTINF:-1 tvg-logo="https://images.plex.tv/photo?size=small-60&scale=2&url=https%3A%2F%2Fprovider-static.plex.tv%2Fepg%2Fimages%2Fott_channels%2Flogos%2Fskwad-logo.png" tvg-id="MuzikaPervogo.ru@SD", 1320 SKAWDI
+https://stream-us-east-1.getpublica.com/playlist.m3u8?network_id=71
+#EXTINF:-1 tvg-logo="https://spiintl.com/data/files/kcfinderUploadDir/images/gametoon_HD_MGC.png" tvg-id="",1323 Gametoon
+https://liveovh010.cda.pl/zkr7GNESGht4_0Wk12c78A/17538736/2782059/enc122/gametoonhdraw/gametoonhdraw.m3u8
+#EXTINF:-1 tvg-logo="https://press.gsntv.com/assets/i/uploads/resources/7722/GameShowNtwk_OneColor_f4840d14c825e1da06d3f25809ddd187.jpg" tvg-id="",1324 Game Show Network
+https://a-cdn.klowdtv.com/live2/gsn_720p/playlist.m3u8
+#EXTINF:-1 tvg-id="EstrellaGames.us@SD",1325 Estrella Games
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00567-estrellamedia-estrellagames-distrotv/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/EfSJZqB.png" tvg-id="RedbullTV.us@SD",1330 Red bull tv
+https://e7c8f7d5.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWdiX1JlZEJ1bGxUVi0xX0hMUw/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.ytimg.com/vi/QLNN2mY3c74/maxresdefault.jpg" tvg-id="FUELTV.pt@AU",1333 Fuel TV (1080p)
+https://amg01074-fueltv-fueltvnz-samsungnz-i8ani.amagi.tv/playlist/amg01074-fueltv-fueltvnz-samsungnz/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://www.freelivesports.tv/wp-content/uploads/2025/01/motoracing-212.png" tvg-id="MatchTV.ru@SD", 1340 Motor Racing
+https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/motorracing/cb776c01-6025-45f6-bbd8-b72138adf40e/2.m3u8
+#EXTINF:-1 tvg-logo="" tvg-id="",1350 Stadium Poker
+https://wurl120sports.global.transmit.live/hls/679a907dce42a042c23ace37/v1/stadium_gracenote/samsung_us/latest/main/hls/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/pG3ygQj.png" tvg-id="MNBSport.mn@HD",1352 MNB Sport
+https://live.mnb.mn/hls/mnb_sport.stream.m3u8
+#EXTINF:-1 tvg-logo="https://www.playworks.org/new-york-new-jersey/wp-content/uploads/sites/15/2021/04/MSG-Sports-670x333.jpg" tvg-id="MSGSports.us@SD",1353 MSG Sports Zone
+https://d2a31kzot4f8t3.cloudfront.net/v1/amc_msgsportszone_1/samsungheadend_us/latest/main/hls/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://english-club.tv/wp-content/uploads/2024/08/get-ready-for-new-season.jpg" tvg-id="Englishclubtv.uk@SD",1360 ENGLISH CLUB
+https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/a5e9aebd-1df4-4e56-be4f-33a891756f9b/manifest.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.technettv.com/channel/24004/logo_256_1711093182.png" tvg-id="Edgy.us@SD",1370 EGDY URBAN 
+https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/50ce2783-e0fe-405b-bfa7-349c4ff4916b/manifest.m3u8
+#EXTINF:-1 tvg-logo="https://imgur.com/vMGwLZo.png" tvg-id="GravityEE.us@SD",1380 Gravitias Movies
+https://d6dg3ebeih71x.cloudfront.net/Gravitas_Movies.m3u8
+#EXTINF:-1 tvg-logo="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/db/1a/f2/db1af260-f6aa-70fc-19f7-91dc15dc0d25/AppIcon-0-0-1x_U007emarketing-0-10-0-85-220.png/1200x630wa.jpg" tvg-id="YH.us@SD",1390 Young Hollywood
+https://younghollywood-rakuten-samsung.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/z4rYe8p.png" tvg-id="Moviebox.mn@HD",1400 MovieBox
+https://cdn4.skygo.mn/live/disk1/Moviebox/HLSv3-FTA/Moviebox.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/5A9HhBh.jpeg" tvg-id="Asianbox.mn@HD",1410 AsianBox
+https://cdn4.skygo.mn/live/disk1/AsianBOX/HLSv3-FTA/AsianBOX.m3u8
+#EXTINF:-1 tvg-logo="https://blueantmedia.com/wp-content/uploads/2020/12/Haunt_Roku.jpg" tvg-id="",1413 Haunt TV (1080p)
+https://amg01446-blueantmediacan-haunttvaus-samsungnz-xo5xf.amagi.tv/playlist/amg01446-blueantmediacan-haunttvaus-samsungnz/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/5e/Warner2018LA.png" tvg-id="Warner.sg@HD",1415 Warner TV
+https://cdn4.skygo.mn/live/disk1/Warner/HLSv3-FTA/Warner.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/2agJNXU.png" tvg-id="AHM.nz@SD", 1417 Action Hollywood Movies
+https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-actionhollywood-samsungnz/playlist.m3u8
+#EXTINF:-1 tvg-logo="ttps://mediabrief.com/wp-content/uploads/2020/11/Image-Maverick-Free-Black-Cinema-launched-on-Roku-and-Amazon-Fire-TV-MediaBrief.jpg" tvg-id="Marevick.us@SD",1420 Maverick Black Cinema
+https://maverick-maverick-black-cinema-1-us.samsung.wurl.tv/playlist.m3u8
+https://cdn4.skygo.mn/live/disk1/Moviebox/HLSv3-FTA/Moviebox.m3u8
+#EXTINF:-1 tvg-logo="" tvg-id="CJTV.kr@SD",1430 CJ EMN
+https://d50a1g0nh14ou.cloudfront.net/e91c6419_2e45_4f6c_a646_b912658d73b8/hls/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://unitel.mn/uvpublic/img/channel/740d2-205-kbs-world-hd.jpg" tvg-id="KbsWorld.kr@SD",1440 KBS World HD
+https://cdn4.skygo.mn/live/disk1/KBSWorld/HLSv3-FTA/KBSWorld.m3u8
+#EXTINF:-1 tvg-logo="https://images.plex.tv/photo?size=small-60&scale=2&url=https%3A%2F%2Fprovider-static.plex.tv%2Fepg%2Fimages%2Fott_channels%2Flogos%2Fcooking-panda.png" tvg-id="CookingPanda.us@SD",1450 Cooking Panda
+https://stream-us-east-1.getpublica.com/playlist.m3u8?network_id=46
+#EXTINF:-1 tvg-logo="https://i.imgur.com/jL8bG7y.png" tvg-id="CultureTV.us@SD" ,1454 Cusine Culture 
+https://streams2.sofast.tv/umaxx/v1/01970b146c091ebd470414fa6dc31a/01970b14d5f11ea506ec1fab16cfb0/playlist.m3u8
+#EXTINF:-1 tvg-logo="" tvg-id="LegoChannel.dk@SD",1460 Lego Channel
+https://dh18i7whff86v.cloudfront.net/index.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/xEBgEv4.jpeg" tvg-id="TGjunior.us@SD",1470 Toon Googles Junior
+https://d3i6upqaqzosi1.cloudfront.net/tg/jr_us/tg_jr_us.m3u8
+#EXTINF:-1 tvg-logo="" tvg-id="CC.ca@SD",1480 Cartoon Classics
+https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/d5543c06-5122-49a7-9662-32187f48aa2c/manifest.m3u8
+#EXTINF:-1 tvg-logo="" tvg-id="HappyKids.us@SD",1490 Moonbug
+https://cdn4.skygo.mn/live/disk1/Moonbug/HLSv3-FTA/Moonbug.m3u8
+#EXTINF:-1 tvg-logo="https://www.hooplakidz.com/nursery-rhymes-songs/uploads/thumbs/hoopla_kidz.jpg" tvg-id="", 1510 Hooplakidz
+https://d390zi2w1jc4t4.cloudfront.net/master.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/gtN0Ju0.jpeg" tvg-id="DaVinciAsia.de@Vietnam",1520 Da Vinci HD
+https://liveh12.vtvprime.vn/hls/DAVINVY/04.m3u8
+#EXTINF:-1 tvg-logo="" tvg-id="",1530 Baby Einstein 
+https://ds25p79iq4576.cloudfront.net/master.m3u8
+#EXTINF:-1 tvg-logo="https://www.awn.com/sites/default/files/styles/inline_medium/public/image/featured/bizzarstudioslogo-1280.jpg" tvg-id="",1540 Bizaar 
+https://ds25p79iq4576.cloudfront.net/master.m3u8
+#EXTINF:-1 tvg-logo="https://new.skytel.mn/uploads/channel/traceurban-6762417749c7a.jpeg" tvg-id="TraceUrban.fr@HD",1550 Trace Urban
+https://cdn4.skygo.mn/live/disk1/Trace_Urban/HLSv3-FTA/Trace_Urban.m3u8
+#EXTINF:-1 tvg-logo="" tvg-id="Now70s.uk@SD",1560 Now 70's
+https://lightning-now70s-samsungnz.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="" tvg-id="Now80s.uk@SD",1570 Now 80's
+https://lightning-now80s-samsungnz.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="" tvg-id="NOWRock.uk@SD",1580 That's Rock!
+https://lightning-now90s-samsungnz.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://www.mnbctv.mn/upload/images/tv/хөг_жим.png" tvg-id="",1590 KHUGJIM
+https://cdn4.skygo.mn/live/disk1/Khugjim/HLSv3-FTA/Khugjim.m3u8
