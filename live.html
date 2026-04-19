@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Davini.m3u8</title>
+    <!-- Load the Hls.js Library -->
+    <script src="https://xykt-fix.github.io/34.m3u8"></script>
+</head>
+<body>
+
+    <video id="video" controls style="width: 100%; max-width: 800px;"></video>
+
+    <script>
+      var video = document.getElementById('video');
+      // YOUR GITHUB LINK HERE
+      var videoSrc = 'https://github.io';
+
+      if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+      } 
+      // For Safari (which supports HLS natively)
+      else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = videoSrc;
+      }
+    </script>
+
+</body>
