@@ -1,0 +1,43 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0001 OPT1
+http://tmptv.sunduk.tv/CH1/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0003 RUSY1
+http://tmptv.sunduk.tv/CH3/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0005 TVCEN
+http://tmptv.sunduk.tv/CH5/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0007 NTVRU
+http://tmptv.sunduk.tv/CH7/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0009 MATCH
+http://tmptv.sunduk.tv/CH9/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0011 TNTRU
+http://tmptv.sunduk.tv/CH11/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0013 RENTV
+http://tmptv.sunduk.tv/CH13/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0015 STSRU
+http://tmptv.sunduk.tv/CH15/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0017 PYNTS
+http://tmptv.sunduk.tv/CH17/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0019 MUZTV
+http://tmptv.sunduk.tv/CH19/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0021 KIVNE
+http://tmptv.sunduk.tv/CH21/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0023 RODKI
+http://tmptv.sunduk.tv/CH23/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0025 KINSE
+http://tmptv.sunduk.tv/CH25/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0027 MATPL
+http://tmptv.sunduk.tv/CH27/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0029 EURS1
+http://tmptv.sunduk.tv/CH29/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0031 EURNR
+http://tmptv.sunduk.tv/CH31/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0033 ANIPL
+http://tmptv.sunduk.tv/CH33/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0035 DETSY
+http://tmptv.sunduk.tv/CH35/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0037 NICKG
+http://tmptv.sunduk.tv/CH37/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0041 TLCCE
+http://tmptv.sunduk.tv/CH41/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-shift="" radio="" tvg-logo="" group-title="",0043 TLCCE
+http://tmptv.sunduk.tv/CH41/index.m3u8
