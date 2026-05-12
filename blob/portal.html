@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV PORTAL</title>
+    <style>
+        :root {
+            --bg-color: #0d0f12;
+            --sidebar-color: #15181f;
+            --card-bg: #1e232b;
+            --accent-color: #0078ff;
+            --text-color: #ffffff;
+            --text-muted: #8a96a3;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 240px;
+            background-color: var(--sidebar-color);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px;
+            gap: 20px;
+            border-right: 1px solid #232833;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        .nav-item {
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        /* Main Content Dashboard */
+        .main-content {
+            flex: 1;
+            height: 100%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .hero-banner {
+            width: 100%;
+            height: 260px;
+            background: linear-gradient(90deg, rgba(0,120,255,0.4) 0%, rgba(21,24,31,0.9) 100%), url('picsum.photos') center/cover;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-banner h1 { font-size: 32px; margin-bottom: 8px; }
+        .hero-banner p { color: #e1e1e1; font-size: 16px; max-width: 500px; }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .row-container {
+            display: flex;
+            gap: 25px; /* Spaces out your app cards layout */
+            overflow-x: auto;
+            padding: 10px 5px;
+        }
+
+        .row-container::-webkit-scrollbar { display: none; }
+
+        .card {
+            min-width: 210px;
+            width: 210px;
+            height: 125px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 3px solid transparent;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            font-size: 14px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Focus engine systems */
+        .focusable:focus, .focusable.focused {
+            outline: none;
+            border-color: var(--accent-color);
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(0, 120, 255, 0.5);
+            z-index: 10;
+        }
+        
+        .nav-item.focused {
+            background-color: #232833;
+            color: var(--text-color);
+            border-left: 4px solid var(--accent-color);
+            transform: scale(1.02);
+            box-shadow: none;
+        }
+
+        /* Video Player Fullscreen Overlay */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            z-index: 100;
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-overlay video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Close hints instruction */
+        .video-close-hint {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            pointer-events: none;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left Sidebar Navigation Menu -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">BOX TV</div>
+        <div class="nav-item focusable focused" data-type="nav">Home</div>
+        <div class="nav-item focusable" data-type="nav">Movies</div>
+        <div class="nav-item focusable" data-type="nav">TV Shows</div>
+        <div class="nav-item focusable" data-type="nav">Apps</div>
+        <div class="nav-item focusable" data-type="nav">Settings</div>
+    </div>
+
+    <!-- Right Side Dashboard Grid Layout -->
+    <div class="main-content">
+        <div class="hero-banner">
+            <h1>Featured Content</h1>
+            <p>Stream your favorite movies, channels, and applications instantly on the main launcher interface.</p>
+        </div>
+
+        <div class="section-title">Recent Applications</div>
+        <div class="row-container" id="app-row">
+            <!-- App cards separated with unique random image paths -->
+            <div class="card focusable" data-type="card" data-video="googleapis.com"><img src="picsum.photos" alt="App"><div class="card-title">Netflix</div></div>
+            <div class="card focusable" data-type="card" data-video="googleapis.com"><img src="picsum.photos" alt="App"><div class="card-title">YouTube</div></div>
+            <div class="card focusable" data-type="card" data-video="googleapis.com"><img src="picsum.photos" alt="App"><div class="card-title">Prime Video</div></div>
+            <div class="card focusable" data-type="card" data-video="googleapis.com"><img src="picsum.photos" alt="App"><div class="card-title">Plex</div></div>
+            <div class="card focusable" data-type="card" data-video="googleapis.com"><img src="picsum.photos" alt="App"><div class="card-title">Twitch</div></div>
+        </div>
+    </div>
+
+    <!-- Video Player Native Overlay Setup -->
+    <div class="video-overlay" id="videoOverlay">
+        <div class="video-close-hint">Press <b>Backspace</b> or Click Screen to Exit</div>
+        <video id="tvVideoPlayer" controls></video>
+    </div>
+
+    <!-- Spatial Navigation and Control Script Logic -->
+    <script>
+        const sidebarItems = Array.from(document.querySelectorAll('.nav-item'));
+        const cardItems = Array.from(document.querySelectorAll('.card'));
+        const videoOverlay = document.getElementById('videoOverlay');
+        const videoPlayer = document.getElementById('tvVideoPlayer');
+        
+        let currentSection = 'sidebar'; 
+        let sidebarIndex = 0;
+        let cardIndex = 0;
+        let isVideoPlaying = false;
+
+        function updateFocus() {
+            if (isVideoPlaying) return; // Freeze UI selector track if player is active
+            
+            document.querySelectorAll('.focusable').forEach(el => el.classList.remove('focused'));
+
+            if (currentSection === 'sidebar') {
+                sidebarItems[sidebarIndex].classList.add('focused');
+                sidebarItems[sidebarIndex].scrollIntoView({ block: 'nearest' });
+            } else if (currentSection === 'content') {
+                cardItems[cardIndex].classList.add('focused');
+                cardItems[cardIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+            }
+        }
+
+        // Functions to Open/Close Video Player Screen
+        function launchVideo(videoUrl) {
+            videoPlayer.src = videoUrl;
+            videoOverlay.style.display = 'flex';
+            videoPlayer.play();
+            isVideoPlaying = true;
+        }
+
+        function closeVideo() {
+            videoPlayer.pause();
+            videoPlayer.src = "";
+            videoOverlay.style.display = 'none';
+            isVideoPlaying = false;
+            updateFocus();
+        }
+
+        // Click Logic for Grid Items
+        document.querySelectorAll('.focusable').forEach((element) => {
+            element.addEventListener('click', () => {
+                if (element.classList.contains('card')) {
+                    const targetVideo = element.getAttribute('data-video');
+                    launchVideo(targetVideo);
+                } else {
+                    alert('Opened Navigation: ' + element.innerText.trim());
+                }
+            });
+
+            element.addEventListener('mouseenter', () => {
+                if (isVideoPlaying) return;
+                if (element.classList.contains('nav-item')) {
+                    currentSection = 'sidebar';
+                    sidebarIndex = sidebarItems.indexOf(element);
+                } else if (element.classList.contains('card')) {
+                    currentSection = 'content';
+                    cardIndex = cardItems.indexOf(element);
+                }
+                updateFocus();
+            });
+        });
+
+        // Click video overlay background to exit
+        videoOverlay.addEventListener('click', closeVideo);
+
+        // Remote Controller Key Mapping Logic
+        window.addEventListener('keydown', (e) => {
+            if (isVideoPlaying) {
+                // Exit video window on Backspace or Escape keys
+                if (e.key === 'Backspace' || e.key === 'Escape') {
+                    closeVideo();
+                }
+                return;
+            }
+
+            switch(e.key) {
+                case 'ArrowUp':
+                    if (currentSection === 'sidebar' && sidebarIndex > 0) sidebarIndex--;
+                    break;
+                case 'ArrowDown':
+                    if (currentSection === 'sidebar' && sidebarIndex < sidebarItems.length - 1) sidebarIndex++;
+                    break;
+                case 'ArrowLeft':
+                    if (currentSection === 'content') {
+                        if (cardIndex > 0) {
+                            cardIndex--;
+                        } else {
+                            currentSection = 'sidebar';
+                        }
+                    }
+                    break;
+                case 'ArrowRight':
+                    if (currentSection === 'sidebar') {
+                        currentSection = 'content';
+                    } else if (currentSection === 'content' && cardIndex < cardItems.length - 1) {
+                        cardIndex++;
+                    }
+                    break;
+                case 'Enter':
+                    const activeElement = document.querySelector('.focused');
+                    if (activeElement) activeElement.click();
+                    break;
+            }
+            updateFocus();
+        });
+    </script>
+</body>
+</html>
