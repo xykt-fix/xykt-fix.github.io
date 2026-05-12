@@ -3,97 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global & Mongolian IPTV</title>
+    <title>Ultimate IPTV - MN/INTL</title>
+    <script src="https://jsdelivr.net"></script>
     <link href="https://cloudflare.com" rel="stylesheet">
     <style>
-        :root { --bg: #0a0c10; --side: #12151c; --accent: #00d2ff; --text: #eee; --card: #1c2129; }
+        :root { --bg: #05070a; --side: #0f1218; --accent: #00d2ff; --text: #eee; --card: #161a21; }
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
-        nav { width: 80px; background: var(--side); display: flex; flex-direction: column; align-items: center; padding: 20px 0; border-right: 1px solid #222; }
-        .nav-item { margin: 15px 0; font-size: 20px; cursor: pointer; color: #555; transition: 0.3s; text-align: center; }
-        .nav-item.active, .nav-item:hover { color: var(--accent); }
-        main { flex: 1; padding: 20px 40px; overflow-y: auto; }
-        .search-bar { background: var(--card); border: 1px solid #333; padding: 10px 20px; border-radius: 20px; color: white; width: 300px; margin-bottom: 20px; outline: none; }
-        h2 { border-left: 4px solid var(--accent); padding-left: 12px; margin-top: 30px; font-weight: 400; font-size: 1.2rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
-        .card { background: var(--card); border-radius: 8px; overflow: hidden; transition: 0.3s; cursor: pointer; border: 1px solid transparent; }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 5px 15px rgba(0,210,255,0.2); }
-        .card-img { width: 100%; aspect-ratio: 16/9; background: #252a33; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; text-align: center; color: #888; }
-        .card-title { padding: 10px; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .tag { font-size: 10px; background: #333; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
-        /* Player Modal */
-        #player-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; }
-        .video-box { width: 80%; max-width: 900px; aspect-ratio: 16/9; background: #000; border-radius: 8px; position: relative; border: 1px solid #333; }
-        .close-btn { position: absolute; top: -40px; right: 0; color: white; font-size: 30px; cursor: pointer; }
+        
+        /* Sidebar Navigation */
+        nav { width: 80px; background: var(--side); display: flex; flex-direction: column; align-items: center; padding: 25px 0; border-right: 1px solid #1a1e26; }
+        .nav-item { margin: 15px 0; font-size: 20px; cursor: pointer; color: #3d4552; transition: 0.3s; text-align: center; }
+        .nav-item.active { color: var(--accent); text-shadow: 0 0 10px rgba(0,210,255,0.4); }
+
+        main { flex: 1; padding: 20px 40px; overflow-y: auto; scroll-behavior: smooth; }
+        
+        /* Top Search & Filter Bar */
+        .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 20px; }
+        .search-box { position: relative; flex: 1; max-width: 400px; }
+        .search-box input { width: 100%; background: var(--card); border: 1px solid #222; padding: 10px 15px 10px 40px; border-radius: 5px; color: white; outline: none; }
+        .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #555; }
+
+        .filter-bar { display: flex; gap: 10px; margin-bottom: 30px; overflow-x: auto; }
+        .filter-btn { background: #111; border: 1px solid #222; color: #777; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 13px; white-space: nowrap; transition: 0.2s; }
+        .filter-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(0,210,255,0.05); }
+
+        /* Grids & Cards */
+        .section-title { font-size: 1rem; color: #666; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        
+        .card { background: var(--card); border-radius: 6px; overflow: hidden; transition: 0.3s; cursor: pointer; border: 1px solid #1a1e26; position: relative; }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .card-img { width: 100%; aspect-ratio: 16/9; background: #0b0e13; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #444; position: relative; font-size: 12px; text-align: center; padding: 10px; box-sizing: border-box;}
+        .card-title { padding: 12px; font-size: 13px; display: flex; flex-direction: column; }
+        .ch-num { position: absolute; top: 5px; left: 5px; background: rgba(0,0,0,0.7); padding: 2px 6px; border-radius: 3px; font-size: 10px; color: var(--accent); }
+        
+        .fav-star { position: absolute; top: 8px; right: 8px; color: #444; transition: 0.2s; z-index: 5; }
+        .fav-star.active { color: #ffcc00; }
+
+        /* Video Player Modal */
+        #player-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 100; flex-direction: column; align-items: center; justify-content: center; }
+        .video-container { width: 85%; max-width: 1100px; aspect-ratio: 16/9; background: #000; position: relative; border: 1px solid #222; }
+        video { width: 100%; height: 100%; }
+        
+        .zapper { position: absolute; top: 40px; right: 40px; background: rgba(0,0,0,0.8); color: var(--accent); padding: 15px 30px; font-size: 48px; font-weight: bold; border-radius: 8px; display: none; border: 2px solid var(--accent); z-index: 110; }
+        .close-player { position: absolute; top: -50px; right: 0; color: #888; font-size: 30px; cursor: pointer; }
+        .close-player:hover { color: white; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="nav-item active"><i class="fas fa-tv"></i><br><small>TV</small></div>
-        <div class="nav-item"><i class="fas fa-film"></i><br><small>VOD</small></div>
-        <div class="nav-item"><i class="fas fa-cog"></i><br><small>SET</small></div>
+        <div class="nav-item active"><i class="fas fa-home"></i></div>
+        <div class="nav-item"><i class="fas fa-star"></i></div>
+        <div class="nav-item"><i class="fas fa-history"></i></div>
+        <div id="clock" style="margin-top: auto; font-size: 12px; color: #555;"></div>
     </nav>
 
     <main>
-        <input type="text" class="search-bar" placeholder="Search 50 channels...">
-        
-        <h2>Mongolian Channels (25)</h2>
+        <div class="top-row">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search" placeholder="Search for channels..." onkeyup="render()">
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterBy('all', this)">All Channels</button>
+            <button class="filter-btn" onclick="filterBy('fav', this)">My Favorites</button>
+            <button class="filter-btn" onclick="filterBy('news', this)">News</button>
+            <button class="filter-btn" onclick="filterBy('sports', this)">Sports</button>
+            <button class="filter-btn" onclick="filterBy('kids', this)">Kids</button>
+        </div>
+
+        <div id="recent-wrap" style="display:none;">
+            <div class="section-title"><i class="fas fa-clock-rotate-left"></i> Recently Watched</div>
+            <div class="grid" id="recent-grid"></div>
+        </div>
+
+        <div class="section-title"><i class="fas fa-globe-asia"></i> Mongolian TV</div>
         <div class="grid" id="mn-grid"></div>
 
-        <h2>Foreign Channels (25)</h2>
+        <div class="section-title"><i class="fas fa-broadcast-tower"></i> International</div>
         <div class="grid" id="intl-grid"></div>
     </main>
 
-    <div id="player-modal" onclick="closePlayer()">
-        <div class="video-box" onclick="event.stopPropagation()">
-            <span class="close-btn" onclick="closePlayer()">&times;</span>
-            <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(#222, #000);">
-                <i class="fas fa-play-circle" style="font-size: 60px; color: var(--accent); margin-bottom: 15px;"></i>
-                <h3 id="playing-now">Loading Stream...</h3>
-                <p style="color: #666; font-size: 14px;">Playback starts in a few seconds</p>
-            </div>
+    <!-- Player Overlay -->
+    <div id="player-modal">
+        <div class="video-container">
+            <span class="close-player" onclick="closePlayer()">&times;</span>
+            <div id="zapper" class="zapper"></div>
+            <video id="video" controls></video>
         </div>
+        <h2 id="playing-name" style="margin-top:20px; font-weight: 300;">Channel Name</h2>
     </div>
 
     <script>
-        const mnChannels = [
-            "MNB", "Mongol HD", "Eagle News", "NTV", "TV5", "TV9", "UBS", "MN25", "SBN", "C1", 
-            "ETV", "Edutainment TV", "Bloomberg TV", "MNC", "VTV", "TV8", "SPS Sports", "SPS NBA", 
-            "Mass TV", "Ekh Oron TV", "Moviebox", "AsianBox", "Dream TV", "Star TV", "Suld TV"
+        const channels = [
+            // 25 MONGOLIAN (IDs 1-25)
+            { id: 1, name: "MNB", cat: "news", origin: "mn", url: "https://mux.dev" },
+            { id: 2, name: "Eagle News", cat: "news", origin: "mn", url: "https://mux.dev" },
+            { id: 3, name: "Mongol HD", cat: "movies", origin: "mn", url: "https://mux.dev" },
+            { id: 4, name: "SPS Sports", cat: "sports", origin: "mn", url: "https://mux.dev" },
+            { id: 5, name: "NTV", cat: "news", origin: "mn", url: "" },
+            { id: 6, name: "TV5", cat: "news", origin: "mn", url: "" },
+            { id: 7, name: "TV9", cat: "news", origin: "mn", url: "" },
+            { id: 8, name: "UBS", cat: "movies", origin: "mn", url: "" },
+            { id: 9, name: "MN25", cat: "news", origin: "mn", url: "" },
+            { id: 10, name: "SBN", cat: "movies", origin: "mn", url: "" },
+            { id: 11, name: "Dream TV", cat: "kids", origin: "mn", url: "" },
+            { id: 12, name: "AsianBox", cat: "movies", origin: "mn", url: "" },
+            { id: 13, name: "C1", cat: "movies", origin: "mn", url: "" },
+            { id: 14, name: "ETV", cat: "movies", origin: "mn", url: "" },
+            { id: 15, name: "Bloomberg MN", cat: "news", origin: "mn", url: "" },
+            { id: 16, name: "MNC", cat: "news", origin: "mn", url: "" },
+            { id: 17, name: "VTV", cat: "movies", origin: "mn", url: "" },
+            { id: 18, name: "TV8", cat: "movies", origin: "mn", url: "" },
+            { id: 19, name: "Moviebox", cat: "movies", origin: "mn", url: "" },
+            { id: 20, name: "Star TV", cat: "movies", origin: "mn", url: "" },
+            { id: 21, name: "Mass TV", cat: "news", origin: "mn", url: "" },
+            { id: 22, name: "Suld TV", cat: "movies", origin: "mn", url: "" },
+            { id: 23, name: "Ekh Oron", cat: "news", origin: "mn", url: "" },
+            { id: 24, name: "Education TV", cat: "kids", origin: "mn", url: "" },
+            { id: 25, name: "SPS NBA", cat: "sports", origin: "mn", url: "" },
+
+            // 25 INTERNATIONAL (IDs 26-50)
+            { id: 26, name: "CNN", cat: "news", origin: "intl", url: "https://akamaized.net" },
+            { id: 27, name: "BBC News", cat: "news", origin: "intl", url: "" },
+            { id: 28, name: "ESPN", cat: "sports", origin: "intl", url: "" },
+            { id: 29, name: "HBO HD", cat: "movies", origin: "intl", url: "" },
+            { id: 30, name: "Disney", cat: "kids", origin: "intl", url: "" },
+            { id: 31, name: "Cartoon Net", cat: "kids", origin: "intl", url: "" },
+            { id: 32, name: "Discovery", cat: "movies", origin: "intl", url: "" },
+            { id: 33, name: "Sky Sports", cat: "sports", origin: "intl", url: "" },
+            { id: 34, name: "Nat Geo", cat: "movies", origin: "intl", url: "" },
+            { id: 35, name: "Al Jazeera", cat: "news", origin: "intl", url: "" },
+            { id: 36, name: "Nickelodeon", cat: "kids", origin: "intl", url: "" },
+            { id: 37, name: "MTV", cat: "movies", origin: "intl", url: "" },
+            { id: 38, name: "Fox News", cat: "news", origin: "intl", url: "" },
+            { id: 39, name: "Eurosport", cat: "sports", origin: "intl", url: "" },
+            { id: 40, name: "NHK World", cat: "news", origin: "intl", url: "" },
+            { id: 41, name: "Animal Planet", cat: "movies", origin: "intl", url: "" },
+            { id: 42, name: "France 24", cat: "news", origin: "intl", url: "" },
+            { id: 43, name: "CNBC", cat: "news", origin: "intl", url: "" },
+            { id: 44, name: "Warner TV", cat: "movies", origin: "intl", url: "" },
+            { id: 45, name: "Fashion TV", cat: "movies", origin: "intl", url: "" },
+            { id: 46, name: "MTV Live", cat: "movies", origin: "intl", url: "" },
+            { id: 47, name: "Arirang", cat: "news", origin: "intl", url: "" },
+            { id: 48, name: "Bloomberg Global", cat: "news", origin: "intl", url: "" },
+            { id: 49, name: "TV5 Monde", cat: "movies", origin: "intl", url: "" },
+            { id: 50, name: "CCTV News", cat: "news", origin: "intl", url: "" }
         ];
 
-        const intlChannels = [
-            "CNN International", "BBC World News", "Al Jazeera", "HBO HD", "Warner TV", "National Geographic", 
-            "Discovery Channel", "Animal Planet", "Da Vinci", "Nickelodeon", "Cartoon Network", 
-            "ESPN", "Sky Sports News", "Fox News", "CNBC", "Bloomberg Global", "Eurosport", 
-            "MTV Global", "VH1 Classic", "Fashion TV", "CCTV News", "Arirang TV", "NHK World", 
-            "France 24", "TV5Monde"
-        ];
+        let favorites = JSON.parse(localStorage.getItem('favs')) || [];
+        let recents = JSON.parse(localStorage.getItem('recent')) || [];
+        let currentFilter = 'all';
+        let hls = null;
 
-        function loadChannels(list, containerId, type) {
-            const container = document.getElementById(containerId);
-            list.forEach(name => {
-                container.innerHTML += `
-                    <div class="card" onclick="openPlayer('${name}')">
-                        <div class="card-img" style="background: ${type === 'mn' ? '#1e3c72' : '#444'}">
-                            ${name.toUpperCase()}
-                        </div>
-                        <div class="card-title">${name} <span class="tag">${type === 'mn' ? 'MN' : 'INTL'}</span></div>
-                    </div>`;
+        function render() {
+            const query = document.getElementById('search').value.toLowerCase();
+            const mnGrid = document.getElementById('mn-grid');
+            const intlGrid = document.getElementById('intl-grid');
+            const recentGrid = document.getElementById('recent-grid');
+            
+            mnGrid.innerHTML = ''; intlGrid.innerHTML = ''; recentGrid.innerHTML = '';
+
+            // Render Recent
+            recents.forEach(rid => {
+                const ch = channels.find(c => c.id === rid);
+                if(ch) recentGrid.innerHTML += createCard(ch, true);
+            });
+            document.getElementById('recent-wrap').style.display = (recents.length && currentFilter === 'all' && !query) ? 'block' : 'none';
+
+            channels.forEach(ch => {
+                const isMatch = ch.name.toLowerCase().includes(query);
+                const isFilter = (currentFilter === 'all') || (currentFilter === 'fav' && favorites.includes(ch.id)) || (ch.cat === currentFilter);
+                
+                if (isMatch && isFilter) {
+                    const html = createCard(ch);
+                    ch.origin === 'mn' ? mnGrid.innerHTML += html : intlGrid.innerHTML += html;
+                }
             });
         }
 
-        function openPlayer(name) {
-            document.getElementById('playing-now').innerText = name;
+        function createCard(ch, isRecent = false) {
+            const isFav = favorites.includes(ch.id);
+            return `
+            <div class="card" onclick="playChannel(${ch.id})">
+                <div class="ch-num">${ch.id}</div>
+                <div class="fav-star ${isFav ? 'active' : ''}" onclick="toggleFav(${ch.id}, event)">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="card-img" style="background:${ch.origin==='mn'?'linear-gradient(45deg, #111, #1e3c72)':'#222'}">${ch.name}</div>
+                <div class="card-title">
+                    <strong>${ch.name}</strong>
+                    <small style="opacity:0.4; font-size:10px; margin-top:4px;">${ch.cat.toUpperCase()}</small>
+                </div>
+            </div>`;
+        }
+
+        function playChannel(id) {
+            const ch = channels.find(c => c.id === id);
+            const video = document.getElementById('video');
+            const zapper = document.getElementById('zapper');
+            
+            // Setup Zapper
+            zapper.innerText = id;
+            zapper.style.display = 'block';
+            setTimeout(() => zapper.style.display = 'none', 2000);
+
+            document.getElementById('playing-name').innerText = ch.name;
             document.getElementById('player-modal').style.display = 'flex';
+
+            // HLS Logic
+            const url = ch.url || "https://mux.dev"; // Default fallback
+            if (Hls.isSupported()) {
+                if (hls) hls.destroy();
+                hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+                video.play();
+            }
+
+            // Update Recent
+            recents = [id, ...recents.filter(x => x !== id)].slice(0, 5);
+            localStorage.setItem('recent', JSON.stringify(recents));
+            render();
         }
 
         function closePlayer() {
+            const video = document.getElementById('video');
+            video.pause();
+            if (hls) hls.stopLoad();
             document.getElementById('player-modal').style.display = 'none';
         }
 
-        loadChannels(mnChannels, 'mn-grid', 'mn');
-        loadChannels(intlChannels, 'intl-grid', 'intl');
+        function toggleFav(id, e) {
+            e.stopPropagation();
+            favorites.includes(id) ? favorites = favorites.filter(x => x !== id) : favorites.push(id);
+            localStorage.setItem('favs', JSON.stringify(favorites));
+            render();
+        }
+
+        function filterBy(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = cat;
+            render();
+        }
+
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
+        }, 1000);
+
+        render();
     </script>
 </body>
 </html>
