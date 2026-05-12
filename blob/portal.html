@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart TV Box - Unified Dashboard</title>
+    <title>Smart TV Box - 50 Channel Directory</title>
+    <!-- Cloud HLS Engine Decoder Library -->
+    <script src="cloudflare.com"></script>
     <style>
         :root {
             --bg-color: #0d0f12;
@@ -32,7 +34,7 @@
             display: flex;
         }
 
-        /* Navigation Sidebar Layout */
+        /* Sidebar Navigation */
         .sidebar {
             width: 240px;
             background-color: var(--sidebar-color);
@@ -63,27 +65,24 @@
             border: 2px solid transparent;
         }
 
-        /* View Management Layer */
+        /* View Panels Routing Configuration */
         .view-panel {
             flex: 1;
             height: 100%;
             padding: 40px;
-            display: none; /* Controlled via active class toggle switching states */
+            display: none;
             flex-direction: column;
             gap: 25px;
             overflow-y: auto;
         }
 
-        .view-panel.active-view {
-            display: flex;
-        }
-
+        .view-panel.active-view { display: flex; }
         .view-panel::-webkit-scrollbar { display: none; }
 
-        /* Home View UI Layout */
+        /* Home View Banner Layout */
         .hero-banner {
             width: 100%;
-            height: 260px;
+            height: 240px;
             background: linear-gradient(90deg, rgba(0,120,255,0.4) 0%, rgba(21,24,31,0.9) 100%);
             background-color: #1e293b;
             border-radius: 12px;
@@ -97,59 +96,15 @@
         .hero-banner h1 { font-size: 32px; margin-bottom: 8px; }
         .hero-banner p { color: #e1e1e1; font-size: 16px; max-width: 500px; }
 
-        .section-title {
-            font-size: 22px;
-            font-weight: 600;
-        }
+        .section-title { font-size: 22px; font-weight: 600; }
 
-        .apps-row {
-            display: flex;
-            gap: 20px;
-            padding: 10px 5px;
-            overflow-x: auto;
-        }
-        .apps-row::-webkit-scrollbar { display: none; }
-
-        .app-card {
-            min-width: 200px;
-            width: 200px;
-            height: 120px;
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border: 3px solid transparent;
-        }
-
-        .app-thumbnail {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-        }
-
-        .app-title {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 8px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            font-size: 14px;
-            text-align: center;
-        }
-
-        /* Live Channels Grid View Layout */
+        /* Channel Grids Setup */
         .channels-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 20px;
             width: 100%;
+            padding-bottom: 40px;
         }
 
         .channel-card {
@@ -170,7 +125,7 @@
             position: relative;
             width: 100%;
             height: 110px;
-            background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -190,6 +145,17 @@
             text-transform: uppercase;
         }
 
+        .channel-origin {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0,0,0,0.6);
+            color: #fff;
+            font-size: 11px;
+            padding: 3px 6px;
+            border-radius: 3px;
+        }
+
         .channel-info {
             padding: 10px 14px;
             background-color: #161a21;
@@ -199,35 +165,16 @@
             flex-grow: 1;
         }
 
-        .channel-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 2px;
-        }
+        .channel-name { font-size: 14px; font-weight: 600; color: var(--text-color); margin-bottom: 2px; }
+        .now-playing { font-size: 12px; color: var(--text-muted); }
 
-        .now-playing {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* Coming Soon Panel Template Layout */
-        .placeholder-view {
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .placeholder-icon {
-            font-size: 64px;
-            margin-bottom: 15px;
-            opacity: 0.4;
-        }
-
+        /* Placeholders Styles */
+        .placeholder-view { align-items: center; justify-content: center; text-align: center; }
+        .placeholder-icon { font-size: 64px; margin-bottom: 15px; opacity: 0.4; }
         .placeholder-view h2 { font-size: 28px; margin-bottom: 10px; }
         .placeholder-view p { color: var(--text-muted); font-size: 16px; }
 
-        /* Focus Engine Selector Highlights */
+        /* Focus System Mechanics Highlight Targets */
         .focusable:focus, .focusable.focused {
             outline: none;
             border-color: var(--accent-color) !important;
@@ -244,7 +191,7 @@
             box-shadow: none;
         }
 
-        /* Fullscreen Video Overlay Module */
+        /* Native Live Player Screen Window Overlay */
         .video-overlay {
             position: fixed;
             top: 0;
@@ -259,7 +206,6 @@
         }
 
         .video-overlay video { width: 100%; height: 100%; object-fit: contain; }
-
         .video-close-hint {
             position: absolute;
             top: 30px;
@@ -276,73 +222,141 @@
 </head>
 <body>
 
-    <!-- Left System Sidebar Navigation Navigation -->
+    <!-- Left Menu Navigation Column Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="logo">BOX TV</div>
-        <!-- Data Views parameter tags sync layout switching engine maps -->
         <div class="nav-item focusable focused" data-type="nav" data-target="homeView">Home</div>
-        <div class="nav-item focusable" data-type="nav" data-target="channelsView">Live Channels</div>
+        <div class="nav-item focusable" data-type="nav" data-target="mnChannelsView">MN Channels</div>
+        <div class="nav-item focusable" data-type="nav" data-target="intlChannelsView">Foreign Channels</div>
         <div class="nav-item focusable" data-type="nav" data-target="moviesView">Movies</div>
         <div class="nav-item focusable" data-type="nav" data-target="showsView">TV Shows</div>
         <div class="nav-item focusable" data-type="nav" data-target="settingsView">Settings</div>
     </div>
 
-    <!-- VIEW 1: Main Launcher Dashboard Layout -->
+    <!-- VIEW 1: Home Dashboard Screen -->
     <div class="view-panel active-view" id="homeView">
         <div class="hero-banner">
-            <h1>Featured Content</h1>
-            <p>Stream your favorite movies, channels, and applications instantly on the main launcher interface.</p>
+            <h1>Featured Broadcast</h1>
+            <p>Select "MN Channels" or "Foreign Channels" on your remote control directory dashboard to watch live streams.</p>
         </div>
-        <div class="section-title">Recent Applications</div>
-        <div class="apps-row" id="appsRow">
-            <div class="app-card focusable" data-type="app" data-video="googleapis.com"><div class="app-thumbnail">🍿</div><div class="app-title">Netflix</div></div>
-            <div class="app-card focusable" data-type="app" data-video="googleapis.com"><div class="app-thumbnail">📺</div><div class="app-title">YouTube</div></div>
-            <div class="app-card focusable" data-type="app" data-video="googleapis.com"><div class="app-thumbnail">📦</div><div class="app-title">Prime Video</div></div>
-            <div class="app-card focusable" data-type="app" data-video="googleapis.com"><div class="app-thumbnail">🔮</div><div class="app-title">Plex</div></div>
-            <div class="app-card focusable" data-type="app" data-video="googleapis.com"><div class="app-thumbnail">🎮</div><div class="app-title">Twitch</div></div>
-        </div>
+        <div class="section-title">Quick Quick Shortcuts</div>
+        <div class="channels-grid" id="featuredShortcutsGrid"></div>
     </div>
 
-    <!-- VIEW 2: 50 Live Channels Guide View Layout -->
-    <div class="view-panel" id="channelsView">
-        <div class="section-title">Live TV Grid Guide</div>
-        <div class="channels-grid" id="channelsGrid"></div>
+    <!-- VIEW 2: 25 Mongolian Channels Grid -->
+    <div class="view-panel" id="mnChannelsView">
+        <div class="section-title">Mongolian National Channels (25)</div>
+        <div class="channels-grid" id="mnGrid"></div>
     </div>
 
-    <!-- VIEWS 3, 4, 5: Coming Soon Dynamic Placeholder Views -->
-    <div class="view-panel placeholder-view" id="moviesView"><div class="placeholder-icon">🎬</div><h2>Movies Module</h2><p>Feature Hub Coming Soon...</p></div>
-    <div class="view-panel placeholder-view" id="showsView"><div class="placeholder-icon">🎭</div><h2>TV Shows Module</h2><p>Feature Hub Coming Soon...</p></div>
-    <div class="view-panel placeholder-view" id="settingsView"><div class="placeholder-icon">⚙️</div><h2>System Settings</h2><p>Configuration panel parameters coming soon...</p></div>
+    <!-- VIEW 3: 25 Foreign Channels Grid -->
+    <div class="view-panel" id="intlChannelsView">
+        <div class="section-title">International Broadcasts (25)</div>
+        <div class="channels-grid" id="intlGrid"></div>
+    </div>
 
-    <!-- Video Player Display Overlay Container Component -->
+    <!-- VIEWS 4, 5, 6: Status Coming Soon Panels Layouts -->
+    <div class="view-panel placeholder-view" id="moviesView"><div class="placeholder-icon">🎬</div><h2>Movies Module</h2><p>Feature coming soon...</p></div>
+    <div class="view-panel placeholder-view" id="showsView"><div class="placeholder-icon">🎭</div><h2>TV Shows Module</h2><p>Feature coming soon...</p></div>
+    <div class="view-panel placeholder-view" id="settingsView"><div class="placeholder-icon">⚙️</div><h2>System Configuration</h2><p>Settings coming soon...</p></div>
+
+    <!-- Fullscreen Video Streaming Layer Component Overlay -->
     <div class="video-overlay" id="videoOverlay">
-        <div class="video-close-hint">Press <b>Backspace</b> or Click Screen to Return to Dashboard</div>
+        <div class="video-close-hint">Press <b>Backspace</b> or Click Screen to Exit Player</div>
         <video id="tvVideoPlayer" controls></video>
     </div>
 
     <script>
-        // 1. Dynamic Live Grid Builder Engine loop
-        const categories = ["News", "Cinema", "Sports", "Docs", "Action", "Family", "Music", "Sci-Fi"];
-        const icons = ["📺", "🎬", "⚽", "🌍", "💥", "👨‍👩‍👧", "🎵", "🚀"];
-        const gridContainer = document.getElementById('channelsGrid');
-        
-        for (let i = 1; i <= 50; i++) {
-            const index = i % categories.length;
+        // Data Schema Definition Lists containing 25 Mongolian & 25 Foreign Stations
+        const mnChannelsList = [
+            { name: "Монгол ТВ HD", icon: "📺", stream: "cloudfront.net" }, // Sample Fallback Mux Test Loop Node
+            { name: "МҮОНТ (MNB)", icon: "🇲🇳", stream: "cloudfront.net" },
+            { name: "Боловсрол ТВ", icon: "🎓", stream: "cloudfront.net" },
+            { name: "ТВ5 Монголиа", icon: "⭐", stream: "cloudfront.net" },
+            { name: "ТВ9 Монголиа", icon: "🦁", stream: "cloudfront.net" },
+            { name: "Eagle News TV", icon: "🦅", stream: "cloudfront.net" },
+            { name: "UBS Телевиз", icon: "🏙️", stream: "cloudfront.net" },
+            { name: "NTV Телевиз", icon: "🟢", stream: "cloudfront.net" },
+            { name: "SBN Телевиз", icon: "🔵", stream: "cloudfront.net" },
+            { name: "TM Телевиз", icon: "🔴", stream: "cloudfront.net" },
+            { name: "VTV Монголиа", icon: "⚡", stream: "cloudfront.net" },
+            { name: "Эх Орон ТВ", icon: "🐎", stream: "cloudfront.net" },
+            { name: "Малчин ТВ", icon: "🌾", stream: "cloudfront.net" },
+            { name: "ТВ8 Телевиз", icon: "🔥", stream: "cloudfront.net" },
+            { name: "C1 Телевиз", icon: "💎", stream: "cloudfront.net" },
+            { name: "ЛХА ТВ", icon: "🌸", stream: "cloudfront.net" },
+            { name: "Star TV Mongolia", icon: "✨", stream: "cloudfront.net" },
+            { name: "ECO ТВ", icon: "🌱", stream: "cloudfront.net" },
+            { name: "Royal HD ТВ", icon: "👑", stream: "cloudfront.net" },
+            { name: "МН24 Мэдээний ТВ", icon: "📜", stream: "cloudfront.net" },
+            { name: "Тэнгэр ТВ", icon: "🌤️", stream: "cloudfront.net" },
+            { name: "Залуучууд ТВ", icon: "🏃", stream: "cloudfront.net" },
+            { name: "Гэр Бүл ТВ", icon: "🏡", stream: "cloudfront.net" },
+            { name: "Eurasia TV", icon: "🗺️", stream: "cloudfront.net" },
+            { name: "Орхон ТВ", icon: "🌊", stream: "cloudfront.net" }
+        ];
+
+        const intlChannelsList = [
+            { name: "NASA TV Global", icon: "🚀", region: "USA", stream: "akamaized.net" },
+            { name: "BBC News Live", icon: "🇬🇧", region: "UK", stream: "akamaized.net" },
+            { name: "France 24 English", icon: "🇫🇷", region: "FR", stream: "france24.com" },
+            { name: "Sky News International", icon: "📡", region: "UK", stream: "akamaized.net" },
+            { name: "DW News Live", icon: "🇩🇪", region: "DE", stream: "akamaihd.net" },
+            { name: "Al Jazeera English", icon: "🌍", region: "QA", stream: "getaj.net" },
+            { name: "CNA Asia News", icon: "🌏", region: "SG", stream: "akamaized.net" },
+            { name: "NHK World Japan", icon: "🇯🇵", region: "JP", stream: "akamaized.net" },
+            { name: "Arirang TV Live", icon: "🇰🇷", region: "KR", stream: "akamaized.net" },
+            { name: "TRT World News", icon: "🇹🇷", region: "TR", stream: "akamaized.net" },
+            { name: "Bloomberg TV Live", icon: "📈", region: "USA", stream: "bloomberg.com" },
+            { name: "Red Bull TV Action", icon: "🛹", region: "INT", stream: "akamaized.net" },
+            { name: "Euronews Global", icon: "🇪🇺", region: "EU", stream: "hexaglobe.net" },
+            { name: "RT News Live Channel", icon: "📰", region: "RU", stream: "akamaized.net" },
+            { name: "CGTN Global News", icon: "🇨🇳", region: "CN", stream: "akamaized.net" },
+            { name: "ABC News Live", icon: "🗽", region: "USA", stream: "akamaized.net" },
+            { name: "CBS News Live Stream", icon: "🦅", region: "USA", stream: "akamaized.net" },
+            { name: "NBC News NOW", icon: "🦚", region: "USA", stream: "akamaized.net" },
+            { name: "Live Nature TV", icon: "🏞️", region: "INT", stream: "cloudfront.net" },
+            { name: "Classic Movie Tracks", icon: "🎬", region: "INT", stream: "cloudfront.net" },
+            { name: "Global Sports Center", icon: "⚽", region: "INT", stream: "cloudfront.net" },
+            { name: "Kids Zone Cartoon", icon: "🧸", region: "INT", stream: "cloudfront.net" },
+            { name: "Music Box Nonstop", icon: "🎵", region: "INT", stream: "cloudfront.net" },
+            { name: "Documentary Focus", icon: "🌍", region: "INT", stream: "cloudfront.net" },
+            { name: "Sci-Fi Central Loop", icon: "🚀", region: "INT", stream: "cloudfront.net" }
+        ];
+
+        // 1. Dynamic Element Grid Rendering Loops
+        const mnGrid = document.getElementById('mnGrid');
+        const intlGrid = document.getElementById('intlGrid');
+        const shortcutsGrid = document.getElementById('featuredShortcutsGrid');
+
+        function buildCard(chan, isMn) {
             const card = document.createElement('div');
             card.className = 'channel-card focusable';
             card.setAttribute('data-type', 'channel');
-            card.setAttribute('data-video', 'googleapis.com');
+            card.setAttribute('data-video', chan.stream);
             card.innerHTML = `
-                <div class="thumbnail-wrapper"><span class="live-badge">Live</span>${icons[index]}</div>
+                <div class="thumbnail-wrapper">
+                    <span class="live-badge">Live</span>
+                    <span class="channel-origin">${isMn ? 'MN' : chan.region}</span>
+                    ${chan.icon}
+                </div>
                 <div class="channel-info">
-                    <div class="channel-name">CH ${i.toString().padStart(2, '0')} | ${categories[index]} HD</div>
-                    <div class="now-playing">Broadcast Stream Program #${i}</div>
+                    <div class="channel-name">${chan.name}</div>
+                    <div class="now-playing">Live TV Network Broadcast Feed</div>
                 </div>
             `;
-            gridContainer.appendChild(card);
+            return card;
         }
 
-        // 2. State Controller Setup Environment Variables
+        mnChannelsList.forEach(c => mnGrid.appendChild(buildCard(c, true)));
+        intlChannelsList.forEach(c => intlGrid.appendChild(buildCard(c, false)));
+        
+        // Populate 4 shortcuts on home page interface launcher panel
+        for(let i=0; i<4; i++) {
+            shortcutsGrid.appendChild(buildCard(mnChannelsList[i], true));
+        }
+
+        // 2. State Engine Configurations
         const sidebarItems = Array.from(document.querySelectorAll('.nav-item'));
         const videoOverlay = document.getElementById('videoOverlay');
         const videoPlayer = document.getElementById('tvVideoPlayer');
@@ -351,17 +365,17 @@
         let sidebarIndex = 0;
         let contentIndex = 0;
         let isVideoPlaying = false;
+        let hlsEngine = null;
 
-        // Extract active elements tracking matrix dynamically based on current menu route views
         function getContentItems() {
             const activeView = document.querySelector('.view-panel.active-view');
-            return Array.from(activeView.querySelectorAll('.app-card, .channel-card'));
+            return Array.from(activeView.querySelectorAll('.channel-card'));
         }
 
         function getGridColumnsCount() {
             const activeView = document.querySelector('.view-panel.active-view');
             const grid = activeView.querySelector('.channels-grid');
-            if (!grid) return 100; // Large arbitrary number if view is horizontal row row flex list configuration
+            if (!grid) return 1;
             return window.getComputedStyle(grid).getPropertyValue('grid-template-columns').split(' ').length;
         }
 
@@ -369,7 +383,7 @@
             document.querySelectorAll('.view-panel').forEach(view => view.classList.remove('active-view'));
             const destinationView = document.getElementById(targetId);
             if (destinationView) destinationView.classList.add('active-view');
-            contentIndex = 0; // Reset focus to first element when switching screens
+            contentIndex = 0;
         }
 
         function updateFocus() {
@@ -389,48 +403,67 @@
             }
         }
 
+        // 3. Native Live Video Decoders (HLS Native/Fallbacks Handling)
         function launchMedia(videoUrl) {
-            videoPlayer.src = videoUrl;
             videoOverlay.style.display = 'flex';
-            videoPlayer.play().catch(() => console.log("Stream Autoplay intercepted. Controls ready."));
             isVideoPlaying = true;
+
+            if (hlsEngine) { hlsEngine.destroy(); hlsEngine = null; }
+
+            if (videoUrl.includes('.m3u8')) {
+                if (Hls.isSupported()) {
+                    hlsEngine = new Hls();
+                    hlsEngine.loadSource(videoUrl);
+                    hlsEngine.attachMedia(videoPlayer);
+                    hlsEngine.on(Hls.Events.MANIFEST_PARSED, () => {
+                        videoPlayer.play().catch(e => console.log("Stream error: ", e));
+                    });
+                } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                    videoPlayer.src = videoUrl;
+                    videoPlayer.addEventListener('loadedmetadata', () => { videoPlayer.play(); });
+                }
+            } else {
+                videoPlayer.src = videoUrl;
+                videoPlayer.play().catch(e => console.log("Playback error: ", e));
+            }
         }
 
         function closeMedia() {
-            videoPlayer.pause(); videoPlayer.src = "";
-            videoOverlay.style.display = 'none'; isVideoPlaying = false;
+            videoPlayer.pause();
+            if (hlsEngine) { hlsEngine.destroy(); hlsEngine = null; }
+            videoPlayer.src = "";
+            videoOverlay.style.display = 'none'; 
+            isVideoPlaying = false;
             updateFocus();
         }
 
-        // 3. Control Interactions Routing Assignment Layers (Mouse Controls)
+        // 4. Input Listeners Matrix Assignments
         document.addEventListener('mouseover', (e) => {
             if (isVideoPlaying) return;
-            const focusTarget = e.target.closest('.focusable');
-            if (!focusTarget) return;
+            const target = e.target.closest('.focusable');
+            if (!target) return;
 
-            if (focusTarget.classList.contains('nav-item')) {
+            if (target.classList.contains('nav-item')) {
                 currentSection = 'sidebar';
-                sidebarIndex = sidebarItems.indexOf(focusTarget);
+                sidebarIndex = sidebarItems.indexOf(target);
             } else {
                 currentSection = 'content';
-                contentIndex = getContentItems().indexOf(focusTarget);
+                contentIndex = getContentItems().indexOf(target);
             }
             updateFocus();
         });
 
         document.addEventListener('click', (e) => {
-            const clickable = e.target.closest('.focusable');
-            if (!clickable) return;
-            
-            const type = clickable.getAttribute('data-type');
-            if (type === 'app' || type === 'channel') {
-                launchMedia(clickable.getAttribute('data-video'));
+            const element = e.target.closest('.focusable');
+            if (!element) return;
+            if (element.getAttribute('data-type') === 'channel') {
+                launchMedia(element.getAttribute('data-video'));
             }
         });
 
         videoOverlay.addEventListener('click', closeMedia);
 
-        // 4. Integrated Spatial Remote Key Processing Mechanics Engine
+        // 5. Grid Spatial Processing D-Pad Calculation Engine
         window.addEventListener('keydown', (e) => {
             if (isVideoPlaying) {
                 if (e.key === 'Backspace' || e.key === 'Escape') closeMedia();
@@ -443,33 +476,25 @@
             switch(e.key) {
                 case 'ArrowUp':
                     if (currentSection === 'sidebar' && sidebarIndex > 0) sidebarIndex--;
-                    else if (currentSection === 'content') {
-                        if (items[0]?.classList.contains('channel-card') && contentIndex >= columns) contentIndex -= columns;
-                    }
+                    else if (currentSection === 'content' && contentIndex >= columns) contentIndex -= columns;
                     break;
                 case 'ArrowDown':
                     if (currentSection === 'sidebar' && sidebarIndex < sidebarItems.length - 1) sidebarIndex++;
-                    else if (currentSection === 'content') {
-                        if (items[0]?.classList.contains('channel-card') && (contentIndex + columns < items.length)) contentIndex += columns;
-                    }
+                    else if (currentSection === 'content' && (contentIndex + columns < items.length)) contentIndex += columns;
                     break;
                 case 'ArrowLeft':
                     if (currentSection === 'content') {
-                        if (items[0]?.classList.contains('app-card') && contentIndex > 0) contentIndex--;
-                        else if (items[0]?.classList.contains('channel-card') && (contentIndex % columns > 0)) contentIndex--;
-                        else currentSection = 'sidebar'; // Backtrack menu path
+                        if (contentIndex % columns > 0) contentIndex--;
+                        else currentSection = 'sidebar';
                     }
                     break;
                 case 'ArrowRight':
                     if (currentSection === 'sidebar' && items.length > 0) currentSection = 'content';
-                    else if (currentSection === 'content') {
-                        if (items[0]?.classList.contains('app-card') && contentIndex < items.length - 1) contentIndex++;
-                        else if (items[0]?.classList.contains('channel-card') && (contentIndex % columns < columns - 1) && (contentIndex < items.length - 1)) contentIndex++;
-                    }
+                    else if (currentSection === 'content' && (contentIndex % columns < columns - 1) && (contentIndex < items.length - 1)) contentIndex++;
                     break;
                 case 'Enter':
-                    const focusedElement = document.querySelector('.focused');
-                    if (focusedElement) focusedElement.click();
+                    const activeElement = document.querySelector('.focused');
+                    if (activeElement) activeElement.click();
                     break;
             }
             updateFocus();
