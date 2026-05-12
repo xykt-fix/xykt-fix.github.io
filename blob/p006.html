@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProStream IPTV Box</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --side-panel: #1e1e1e;
+            --accent: #007bff;
+            --text-main: #ffffff;
+            --text-sub: #b3b3b3;
+            --highlight: #333;
+        }
+        body { margin: 0; font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Sidebar */
+        #sidebar { width: 250px; background-color: var(--side-panel); display: flex; flex-direction: column; padding: 20px; box-sizing: border-box; }
+        #sidebar h1 { color: var(--accent); text-align: center; margin-bottom: 40px; font-size: 24px; }
+        .menu-item { padding: 15px; cursor: pointer; color: var(--text-sub); border-radius: 8px; transition: 0.3s; font-size: 18px; margin-bottom: 10px; }
+        .menu-item:hover, .menu-item.active { background-color: var(--accent); color: white; }
+        
+        /* Main Content */
+        #content { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; }
+        .page { display: none; }
+        .page.active { display: block; }
+        
+        /* Grid Layouts */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .card { background-color: var(--side-panel); padding: 15px; border-radius: 10px; text-align: center; cursor: pointer; transition: transform 0.2s; }
+        .card:hover { transform: scale(1.05); border: 2px solid var(--accent); }
+        .card img { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; }
+        .card h3 { margin: 10px 0 5px; font-size: 16px; }
+        .card p { color: var(--text-sub); margin: 0; font-size: 14px; }
+        
+        /* Player & Channels */
+        #player-wrapper { display: flex; gap: 20px; }
+        #main-player { width: 70%; height: 60vh; background-color: black; border-radius: 10px; }
+        #channel-list { width: 30%; height: 60vh; background-color: var(--side-panel); overflow-y: scroll; border-radius: 10px; padding: 10px; }
+        .channel-item { padding: 10px; border-bottom: 1px solid var(--highlight); cursor: pointer; }
+        .channel-item:hover { background-color: var(--highlight); }
+        
+        /* Settings/Subs */
+        .setting-item { margin-bottom: 20px; background: var(--side-panel); padding: 15px; border-radius: 8px; }
+        input { width: 100%; padding: 10px; margin-top: 5px; background: var(--bg-color); border: 1px solid var(--highlight); color: white; border-radius: 5px; }
+        button { padding: 10px 20px; background-color: var(--accent); border: none; color: white; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div id="sidebar">
+    <h1>ProStream</h1>
+    <div class="menu-item active" onclick="showPage('live')">📺 Live TV</div>
+    <div class="menu-item" onclick="showPage('movies')">🎬 Movies</div>
+    <div class="menu-item" onclick="showPage('series')">📺 TV Shows</div>
+    <div class="menu-item" onclick="showPage('settings')">⚙️ Settings</div>
+    <div class="menu-item" onclick="showPage('subs')">💳 Subscription</div>
+</div>
+
+<div id="content">
+    <!-- Live TV Page -->
+    <div id="live" class="page active">
+        <h2>Live TV Channels</h2>
+        <div id="player-wrapper">
+            <video id="main-player" controls poster="https://placeholder.com">
+                Your browser does not support video.
+            </video>
+            <div id="channel-list">
+                <!-- JS will populate 50 channels -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Movies Page -->
+    <div id="movies" class="page">
+        <h2>Popular Movies</h2>
+        <div class="grid-container" id="movies-grid"></div>
+    </div>
+
+    <!-- TV Shows Page -->
+    <div id="series" class="page">
+        <h2>Popular TV Shows</h2>
+        <div class="grid-container" id="series-grid"></div>
+    </div>
+
+    <!-- Settings Page -->
+    <div id="settings" class="page">
+        <h2>Settings</h2>
+        <div class="setting-item">
+            <label>API Key / M3U URL</label>
+            <input type="text" value="http://example.com">
+        </div>
+        <button>Save Configuration</button>
+    </div>
+
+    <!-- Subscriptions Page -->
+    <div id="subs" class="page">
+        <h2>Subscription Details</h2>
+        <div class="setting-item">
+            <p>Status: <span style="color: lime;">Active</span></p>
+            <p>Expires: 2026-12-31</p>
+            <p>Plan: Pro IPTV Pack</p>
+            <button style="background-color: #28a745;">Renew Now</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    // Generate 50+ Dummy Channels
+    const channelList = document.getElementById('channel-list');
+    for (let i = 1; i <= 50; i++) {
+        const div = document.createElement('div');
+        div.className = 'channel-item';
+        div.innerText = `${i}. Channel ${i} HD`;
+        div.onclick = () => alert(`Loading Channel ${i}... (Simulated)`);
+        channelList.appendChild(div);
+    }
+
+    // Generate Dummy Content (Movies/Series)
+    function generateCards(containerId, count, type) {
+        const container = document.getElementById(containerId);
+        for (let i = 1; i <= count; i++) {
+            container.innerHTML += `
+                <div class="card">
+                    <img src="https://picsum.photos{i}" alt="Thumbnail">
+                    <h3>${type} ${i}</h3>
+                    <p>Genre / Info</p>
+                </div>
+            `;
+        }
+    }
+    generateCards('movies-grid', 12, 'Movie');
+    generateCards('series-grid', 12, 'Series');
+</script>
+
+</body>
+</html>
