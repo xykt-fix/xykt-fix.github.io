@@ -1,0 +1,127 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETV PLus</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #001f3f 0%, #0074D9 100%);
+        color: white;
+        height: 100vh;
+        overflow: hidden;
+    }
+    #wrapper { display: flex; flex-direction: column; height: 100%; }
+    
+    /* Top Bar */
+    header {
+        background: rgba(0,0,0,0.5);
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.2em;
+        border-bottom: 2px solid #7FDBFF;
+    }
+
+    /* Main Area */
+    #content {
+        display: flex;
+        flex: 1;
+        padding: 20px;
+    }
+    #sidebar {
+        width: 250px;
+        background: rgba(0,0,0,0.3);
+        border-radius: 10px;
+        padding: 10px;
+        margin-right: 20px;
+    }
+    .menu-item {
+        padding: 15px;
+        cursor: pointer;
+        border-bottom: 1px solid #555;
+        font-weight: bold;
+    }
+    .menu-item.active {
+        background-color: #0074D9;
+        border-radius: 5px;
+    }
+    #viewport {
+        flex: 1;
+        background: rgba(255,255,255,0.1);
+        border-radius: 10px;
+        padding: 20px;
+        overflow-y: scroll;
+    }
+
+    /* Items grid/list */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    .item {
+        background: #333;
+        border: 2px solid #555;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: center;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9em;
+    }
+    .item:hover { border-color: #7FDBFF; }
+    
+    /* Settings */
+    .setting-item { padding: 10px; border-bottom: 1px solid #444; }
+</style>
+</head>
+<body>
+<div id="wrapper">
+    <header>
+        <div>IPTV-BOX-X1</div>
+        <div id="clock">12:00 PM - 12/05/2012</div>
+    </header>
+    
+    <div id="content">
+        <div id="sidebar">
+            <div class="menu-item active">Live TV (50)</div>
+            <div class="menu-item">TV Shows</div>
+            <div class="menu-item">Movies</div>
+            <div class="menu-item">Favorites</div>
+            <div class="menu-item">Settings</div>
+        </div>
+        
+        <div id="viewport">
+            <h3>All Channels</h3>
+            <div class="grid" id="channel-grid">
+                <!-- Javascript will fill this -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Generate 50 dummy channels
+    const grid = document.getElementById('channel-grid');
+    for (let i = 1; i <= 50; i++) {
+        const item = document.createElement('div');
+        item.className = 'item';
+        item.innerText = `Channel ${i}\nNow Playing...`;
+        grid.appendChild(item);
+    }
+    
+    // Simple Clock
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('clock').innerText = now.toLocaleTimeString() + ' - 12/05/2012';
+    }
+    setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
