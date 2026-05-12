@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retro IPTV Box UI</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #00264d;
+        color: white;
+        font-family: 'Arial', sans-serif;
+        overflow: hidden;
+        height: 100vh;
+    }
+
+    /* 2010s Gradient Background */
+    .app-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background: linear-gradient(180deg, #003366 0%, #001a33 100%);
+    }
+
+    /* Header */
+    header {
+        height: 15vh;
+        border-bottom: 2px solid #0056b3;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 30px;
+        background-color: rgba(0,0,0,0.3);
+    }
+
+    .logo { font-size: 24px; font-weight: bold; color: #33ccff; }
+    
+    nav ul { list-style: none; display: flex; gap: 20px; }
+    nav ul li {
+        padding: 10px 20px;
+        background: #004080;
+        border: 1px solid #33ccff;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    nav ul li.active { background: #0066cc; box-shadow: 0 0 10px #33ccff; }
+
+    /* Content Area */
+    .content {
+        flex: 1;
+        display: flex;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    /* Channel List - Simulated 50 channels */
+    .sidebar {
+        width: 30%;
+        background: rgba(0,0,0,0.4);
+        border: 1px solid #0056b3;
+        overflow-y: scroll;
+        border-radius: 5px;
+    }
+
+    .channel-item {
+        padding: 15px;
+        border-bottom: 1px solid #004080;
+        cursor: pointer;
+    }
+    .channel-item:hover, .channel-item.focus { background: #0056b3; }
+    .channel-num { color: #33ccff; font-weight: bold; margin-right: 10px; }
+
+    /* Main Display */
+    .main-view {
+        width: 70%;
+        background: rgba(0,0,0,0.4);
+        border: 1px solid #0056b3;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    .vod-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+
+    .vod-item {
+        background: #004080;
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid transparent;
+        cursor: pointer;
+    }
+    .vod-item:hover { border: 2px solid #33ccff; }
+
+    /* Settings Placeholder */
+    .settings-menu { display: none; }
+    
+</style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">IPTV Player 2012</div>
+            <nav>
+                <ul>
+                    <li class="active">Live TV</li>
+                    <li>TV Shows</li>
+                    <li>Movies</li>
+                    <li>Settings</li>
+                </ul>
+            </nav>
+            <div class="date-time">12 May 2026 | 20:43</div>
+        </header>
+
+        <div class="content">
+            <div class="sidebar">
+                <!-- Generates dummy 50 channels -->
+                <script>
+                    for(let i=1; i<=50; i++) {
+                        document.write(`
+                            <div class="channel-item ${i===1?'focus':''}">
+                                <span class="channel-num">${i}</span> Channel Name ${i}
+                            </div>
+                        `);
+                    }
+                </script>
+            </div>
+
+            <div class="main-view">
+                <h2>Now Playing: Channel Name 1</h2>
+                <div style="background:#000; height:300px; display:flex; justify-content:center; align-items:center;">
+                    [Live Video Feed]
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
