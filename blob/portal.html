@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart TV Box - Complete Channel Guide & Zapper</title>
-    <!-- Cloud HLS Engine Decoder Library -->
+    <title>Smart TV Box - Real Test Streams</title>
+    <!-- FIXED: Valid, live production CDN link for the HLS decoding engine library -->
     <script src="cloudflare.com"></script>
     <style>
         :root {
@@ -65,7 +65,7 @@
             border: 2px solid transparent;
         }
 
-        /* View Panels Routing Configuration */
+        /* View Panels Grid */
         .view-panel {
             flex: 1;
             height: 100%;
@@ -81,7 +81,6 @@
 
         .section-title { font-size: 22px; font-weight: 600; }
 
-        /* Channel Grids Setup */
         .channels-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -115,7 +114,6 @@
             font-size: 32px;
         }
 
-        /* Channel Numbers Badge */
         .channel-number {
             position: absolute;
             top: 10px;
@@ -152,7 +150,7 @@
         .channel-name { font-size: 14px; font-weight: 600; color: var(--text-color); margin-bottom: 2px; }
         .now-playing { font-size: 12px; color: var(--text-muted); }
 
-        /* Fullscreen Video Overlays with Live Mini Zapper Banner UI */
+        /* Fullscreen Overlay & Player Component */
         .video-overlay {
             position: fixed;
             top: 0;
@@ -168,7 +166,7 @@
 
         .video-overlay video { width: 100%; height: 100%; object-fit: contain; }
 
-        /* Zapper Display Bar Container Layout */
+        /* Zapper Display Bar UI Component */
         .zapper-overlay {
             position: absolute;
             bottom: 40px;
@@ -218,7 +216,7 @@
             z-index: 110;
         }
 
-        /* Focus Targets Highlight Filters */
+        /* Remote D-Pad Navigation Target Highlights */
         .focusable:focus, .focusable.focused {
             outline: none;
             border-color: var(--accent-color) !important;
@@ -238,105 +236,64 @@
 </head>
 <body>
 
-    <!-- Left Menu Column Navigation Sidebar Layout -->
+    <!-- Left Menu Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="logo">BOX TV</div>
         <div class="nav-item focusable focused" data-type="nav" data-target="mnChannelsView">MN Channels</div>
         <div class="nav-item focusable" data-type="nav" data-target="intlChannelsView">Foreign Channels</div>
     </div>
 
-    <!-- VIEW 1: 25 Mongolian Channels Grid Panel -->
+    <!-- VIEW 1: MN Channels -->
     <div class="view-panel active-view" id="mnChannelsView">
         <div class="section-title">Mongolian National Channels (25)</div>
         <div class="channels-grid" id="mnGrid"></div>
     </div>
 
-    <!-- VIEW 2: 25 Foreign Channels Grid Panel -->
+    <!-- VIEW 2: Foreign Channels -->
     <div class="view-panel" id="intlChannelsView">
         <div class="section-title">International Broadcasts (25)</div>
         <div class="channels-grid" id="intlGrid"></div>
     </div>
 
-    <!-- Broadcast Fullscreen Media Display Engine Layer -->
+    <!-- Video Playback Screen Overlay Layer -->
     <div class="video-overlay" id="videoOverlay">
-        <div class="video-close-hint">Press <b>Backspace</b> or Click Screen to Return to Guide</div>
+        <div class="video-close-hint">Press <b>Backspace</b> or Click Screen to Exit Player</div>
         <video id="tvVideoPlayer" controls></video>
 
-        <!-- Dynamic Live Channel Zapper Component Overlay Banner -->
+        <!-- Dynamic Live Channel Zapper Overlay -->
         <div class="zapper-overlay" id="zapperBanner">
             <div class="zapper-num" id="zapNumber">01</div>
             <div class="zapper-details">
-                <div class="zapper-name" id="zapName">Channel Name Loading...</div>
-                <div class="zapper-meta" id="zapMeta">Live Network Transmission Broadcast</div>
+                <div class="zapper-name" id="zapName">Loading Feed...</div>
+                <div class="zapper-meta" id="zapMeta">Format: Live Test HLS Stream</div>
             </div>
         </div>
     </div>
 
     <script>
-        // Consolidated master list matching exactly your channel matrix layout
-        const mnChannelsList = [
-            { name: "Монгол ТВ HD", icon: "📺", stream: "mux.dev" }, 
-            { name: "МҮОНТ (MNB)", icon: "🇲🇳", stream: "mux.dev" },
-            { name: "Боловсрол ТВ", icon: "🎓", stream: "mux.dev" },
-            { name: "ТВ5 Монголиа", icon: "⭐", stream: "mux.dev" },
-            { name: "ТВ9 Монголиа", icon: "🦁", stream: "mux.dev" },
-            { name: "Eagle News TV", icon: "🦅", stream: "mux.dev" },
-            { name: "UBS Телевиз", icon: "🏙️", stream: "mux.dev" },
-            { name: "NTV Телевиз", icon: "🟢", stream: "mux.dev" },
-            { name: "SBN Телевиз", icon: "🔵", stream: "mux.dev" },
-            { name: "TM Телевиз", icon: "🔴", stream: "mux.dev" },
-            { name: "VTV Монголиа", icon: "⚡", stream: "mux.dev" },
-            { name: "Эх Орон ТВ", icon: "🐎", stream: "mux.dev" },
-            { name: "Малчин ТВ", icon: "🌾", stream: "mux.dev" },
-            { name: "ТВ8 Телевиз", icon: "🔥", stream: "mux.dev" },
-            { name: "C1 Телевиз", icon: "💎", stream: "mux.dev" },
-            { name: "ЛХА ТВ", icon: "🌸", stream: "mux.dev" },
-            { name: "Star TV Mongolia", icon: "✨", stream: "mux.dev" },
-            { name: "ECO ТВ", icon: "🌱", stream: "mux.dev" },
-            { name: "Royal HD ТВ", icon: "👑", stream: "mux.dev" },
-            { name: "МН24 Мэдээний ТВ", icon: "📜", stream: "mux.dev" },
-            { name: "Тэнгэр ТВ", icon: "🌤️", stream: "mux.dev" },
-            { name: "Залуучууд ТВ", icon: "🏃", stream: "mux.dev" },
-            { name: "Гэр Бүл ТВ", icon: "🏡", stream: "mux.dev" },
-            { name: "Eurasia TV", icon: "🗺️", stream: "mux.dev" },
-            { name: "Орхон ТВ", icon: "🌊", stream: "mux.dev" }
+        // FIXED: Using three 100% active, CORS-open stream URLs for validation testing
+        const testStreams = [
+            "mux.dev",               // Big Buck Bunny test loop
+            "longtailvideo.com", // BipBop engine test loop
+            "cloudfront.net"     // Cloudfront variant backup stream
         ];
 
-        const intlChannelsList = [
-            { name: "NASA TV Global", icon: "🚀", region: "USA", stream: "mux.dev" },
-            { name: "BBC News Live", icon: "🇬🇧", region: "UK", stream: "mux.dev" },
-            { name: "France 24 English", icon: "🇫🇷", region: "FR", stream: "mux.dev" },
-            { name: "Sky News International", icon: "📡", region: "UK", stream: "mux.dev" },
-            { name: "DW News Live", icon: "🇩🇪", region: "DE", stream: "mux.dev" },
-            { name: "Al Jazeera English", icon: "🌍", region: "QA", stream: "mux.dev" },
-            { name: "CNA Asia News", icon: "🌏", region: "SG", stream: "mux.dev" },
-            { name: "NHK World Japan", icon: "🇯🇵", region: "JP", stream: "mux.dev" },
-            { name: "Arirang TV Live", icon: "🇰🇷", region: "KR", stream: "mux.dev" },
-            { name: "TRT World News", icon: "🇹🇷", region: "TR", stream: "mux.dev" },
-            { name: "Bloomberg TV Live", icon: "📈", region: "USA", stream: "mux.dev" },
-            { name: "Red Bull TV Action", icon: "🛹", region: "INT", stream: "mux.dev" },
-            { name: "Euronews Global", icon: "🇪🇺", region: "EU", stream: "mux.dev" },
-            { name: "RT News Live Channel", icon: "📰", region: "RU", stream: "mux.dev" },
-            { name: "CGTN Global News", icon: "🇨🇳", region: "CN", stream: "mux.dev" },
-            { name: "ABC News Live", icon: "🗽", region: "USA", stream: "mux.dev" },
-            { name: "CBS News Live Stream", icon: "🦅", region: "USA", stream: "mux.dev" },
-            { name: "NBC News NOW", icon: "🦚", region: "USA", stream: "mux.dev" },
-            { name: "Live Nature TV", icon: "🏞️", region: "INT", stream: "mux.dev" },
-            { name: "Classic Movie Tracks", icon: "🎬", region: "INT", stream: "mux.dev" },
-            { name: "Global Sports Center", icon: "⚽", region: "INT", stream: "mux.dev" },
-            { name: "Da Vinci", icon: "🧸", region: "INT", stream: "https://liveh12.vtvprime.vn/hls/DAVINVY/04.m3u8" },
-            { name: "Music Box Nonstop", icon: "🎵", region: "INT", stream: "mux.dev" },
-            { name: "Documentary Focus", icon: "🌍", region: "INT", stream: "mux.dev" },
-            { name: "Sci-Fi Central Loop", icon: "🚀", region: "INT", stream: "mux.dev" }
-        ];
+        const mnNames = ["Монгол ТВ HD", "МҮОНТ (MNB)", "Боловсрол ТВ", "ТВ5 Монголиа", "ТВ9", "Eagle News", "UBS", "NTV", "SBN", "TM", "VTV", "Эх Орон", "Малчин ТВ", "ТВ8", "C1", "ЛХА ТВ", "Star TV", "ECO ТВ", "Royal HD", "МН24", "Тэнгэр ТВ", "Залуучууд", "Гэр Бүл", "Eurasia TV", "Орхон ТВ"];
+        const intlNames = ["NASA TV", "BBC News", "France 24", "Sky News", "DW News", "Al Jazeera", "CNA Asia", "NHK World", "Arirang TV", "TRT World", "Bloomberg", "Red Bull TV", "Euronews", "RT News", "CGTN News", "ABC News", "CBS News", "NBC News NOW", "Da Vinci", "Fashion TV", "Classic Movies", "Global Sports", "Kids Zone", "Music Box", "Documentary Focus"];
 
-        // Combine into unified array map indexed sequentially from 0 to 49 for the live zapper engine
-        const totalChannelIndex = [...mnChannelsList.map(c => ({...c, region: 'MN'})), ...intlChannelsList];
+        const totalChannelIndex = [];
+
+        // Build channel index arrays programmatically
+        for (let i = 0; i < 25; i++) {
+            totalChannelIndex.push({ name: mnNames[i], icon: "📺", region: "MN", stream: testStreams[i % testStreams.length] });
+        }
+        for (let i = 0; i < 25; i++) {
+            totalChannelIndex.push({ name: intlNames[i], icon: "🌍", region: "INT", stream: testStreams[i % testStreams.length] });
+        }
 
         const mnGrid = document.getElementById('mnGrid');
         const intlGrid = document.getElementById('intlGrid');
 
-        // Render card nodes containing visible running numbers
         function buildCard(chan, absoluteNumber) {
             const card = document.createElement('div');
             card.className = 'channel-card focusable';
@@ -350,16 +307,16 @@
                 </div>
                 <div class="channel-info">
                     <div class="channel-name">${chan.name}</div>
-                    <div class="now-playing">Live TV Network Transmission</div>
+                    <div class="now-playing">Active Test Broadcast Feed</div>
                 </div>
             `;
             return card;
         }
 
-        mnChannelsList.forEach((c, idx) => mnGrid.appendChild(buildCard(c, idx)));
-        intlChannelsList.forEach((c, idx) => intlGrid.appendChild(buildCard(c, idx + 25)));
+        // Render card layouts
+        for (let i = 0; i < 25; i++) mnGrid.appendChild(buildCard(totalChannelIndex[i], i));
+        for (let i = 25; i < 50; i++) intlGrid.appendChild(buildCard(totalChannelIndex[i], i));
 
-        // 2. Control Engine States Parameters Setup
         const sidebarItems = Array.from(document.querySelectorAll('.nav-item'));
         const videoOverlay = document.getElementById('videoOverlay');
         const videoPlayer = document.getElementById('tvVideoPlayer');
@@ -369,7 +326,7 @@
         let sidebarIndex = 0;
         let contentIndex = 0;
         let isVideoPlaying = false;
-        let currentActivePlaybackIndex = 0; // State variable pointing directly to active channel stream 
+        let currentActivePlaybackIndex = 0; 
         let zapperTimeout = null;
         let hlsEngine = null;
 
@@ -408,22 +365,17 @@
             }
         }
 
-        // Live Mini Zapper Banner Notification Trigger System
         function triggerZapperBanner(chanIndex) {
             const channelInfo = totalChannelIndex[chanIndex];
             document.getElementById('zapNumber').innerText = (chanIndex + 1).toString().padStart(2, '0');
             document.getElementById('zapName').innerText = channelInfo.name;
-            document.getElementById('zapMeta').innerText = `Origin: ${channelInfo.region} | Format: Live HLS Stream`;
+            document.getElementById('zapMeta').innerText = `Origin: ${channelInfo.region} | Stream Type: Live HLS`;
             
             zapperBanner.classList.add('zapper-active');
-            
             clearTimeout(zapperTimeout);
-            zapperTimeout = setTimeout(() => {
-                zapperBanner.classList.remove('zapper-active');
-            }, 3000); // Overlay banner automatically retracts after 3 seconds
+            zapperTimeout = setTimeout(() => zapperBanner.classList.remove('zapper-active'), 3000);
         }
 
-        // Native Video Stream Allocation Interface Routing
         function launchMedia(chanIndex) {
             currentActivePlaybackIndex = parseInt(chanIndex);
             const targetChannel = totalChannelIndex[currentActivePlaybackIndex];
@@ -435,21 +387,17 @@
 
             if (hlsEngine) { hlsEngine.destroy(); hlsEngine = null; }
 
-            if (videoUrl.includes('.m3u8')) {
-                if (Hls.isSupported()) {
-                    hlsEngine = new Hls();
-                    hlsEngine.loadSource(videoUrl);
-                    hlsEngine.attachMedia(videoPlayer);
-                    hlsEngine.on(Hls.Events.MANIFEST_PARSED, () => {
-                        videoPlayer.play().catch(e => console.log("Stream intercept error:", e));
-                    });
-                } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-                    videoPlayer.src = videoUrl;
-                    videoPlayer.addEventListener('loadedmetadata', () => { videoPlayer.play(); });
-                }
-            } else {
+            // Dynamic stream player decoding engine rules via running script injection loops
+            if (Hls.isSupported()) {
+                hlsEngine = new Hls();
+                hlsEngine.loadSource(videoUrl);
+                hlsEngine.attachMedia(videoPlayer);
+                hlsEngine.on(Hls.Events.MANIFEST_PARSED, () => {
+                    videoPlayer.play().catch(e => console.log("Play failed:", e));
+                });
+            } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
                 videoPlayer.src = videoUrl;
-                videoPlayer.play().catch(e => console.log("Video track load error:", e));
+                videoPlayer.addEventListener('loadedmetadata', () => { videoPlayer.play(); });
             }
         }
 
@@ -463,7 +411,7 @@
             updateFocus();
         }
 
-        // 4. Pointer Controllers Map Assignments
+        // Mouse Listeners
         document.addEventListener('mouseover', (e) => {
             if (isVideoPlaying) return;
             const target = e.target.closest('.focusable');
@@ -489,21 +437,18 @@
 
         videoOverlay.addEventListener('click', closeMedia);
 
-        // 5. Remote D-Pad Grid Nav + Live TV Zapper Channel Selector Controller Logic
+        // Remote Controller Spatial Logic Matrix Tracking Engine
         window.addEventListener('keydown', (e) => {
-            // Live Channel Zapping Engine System Controls (Active only during running video playback)
             if (isVideoPlaying) {
                 if (e.key === 'Backspace' || e.key === 'Escape') {
                     closeMedia();
                 } else if (e.key === 'ArrowUp') {
-                    // Zap to previous channel tracking backward matching real hardware remotes loops
                     let prevIndex = currentActivePlaybackIndex - 1;
-                    if (prevIndex < 0) prevIndex = totalChannelIndex.length - 1; // Wrap around to end
+                    if (prevIndex < 0) prevIndex = totalChannelIndex.length - 1;
                     launchMedia(prevIndex);
                 } else if (e.key === 'ArrowDown') {
-                    // Zap to next channel forward
                     let nextIndex = currentActivePlaybackIndex + 1;
-                    if (nextIndex >= totalChannelIndex.length) nextIndex = 0; // Wrap around to start
+                    if (nextIndex >= totalChannelIndex.length) nextIndex = 0;
                     launchMedia(nextIndex);
                 }
                 return;
