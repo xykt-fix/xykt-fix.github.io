@@ -1,206 +1,99 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamTV Pro - 2026 Edition</title>
+    <title>Global & Mongolian IPTV</title>
+    <link href="https://cloudflare.com" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #101014;
-            --sidebar-color: #1a1a20;
-            --card-color: #25252e;
-            --accent-color: #007bff;
-            --text-color: #ffffff;
-            --text-muted: #a0a0a0;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 250px;
-            background-color: var(--sidebar-color);
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--accent-color);
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .menu-item {
-            padding: 15px;
-            cursor: pointer;
-            border-radius: 8px;
-            color: var(--text-muted);
-            transition: 0.3s;
-            margin-bottom: 5px;
-        }
-
-        .menu-item:hover, .menu-item.active {
-            background-color: var(--card-color);
-            color: var(--text-color);
-        }
-
-        /* Main Content */
-        .content {
-            flex: 1;
-            padding: 30px;
-            overflow-y: auto;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        /* Grid Layout */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: var(--card-color);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            transition: transform 0.2s;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-            border-color: var(--accent-color);
-        }
-
-        .card-img {
-            width: 100%;
-            height: 100px;
-            background-color: #333;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .card-title {
-            font-size: 14px;
-            font-weight: bold;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .hidden { display: none; }
-        
-        /* Settings Table */
-        .settings-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        .settings-table td {
-            padding: 15px;
-            border-bottom: 1px solid #333;
-        }
+        :root { --bg: #0a0c10; --side: #12151c; --accent: #00d2ff; --text: #eee; --card: #1c2129; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
+        nav { width: 80px; background: var(--side); display: flex; flex-direction: column; align-items: center; padding: 20px 0; border-right: 1px solid #222; }
+        .nav-item { margin: 15px 0; font-size: 20px; cursor: pointer; color: #555; transition: 0.3s; text-align: center; }
+        .nav-item.active, .nav-item:hover { color: var(--accent); }
+        main { flex: 1; padding: 20px 40px; overflow-y: auto; }
+        .search-bar { background: var(--card); border: 1px solid #333; padding: 10px 20px; border-radius: 20px; color: white; width: 300px; margin-bottom: 20px; outline: none; }
+        h2 { border-left: 4px solid var(--accent); padding-left: 12px; margin-top: 30px; font-weight: 400; font-size: 1.2rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
+        .card { background: var(--card); border-radius: 8px; overflow: hidden; transition: 0.3s; cursor: pointer; border: 1px solid transparent; }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 5px 15px rgba(0,210,255,0.2); }
+        .card-img { width: 100%; aspect-ratio: 16/9; background: #252a33; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; text-align: center; color: #888; }
+        .card-title { padding: 10px; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .tag { font-size: 10px; background: #333; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+        /* Player Modal */
+        #player-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; }
+        .video-box { width: 80%; max-width: 900px; aspect-ratio: 16/9; background: #000; border-radius: 8px; position: relative; border: 1px solid #333; }
+        .close-btn { position: absolute; top: -40px; right: 0; color: white; font-size: 30px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- Sidebar Navigation -->
-    <div class="sidebar">
-        <div class="logo">StreamTV</div>
-        <div class="menu-item active" onclick="showSection('live')">📺 Live TV</div>
-        <div class="menu-item" onclick="showSection('movies')">🎬 Movies</div>
-        <div class="menu-item" onclick="showSection('shows')">🍿 TV Shows</div>
-        <div class="menu-item" onclick="showSection('settings')">⚙️ Settings</div>
-    </div>
+    <nav>
+        <div class="nav-item active"><i class="fas fa-tv"></i><br><small>TV</small></div>
+        <div class="nav-item"><i class="fas fa-film"></i><br><small>VOD</small></div>
+        <div class="nav-item"><i class="fas fa-cog"></i><br><small>SET</small></div>
+    </nav>
 
-    <!-- Main Section -->
-    <div class="content">
-        <div class="header">
-            <h1 id="section-title">Live TV</h1>
-            <input type="text" placeholder="Search..." style="padding: 10px; border-radius: 5px; border:none; background:#25252e; color:white;">
-        </div>
+    <main>
+        <input type="text" class="search-bar" placeholder="Search 50 channels...">
+        
+        <h2>Mongolian Channels (25)</h2>
+        <div class="grid" id="mn-grid"></div>
 
-        <!-- Live TV Grid (50 Placeholder Items) -->
-        <div id="live-section" class="grid">
-            <script>
-                for (let i = 1; i <= 50; i++) {
-                    document.write(`
-                        <div class="card">
-                            <div class="card-img">Ch ${i}</div>
-                            <div class="card-title">Channel Name ${i}</div>
-                        </div>
-                    `);
-                }
-            </script>
-        </div>
+        <h2>Foreign Channels (25)</h2>
+        <div class="grid" id="intl-grid"></div>
+    </main>
 
-        <!-- Movies Section -->
-        <div id="movies-section" class="grid hidden">
-            <div class="card"><div class="card-img">🎬</div><div class="card-title">The Matrix</div></div>
-            <div class="card"><div class="card-img">🎬</div><div class="card-title">Inception</div></div>
-        </div>
-
-        <!-- TV Shows Section -->
-        <div id="shows-section" class="grid hidden">
-            <div class="card"><div class="card-img">🍿</div><div class="card-title">Breaking Bad</div></div>
-            <div class="card"><div class="card-img">🍿</div><div class="card-title">The Office</div></div>
-        </div>
-
-        <!-- Settings Section -->
-        <div id="settings-section" class="hidden" style="background:var(--card-color); padding:20px; border-radius:10px;">
-            <h2>System Settings</h2>
-            <table class="settings-table">
-                <tr><td>Account Status</td><td><span style="color:lightgreen">Active</span></td></tr>
-                <tr><td>Playlist URL</td><td>http://iptv.provider...</td></tr>
-                <tr><td>EPG Sync</td><td><button>Sync Now</button></td></tr>
-                <tr><td>Parental Control</td><td><button>Set PIN</button></td></tr>
-            </table>
+    <div id="player-modal" onclick="closePlayer()">
+        <div class="video-box" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="closePlayer()">&times;</span>
+            <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(#222, #000);">
+                <i class="fas fa-play-circle" style="font-size: 60px; color: var(--accent); margin-bottom: 15px;"></i>
+                <h3 id="playing-now">Loading Stream...</h3>
+                <p style="color: #666; font-size: 14px;">Playback starts in a few seconds</p>
+            </div>
         </div>
     </div>
 
     <script>
-        function showSection(section) {
-            // Hide all sections
-            document.getElementById('live-section').classList.add('hidden');
-            document.getElementById('movies-section').classList.add('hidden');
-            document.getElementById('shows-section').classList.add('hidden');
-            document.getElementById('settings-section').classList.add('hidden');
-            
-            // Remove active class
-            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+        const mnChannels = [
+            "MNB", "Mongol HD", "Eagle News", "NTV", "TV5", "TV9", "UBS", "MN25", "SBN", "C1", 
+            "ETV", "Edutainment TV", "Bloomberg TV", "MNC", "VTV", "TV8", "SPS Sports", "SPS NBA", 
+            "Mass TV", "Ekh Oron TV", "Moviebox", "AsianBox", "Dream TV", "Star TV", "Suld TV"
+        ];
 
-            // Show selected section
-            document.getElementById(section + '-section').classList.remove('hidden');
-            
-            // Set Title
-            document.getElementById('section-title').innerText = section.charAt(0).toUpperCase() + section.slice(1) + (section === 'live' ? ' TV' : '');
-            
-            // Mark menu active
-            event.currentTarget.classList.add('active');
+        const intlChannels = [
+            "CNN International", "BBC World News", "Al Jazeera", "HBO HD", "Warner TV", "National Geographic", 
+            "Discovery Channel", "Animal Planet", "Da Vinci", "Nickelodeon", "Cartoon Network", 
+            "ESPN", "Sky Sports News", "Fox News", "CNBC", "Bloomberg Global", "Eurosport", 
+            "MTV Global", "VH1 Classic", "Fashion TV", "CCTV News", "Arirang TV", "NHK World", 
+            "France 24", "TV5Monde"
+        ];
+
+        function loadChannels(list, containerId, type) {
+            const container = document.getElementById(containerId);
+            list.forEach(name => {
+                container.innerHTML += `
+                    <div class="card" onclick="openPlayer('${name}')">
+                        <div class="card-img" style="background: ${type === 'mn' ? '#1e3c72' : '#444'}">
+                            ${name.toUpperCase()}
+                        </div>
+                        <div class="card-title">${name} <span class="tag">${type === 'mn' ? 'MN' : 'INTL'}</span></div>
+                    </div>`;
+            });
         }
+
+        function openPlayer(name) {
+            document.getElementById('playing-now').innerText = name;
+            document.getElementById('player-modal').style.display = 'flex';
+        }
+
+        function closePlayer() {
+            document.getElementById('player-modal').style.display = 'none';
+        }
+
+        loadChannels(mnChannels, 'mn-grid', 'mn');
+        loadChannels(intlChannels, 'intl-grid', 'intl');
     </script>
 </body>
 </html>
