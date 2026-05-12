@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOTV.mn Interface Clone</title>
+    <style>
+        body { margin: 0; background-color: #121212; color: white; font-family: Arial, sans-serif; }
+        header { background-color: #1f1f1f; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e50914; }
+        .logo { color: #e50914; font-size: 24px; font-weight: bold; }
+        nav a { color: white; text-decoration: none; margin-left: 15px; }
+        .container { padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+        .card { background-color: #1f1f1f; border-radius: 5px; overflow: hidden; transition: transform 0.2s; }
+        .card:hover { transform: scale(1.05); }
+        .card-img { width: 100%; height: 220px; background-color: #333; }
+        .card-title { padding: 10px; font-size: 14px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">MOTV</div>
+    <nav>
+        <a href="#">Нүүр</a>
+        <a href="#">Кино</a>
+        <a href="#">ТВ</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Онцлох</h2>
+    <div class="grid">
+        <!-- Sample Content Cards -->
+        <div class="card">
+            <div class="card-img"></div>
+            <div class="card-title">Кино 1</div>
+        </div>
+        <div class="card">
+            <div class="card-img"></div>
+            <div class="card-title">Кино 2</div>
+        </div>
+        <div class="card">
+            <div class="card-img"></div>
+            <div class="card-title">Кино 3</div>
+        </div>
+        <div class="card">
+            <div class="card-img"></div>
+            <div class="card-title">Кино 4</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
