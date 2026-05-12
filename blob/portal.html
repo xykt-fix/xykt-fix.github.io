@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TV PORTAL</title>
+    <title>TV Land PORTAL</title>
     <style>
         :root {
             --bg-color: #0d0f12;
@@ -12,6 +12,7 @@
             --accent-color: #0078ff;
             --text-color: #ffffff;
             --text-muted: #8a96a3;
+            --live-red: #ff3b30;
         }
 
         * {
@@ -31,7 +32,7 @@
             display: flex;
         }
 
-        /* Sidebar Navigation */
+        /* Navigation Sidebar */
         .sidebar {
             width: 240px;
             background-color: var(--sidebar-color);
@@ -41,6 +42,7 @@
             padding: 40px 20px;
             gap: 20px;
             border-right: 1px solid #232833;
+            flex-shrink: 0;
         }
 
         .logo {
@@ -61,83 +63,123 @@
             border: 2px solid transparent;
         }
 
-        /* Main Content Dashboard */
+        /* Channels Guide Content Window */
         .main-content {
             flex: 1;
             height: 100%;
             padding: 40px;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 25px;
+            overflow-y: scroll; /* Required for deep-scrolling 50 items */
         }
 
-        .hero-banner {
-            width: 100%;
-            height: 260px;
-            background: linear-gradient(90deg, rgba(0,120,255,0.4) 0%, rgba(21,24,31,0.9) 100%), url('picsum.photos') center/cover;
-            border-radius: 12px;
+        .main-content::-webkit-scrollbar { display: none; }
+
+        .header-row {
             display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            justify-content: space-between;
+            align-items: center;
         }
-
-        .hero-banner h1 { font-size: 32px; margin-bottom: 8px; }
-        .hero-banner p { color: #e1e1e1; font-size: 16px; max-width: 500px; }
 
         .section-title {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 600;
         }
 
-        .row-container {
-            display: flex;
-            gap: 25px; /* Spaces out your app cards layout */
-            overflow-x: auto;
-            padding: 10px 5px;
+        .channel-counter {
+            background: #232833;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--text-muted);
+            border: 1px solid #333;
         }
 
-        .row-container::-webkit-scrollbar { display: none; }
+        /* 50-Item Grid Layout */
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            width: 100%;
+            padding-bottom: 60px; /* Padding for bottom grid rows */
+        }
 
-        .card {
-            min-width: 210px;
-            width: 210px;
-            height: 125px;
+        /* Channel Card UI Elements */
+        .channel-card {
             background-color: var(--card-bg);
             border-radius: 10px;
-            position: relative;
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
             border: 3px solid transparent;
+            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            height: 170px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
-        .card img {
+        .thumbnail-wrapper {
+            position: relative;
+            width: 100%;
+            height: 110px;
+            background-color: #1a1a1a;
+        }
+
+        .thumbnail-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .card-title {
+        .live-badge {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 10px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            font-size: 14px;
-            text-align: center;
-            font-weight: 500;
+            top: 10px;
+            left: 10px;
+            background-color: var(--live-red);
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 3px;
+            text-transform: uppercase;
         }
 
-        /* Focus engine systems */
+        .channel-info {
+            padding: 10px 14px;
+            background-color: #161a21;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .channel-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .now-playing {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Remote D-Pad Highlight Rules */
         .focusable:focus, .focusable.focused {
             outline: none;
             border-color: var(--accent-color);
-            transform: scale(1.08);
+            transform: scale(1.05);
             box-shadow: 0 0 20px rgba(0, 120, 255, 0.5);
-            z-index: 10;
+            z-index: 5;
         }
         
         .nav-item.focused {
@@ -148,7 +190,7 @@
             box-shadow: none;
         }
 
-        /* Video Player Fullscreen Overlay */
+        /* Media Overlay Component */
         .video-overlay {
             position: fixed;
             top: 0;
@@ -157,7 +199,7 @@
             height: 100vh;
             background-color: #000;
             z-index: 100;
-            display: none; /* Hidden by default */
+            display: none;
             justify-content: center;
             align-items: center;
         }
@@ -168,91 +210,114 @@
             object-fit: contain;
         }
 
-        /* Close hints instruction */
         .video-close-hint {
             position: absolute;
             top: 30px;
             right: 30px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 20px;
-            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 12px 24px;
+            border-radius: 30px;
             font-size: 14px;
             pointer-events: none;
             border: 1px solid #333;
+            z-index: 110;
         }
     </style>
 </head>
 <body>
 
-    <!-- Left Sidebar Navigation Menu -->
+    <!-- Left System Navigation Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="logo">BOX TV</div>
-        <div class="nav-item focusable focused" data-type="nav">Home</div>
+        <div class="nav-item focusable" data-type="nav">Home</div>
+        <div class="nav-item focusable focused" data-type="nav">Live Channels</div>
         <div class="nav-item focusable" data-type="nav">Movies</div>
         <div class="nav-item focusable" data-type="nav">TV Shows</div>
-        <div class="nav-item focusable" data-type="nav">Apps</div>
         <div class="nav-item focusable" data-type="nav">Settings</div>
     </div>
 
-    <!-- Right Side Dashboard Grid Layout -->
-    <div class="main-content">
-        <div class="hero-banner">
-            <h1>Featured Content</h1>
-            <p>Stream your favorite movies, channels, and applications instantly on the main launcher interface.</p>
+    <!-- Main Dynamic Content Engine -->
+    <div class="main-content" id="mainDashboard">
+        <div class="header-row">
+            <div class="section-title">Live TV Grid Guide</div>
+            <div class="channel-counter">Total Channels: <span id="totalCount">50</span></div>
         </div>
-
-        <div class="section-title">Recent Applications</div>
-        <div class="row-container" id="app-row">
-            <!-- App cards separated with unique random image paths -->
-            <div class="card focusable" data-type="card" data-video="googleapis.com"><img src="picsum.photos" alt="App"><div class="card-title">Netflix</div></div>
-            <div class="card focusable" data-type="card" data-video="googleapis.com"><img src="picsum.photos" alt="App"><div class="card-title">YouTube</div></div>
-            <div class="card focusable" data-type="card" data-video="googleapis.com"><img src="picsum.photos" alt="App"><div class="card-title">Prime Video</div></div>
-            <div class="card focusable" data-type="card" data-video="googleapis.com"><img src="picsum.photos" alt="App"><div class="card-title">Plex</div></div>
-            <div class="card focusable" data-type="card" data-video="googleapis.com"><img src="picsum.photos" alt="App"><div class="card-title">Twitch</div></div>
-        </div>
+        
+        <!-- Target Grid populated dynamically by script logic -->
+        <div class="channels-grid" id="channelsGrid"></div>
     </div>
 
-    <!-- Video Player Native Overlay Setup -->
+    <!-- Video Playback Overlay Module -->
     <div class="video-overlay" id="videoOverlay">
-        <div class="video-close-hint">Press <b>Backspace</b> or Click Screen to Exit</div>
+        <div class="video-close-hint">Press <b>Backspace</b> or Click Screen to Return to Guide</div>
         <video id="tvVideoPlayer" controls></video>
     </div>
 
-    <!-- Spatial Navigation and Control Script Logic -->
     <script>
+        // Array of unique channel names and dummy streams to fill the 50 channels layout
+        const categories = ["News", "Cinema", "Sports", "Docs", "Action", "Family", "Music", "Sci-Fi"];
+        const gridContainer = document.getElementById('channelsGrid');
+        
+        // 1. Dynamic generation script loop for 50 Channel elements
+        for (let i = 1; i <= 50; i++) {
+            const category = categories[i % categories.length];
+            const channelCard = document.createElement('div');
+            channelCard.className = 'channel-card focusable';
+            channelCard.setAttribute('data-type', 'channel');
+            channelCard.setAttribute('data-video', 'googleapis.com');
+            
+            channelCard.innerHTML = `
+                <div class="thumbnail-wrapper">
+                    <span class="live-badge">Live</span>
+                    <img src="picsum.photos{i}/260/110" alt="Cover">
+                </div>
+                <div class="channel-info">
+                    <div class="channel-name">CH ${i.toString().padStart(2, '0')} | ${category} Network HD</div>
+                    <div class="now-playing">Now Broadcast: Current Program Stream #${i}</div>
+                </div>
+            `;
+            gridContainer.appendChild(channelCard);
+        }
+
+        // 2. Spatial Navigation Logic Engine Setup
         const sidebarItems = Array.from(document.querySelectorAll('.nav-item'));
-        const cardItems = Array.from(document.querySelectorAll('.card'));
+        let channelItems = Array.from(document.querySelectorAll('.channel-card'));
         const videoOverlay = document.getElementById('videoOverlay');
         const videoPlayer = document.getElementById('tvVideoPlayer');
         
         let currentSection = 'sidebar'; 
-        let sidebarIndex = 0;
-        let cardIndex = 0;
+        let sidebarIndex = 1; 
+        let channelIndex = 0;
         let isVideoPlaying = false;
 
+        function getGridColumnsCount() {
+            const grid = document.querySelector('.channels-grid');
+            return window.getComputedStyle(grid).getPropertyValue('grid-template-columns').split(' ').length;
+        }
+
         function updateFocus() {
-            if (isVideoPlaying) return; // Freeze UI selector track if player is active
+            if (isVideoPlaying) return;
             
             document.querySelectorAll('.focusable').forEach(el => el.classList.remove('focused'));
 
             if (currentSection === 'sidebar') {
                 sidebarItems[sidebarIndex].classList.add('focused');
                 sidebarItems[sidebarIndex].scrollIntoView({ block: 'nearest' });
-            } else if (currentSection === 'content') {
-                cardItems[cardIndex].classList.add('focused');
-                cardItems[cardIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+            } else if (currentSection === 'channelGrid') {
+                channelItems[channelIndex].classList.add('focused');
+                // Center viewport dynamically when scrolling deep channels grids rows
+                channelItems[channelIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
 
-        // Functions to Open/Close Video Player Screen
-        function launchVideo(videoUrl) {
+        function launchChannel(videoUrl) {
             videoPlayer.src = videoUrl;
             videoOverlay.style.display = 'flex';
             videoPlayer.play();
             isVideoPlaying = true;
         }
 
-        function closeVideo() {
+        function closeChannel() {
             videoPlayer.pause();
             videoPlayer.src = "";
             videoOverlay.style.display = 'none';
@@ -260,14 +325,13 @@
             updateFocus();
         }
 
-        // Click Logic for Grid Items
+        // 3. Attach Hybrid Control Interfaces (Click + Hover + Keyboard Keydowns)
         document.querySelectorAll('.focusable').forEach((element) => {
             element.addEventListener('click', () => {
-                if (element.classList.contains('card')) {
-                    const targetVideo = element.getAttribute('data-video');
-                    launchVideo(targetVideo);
+                if (element.classList.contains('channel-card')) {
+                    launchChannel(element.getAttribute('data-video'));
                 } else {
-                    alert('Opened Navigation: ' + element.innerText.trim());
+                    alert('Opened view context: ' + element.innerText.trim());
                 }
             });
 
@@ -276,48 +340,56 @@
                 if (element.classList.contains('nav-item')) {
                     currentSection = 'sidebar';
                     sidebarIndex = sidebarItems.indexOf(element);
-                } else if (element.classList.contains('card')) {
-                    currentSection = 'content';
-                    cardIndex = cardItems.indexOf(element);
+                } else if (element.classList.contains('channel-card')) {
+                    currentSection = 'channelGrid';
+                    channelIndex = channelItems.indexOf(element);
                 }
                 updateFocus();
             });
         });
 
-        // Click video overlay background to exit
-        videoOverlay.addEventListener('click', closeVideo);
+        videoOverlay.addEventListener('click', closeChannel);
 
-        // Remote Controller Key Mapping Logic
+        // 4. Multi-Row Deep Grid D-Pad Calculation Engine
         window.addEventListener('keydown', (e) => {
             if (isVideoPlaying) {
-                // Exit video window on Backspace or Escape keys
-                if (e.key === 'Backspace' || e.key === 'Escape') {
-                    closeVideo();
-                }
+                if (e.key === 'Backspace' || e.key === 'Escape') closeChannel();
                 return;
             }
 
+            const columns = getGridColumnsCount();
+
             switch(e.key) {
                 case 'ArrowUp':
-                    if (currentSection === 'sidebar' && sidebarIndex > 0) sidebarIndex--;
+                    if (currentSection === 'sidebar' && sidebarIndex > 0) {
+                        sidebarIndex--;
+                    } else if (currentSection === 'channelGrid') {
+                        if (channelIndex >= columns) channelIndex -= columns;
+                    }
                     break;
                 case 'ArrowDown':
-                    if (currentSection === 'sidebar' && sidebarIndex < sidebarItems.length - 1) sidebarIndex++;
+                    if (currentSection === 'sidebar' && sidebarIndex < sidebarItems.length - 1) {
+                        sidebarIndex++;
+                    } else if (currentSection === 'channelGrid') {
+                        if (channelIndex + columns < channelItems.length) channelIndex += columns;
+                    }
                     break;
                 case 'ArrowLeft':
-                    if (currentSection === 'content') {
-                        if (cardIndex > 0) {
-                            cardIndex--;
+                    if (currentSection === 'channelGrid') {
+                        if (channelIndex % columns > 0) {
+                            channelIndex--;
                         } else {
-                            currentSection = 'sidebar';
+                            currentSection = 'sidebar'; // Backtrack to Navigation
                         }
                     }
                     break;
                 case 'ArrowRight':
                     if (currentSection === 'sidebar') {
-                        currentSection = 'content';
-                    } else if (currentSection === 'content' && cardIndex < cardItems.length - 1) {
-                        cardIndex++;
+                        currentSection = 'channelGrid';
+                    } else if (currentSection === 'channelGrid') {
+                        if ((channelIndex % columns < columns - 1) && (channelIndex < channelItems.length - 1)) {
+                            channelIndex++;
+                        }
                     }
                     break;
                 case 'Enter':
@@ -327,6 +399,8 @@
             }
             updateFocus();
         });
+
+        window.addEventListener('resize', () => { updateFocus(); });
     </script>
 </body>
 </html>
