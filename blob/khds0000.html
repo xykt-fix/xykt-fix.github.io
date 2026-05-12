@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <title>Retro DDishTV Interface</title>
+    <style>
+        :root {
+            --ddish-teal: #00e5d1;
+            --ddish-dark: #004d47;
+            --ddish-bg: #001a18;
+        }
+
+        body {
+            background-color: #222;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Main Container */
+        .stb-container {
+            width: 850px;
+            height: 500px;
+            background-color: var(--ddish-bg);
+            border: 8px solid var(--ddish-teal);
+            border-radius: 15px;
+            display: flex;
+            padding: 10px;
+            box-shadow: 0 0 30px rgba(0, 229, 209, 0.4);
+            position: relative;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 180px;
+            border-right: 3px solid var(--ddish-teal);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-top: 20px;
+        }
+
+        .side-btn {
+            background: var(--ddish-dark);
+            border: 2px solid var(--ddish-teal);
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .side-btn.active {
+            background: var(--ddish-teal);
+            color: black;
+            font-weight: bold;
+        }
+
+        /* Main Tuning Area */
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .header-title {
+            font-size: 22px;
+            border-bottom: 2px solid var(--ddish-teal);
+            padding-bottom: 5px;
+        }
+
+        .info-box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--ddish-teal);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Signal Bars */
+        .signal-section {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bar-label { width: 30px; font-weight: bold; color: var(--ddish-teal); }
+
+        .progress-bg {
+            flex-grow: 1;
+            height: 12px;
+            background: #111;
+            border: 1px solid var(--ddish-teal);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #ffcc00, #00ff00);
+        }
+
+        .percentage { width: 40px; font-size: 12px; }
+
+        /* Bottom Menu Guide */
+        .bottom-nav {
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            display: flex;
+            gap: 20px;
+            font-size: 12px;
+            color: var(--ddish-teal);
+        }
+    </style>
+</head>
+<body>
+
+<div class="stb-container">
+    <div class="sidebar">
+        <div class="side-btn active">Антен тохируулах</div>
+        <div class="side-btn">Суваг хайх</div>
+        <div class="side-btn">Систем тохиргоо</div>
+        <div class="side-btn">Мэдээлэл</div>
+        <div class="side-btn" style="margin-top: auto;">EXIT: Гарах</div>
+    </div>
+
+    <div class="content">
+        <div class="header-title">Антен тохируулах</div>
+        
+        <div class="info-box">
+            DDishTV: [11300] [OFF] [OFF]<br>
+            Transponder: <span style="color:var(--ddish-teal)">12507 H 43200</span><br>
+            ТВ: 125 Суваг | Радио: 005
+        </div>
+
+        <div class="signal-section">
+            <div class="bar-row">
+                <span class="bar-label">I</span>
+                <div class="progress-bg"><div class="progress-fill" style="width: 85%;"></div></div>
+                <span class="percentage">85%</span>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Q</span>
+                <div class="progress-bg"><div class="progress-fill" style="width: 70%;"></div></div>
+                <span class="percentage">70%</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <span>● MENU: Буцах</span>
+        <span>● OK: Сонгох</span>
+    </div>
+</div>
+
+</body>
+</html>
