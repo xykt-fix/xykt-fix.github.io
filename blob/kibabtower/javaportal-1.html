@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart TV Box - 50 Channel Directory with Zapper</title>
+    <!-- Cloud HLS Engine Decoder Library -->
+    <script src="cloudflare.com"></script>
+    <style>
+        :root {
+            --bg-color: #0d0f12;
+            --sidebar-color: #15181f;
+            --card-bg: #1e232b;
+            --accent-color: #0078ff;
+            --text-color: #ffffff;
+            --text-muted: #8a96a3;
+            --live-red: #ff3b30;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 240px;
+            background-color: var(--sidebar-color);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px;
+            gap: 20px;
+            border-right: 1px solid #232833;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        .nav-item {
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        /* View Panels Routing Configuration */
+        .view-panel {
+            flex: 1;
+            height: 100%;
+            padding: 40px;
+            display: none;
+            flex-direction: column;
+            gap: 25px;
+            overflow-y: auto;
+        }
+
+        .view-panel.active-view { display: flex; }
+        .view-panel::-webkit-scrollbar { display: none; }
+
+        /* Home View Banner Layout */
+        .hero-banner {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(90deg, rgba(0,120,255,0.4) 0%, rgba(21,24,31,0.9) 100%);
+            background-color: #1e293b;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-banner h1 { font-size: 32px; margin-bottom: 8px; }
+        .hero-banner p { color: #e1e1e1; font-size: 16px; max-width: 500px; }
+
+        .section-title { font-size: 22px; font-weight: 600; }
+
+        /* Channel Grids Setup */
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            width: 100%;
+            padding-bottom: 40px;
+        }
+
+        .channel-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            border: 3px solid transparent;
+            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            height: 170px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .thumbnail-wrapper {
+            position: relative;
+            width: 100%;
+            height: 110px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .live-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--live-red);
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+
+        /* NEW: Channel number styling wrapper inside cards */
+        .channel-number-badge {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.75);
+            color: var(--accent-color);
+            font-size: 14px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid #333;
+        }
+
+        .channel-origin {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0,0,0,0.6);
+            color: #fff;
+            font-size: 11px;
+            padding: 3px 6px;
+            border-radius: 3px;
+        }
+
+        .channel-info {
+            padding: 10px 14px;
+            background-color: #161a21;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .channel-name { font-size: 14px; font-weight: 600; color: var(--text-color); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .now-playing { font-size: 12px; color: var(--text-muted); }
+
+        /* Placeholders Styles */
+        .placeholder-view { align-items: center; justify-content: center; text-align: center; }
+        .placeholder-icon { font-size: 64px; margin-bottom: 15px; opacity: 0.4; }
+        .placeholder-view h2 { font-size: 28px; margin-bottom: 10px; }
+        .placeholder-view p { color: var(--text-muted); font-size: 16px; }
+
+        /* UI Focus System Mechanics */
+        .focusable:focus, .focusable.focused {
+            outline: none;
+            border-color: var(--accent-color) !important;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 120, 255, 0.5);
+            z-index: 5;
+        }
+        
+        .nav-item.focused {
+            background-color: #232833;
+            color: var(--text-color);
+            border-left: 4px solid var(--accent-color);
+            transform: scale(1.02);
+            box-shadow: none;
+        }
+
+        /* Native Live Player Screen Window Overlay */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            z-index: 100;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-overlay video { width: 100%; height: 100%; object-fit: contain; }
+        
+        .video-close-hint {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            pointer-events: none;
+            border: 1px solid #333;
+            z-index: 110;
+        }
+
+        /* NEW: Smart TV Zapper Bar Styling */
+        .zapper-bar {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            background: rgba(21, 24, 31, 0.95);
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            z-index: 120;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .zapper-bar.visible { opacity: 1; }
+        .zapper-number { font-size: 36px; font-weight: bold; color: var(--accent-color); font-family: monospace; }
+        .zapper-icon { font-size: 32px; }
+        .zapper-details { flex-grow: 1; display: flex; flex-direction: column; gap: 2px; }
+        .zapper-title { font-size: 18px; font-weight: bold; color: #fff; }
+        .zapper-meta { font-size: 14px; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+    <!-- Left Menu Navigation Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">BOX TV</div>
+        <div class="nav-item focusable focused" data-type="nav" data-target="homeView">Home</div>
+        <div class="nav-item focusable" data-type="nav" data-target="mnChannelsView">MN Channels</div>
+        <div class="nav-item focusable" data-type="nav" data-target="intlChannelsView">Foreign Channels</div>
+        <div class="nav-item focusable" data-type="nav" data-target="moviesView">Movies</div>
+        <div class="nav-item focusable" data-type="nav" data-target="showsView">TV Shows</div>
+        <div class="nav-item focusable" data-type="nav" data-target="settingsView">Settings</div>
+    </div>
+
+    <!-- VIEW 1: Home Dashboard Screen -->
+    <div class="view-panel active-view" id="homeView">
+        <div class="hero-banner">
+            <h1>Featured Broadcast</h1>
+            <p>Select "MN Channels" or "Foreign Channels" to watch live streams. Use Arrow Up/Down to zap channels inside the player.</p>
+        </div>
+        <div class="section-title">Quick Shortcuts</div>
+        <div class="channels-grid" id="featuredShortcutsGrid"></div>
+    </div>
+
+    <!-- VIEW 2: 25 Mongolian Channels Grid -->
+    <div class="view-panel" id="mnChannelsView">
+        <div class="section-title">Mongolian National Channels (25)</div>
+        <div class="channels-grid" id="mnGrid"></div>
+    </div>
+
+    <!-- VIEW 3: 25 Foreign Channels Grid -->
+    <div class="view-panel" id="intlChannelsView">
+        <div class="section-title">International Broadcasts (25)</div>
+        <div class="channels-grid" id="intlGrid"></div>
+    </div>
+
+    <!-- VIEWS 4, 5, 6: Coming Soon Panels -->
+    <div class="view-panel placeholder-view" id="moviesView"><div class="placeholder-icon">🎬</div><h2>Movies Module</h2><p>Feature coming soon...</p></div>
+    <div class="view-panel placeholder-view" id="showsView"><div class="placeholder-icon">🎭</div><h2>TV Shows Module</h2><p>Feature coming soon...</p></div>
+    <div class="view-panel placeholder-view" id="settingsView"><div class="placeholder-icon">⚙️</div><h2>System Configuration</h2><p>Settings coming soon...</p></div>
+
+    <!-- Fullscreen Video Streaming Layer Component Overlay -->
+    <div class="video-overlay" id="videoOverlay">
+        <div class="video-close-hint">Press <b>Backspace</b> or Click Screen to Exit Player. Use <b>▲ / ▼ Arrow Keys</b> to Zap.</div>
+        <video id="tvVideoPlayer"></video>
+        
+        <!-- NEW: Live Channel Zapper Information Banner Bar -->
+        <div class="zapper-bar" id="zapperBar">
+            <div class="zapper-number" id="zapNumber">01</div>
+            <div class="zapper-icon" id="zapIcon">📺</div>
+            <div class="zapper-details">
+                <div class="zapper-title" id="zapTitle">Channel Name</div>
+                <div class="zapper-meta">Live TV Network Broadcast Feed</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Combined master directory containing 50 channels total (25 MN and 25 Foreign)
+        const mnChannelsList = [
+            { name: "Монгол ТВ HD", icon: "📺", stream: "mux.dev" },
+            { name: "МҮОНТ (MNB)", icon: "🇲🇳", stream: "cloudfront.net" },
+            { name: "Боловсрол ТВ", icon: "🎓", stream: "cloudfront.net" },
+            { name: "ТВ5 Монголиа", icon: "⭐", stream: "mux.dev" },
+            { name: "ТВ9 Монголиа", icon: "🦁", stream: "cloudfront.net" },
+            { name: "Eagle News TV", icon: "🦅", stream: "cloudfront.net" },
+            { name: "UBS Телевиз", icon: "🏙️", stream: "mux.dev" },
+            { name: "NTV Телевиз", icon: "🟢", stream: "cloudfront.net" },
+            { name: "SBN Телевиз", icon: "🔵", stream: "cloudfront.net" },
+            { name: "TM Телевиз", icon: "🔴", stream: "mux.dev" },
+            { name: "VTV Монголиа", icon: "⚡", stream: "cloudfront.net" },
+            { name: "Эх Орон ТВ", icon: "🐎", stream: "cloudfront.net" },
+            { name: "Малчин ТВ", icon: "🌾", stream: "mux.dev" },
+            { name: "ТВ8 Телевиз", icon: "🔥", stream: "cloudfront.net" },
+            { name: "C1 Телевиз", icon: "💎", stream: "cloudfront.net" },
+            { name: "ЛХА ТВ", icon: "🌸", stream: "mux.dev" },
+            { name: "Star TV Mongolia", icon: "✨", stream: "cloudfront.net" },
+            { name: "ECO ТВ", icon: "🌱", stream: "cloudfront.net" },
+            { name: "Royal HD ТВ", icon: "👑", stream: "mux.dev" },
+            { name: "МН24 Мэдээний ТВ", icon: "📜", stream: "cloudfront.net" },
+            { name: "Тэнгэр ТВ", icon: "🌤️", stream: "cloudfront.net" },
+            { name: "Залуучууд ТВ", icon: "🏃", stream: "mux.dev" },
+            { name: "Гэр Бүл ТВ", icon: "🏡", stream: "cloudfront.net" },
+            { name: "Eurasia TV", icon: "🗺️", stream: "cloudfront.net" },
+            { name: "Орхон ТВ", icon: "🌊", stream: "mux.dev" }
+        ];
+
+        const intlChannelsList = [
+            { name: "NASA TV Global", icon: "🚀", region: "USA", stream: "mux.dev" },
+            { name: "BBC News Live", icon: "🇬🇧", region: "UK", stream: "cloudfront.net" },
+            { name: "France 24 English", icon: "🇫🇷", region: "FR", stream: "cloudfront.net" },
+            { name: "Sky News International", icon: "📡", region: "UK", stream: "mux.dev" },
+            { name: "DW News Live", icon: "🇩🇪", region: "DE", stream: "cloudfront.net" },
+            { name: "Al Jazeera English", icon: "🌍", region: "QA", stream: "cloudfront.net" },
+            { name: "CNA Asia News", icon: "🌏", region: "SG", stream: "mux.dev" },
+            { name: "NHK World Japan", icon: "🇯🇵", region: "JP", stream: "cloudfront.net" },
+            { name: "Arirang TV Live", icon: "🇰🇷", region: "KR", stream: "cloudfront.net" },
+            { name: "TRT World News", icon: "🇹🇷", region: "TR", stream: "mux.dev" },
+            { name: "Bloomberg TV Live", icon: "📈", region: "USA", stream: "cloudfront.net" },
+            { name: "Red Bull TV Action", icon: "🛹", region: "INT", stream: "cloudfront.net" },
+            { name: "Euronews Global", icon: "🇪🇺", region: "EU", stream: "mux.dev" },
+            { name: "RT News Live Channel", icon: "📰", region: "RU", stream: "cloudfront.net" },
+            { name: "CGTN Global News", icon: "🇨🇳", region: "CN", stream: "cloudfront.net" },
+            { name: "ABC News Live", icon: "🗽", region: "USA", stream: "mux.dev" },
+            { name: "CBS News Live Stream", icon: "🦅", region: "USA", stream: "cloudfront.net" },
+            { name: "NBC News NOW", icon: "🦚", region: "USA", stream: "cloudfront.net" },
+            { name: "Live Nature TV", icon: "🏞️", region: "INT", stream: "mux.dev" },
+            { name: "Classic Movie Tracks", icon: "🎬", region: "INT", stream: "cloudfront.net" },
+            { name: "Global Sports Center", icon: "⚽", region: "INT", stream: "cloudfront.net" },
+            { name: "Kids Zone Cartoon", icon: "🧸", region: "INT", stream: "mux.dev" },
+            { name: "Music Box Nonstop", icon: "🎵", region: "INT", stream: "cloudfront.net" },
+            { name: "Documentary Focus", icon: "🌍", region: "INT", stream: "cloudfront.net" },
+            { name: "Sci-Fi Central Loop", icon: "🚀", region: "INT", stream: "mux.dev" }
+        ];
+
+        // Combine into unified data matrix array for zapper indexes calculations
+        const masterChannelsList = [
+            ...mnChannelsList.map((c, i) => ({ ...c, displayNum: i + 1, region: "MN" })),
+            ...intlChannelsList.map((c, i) => ({ ...c, displayNum: i + 26, region: c.region }))
+        ];
+
+        // 1. Dynamic Element Grid Rendering Loops
+        const mnGrid = document.getElementById('mnGrid');
+        const intlGrid = document.getElementById('intlGrid');
+        const shortcutsGrid = document.getElementById('featuredShortcutsGrid');
+
+        function buildCard(chan) {
+            const card = document.createElement('div');
+            card.className = 'channel-card focusable';
+            card.setAttribute('data-type', 'channel');
+            // Save absolute unique global index map tracking positions
+            card.setAttribute('data-global-index', chan.displayNum - 1);
+            card.innerHTML = `
+                <div class="thumbnail-wrapper">
+                    <span class="live-badge">Live</span>
+                    <span class="channel-origin">${chan.region}</span>
+                    <span class="channel-number-badge">CH ${chan.displayNum.toString().padStart(2, '0')}</span>
+                    ${chan.icon}
+                </div>
+                <div class="channel-info">
+                    <div class="channel-name">${chan.name}</div>
+                    <div class="now-playing">Live TV Network Feed</div>
+                </div>
+            `;
+            return card;
+        }
+
+        // Populating discrete view panels grids schemas
+        masterChannelsList.slice(0, 25).forEach(c => mnGrid.appendChild(buildCard(c)));
+        masterChannelsList.slice(25, 50).forEach(c => intlGrid.appendChild(buildCard(c)));
+        for(let i=0; i<4; i++) shortcutsGrid.appendChild(buildCard(masterChannelsList[i]));
+
+        // 2. State Engine Configurations
+        const sidebarItems = Array.from(document.querySelectorAll('.nav-item'));
+        const videoOverlay = document.getElementById('videoOverlay');
+        const videoPlayer = document.getElementById('tvVideoPlayer');
+        const zapperBar = document.getElementById('zapperBar');
+        
+        let currentSection = 'sidebar';
+        let sidebarIndex = 0;
+        let contentIndex = 0;
+        let isVideoPlaying = false;
+        let activeGlobalStreamIndex = 0; // Tracks active channel index for zapping metrics
+        let zapperTimeout = null;
+        let hlsEngine = null;
+
+        function getContentItems() {
+            const activeView = document.querySelector('.view-panel.active-view');
+            return Array.from(activeView.querySelectorAll('.channel-card'));
+        }
+
+        function getGridColumnsCount() {
+            const activeView = document.querySelector('.view-panel.active-view');
+            const grid = activeView.querySelector('.channels-grid');
+            if (!grid) return 1;
+            return window.getComputedStyle(grid).getPropertyValue('grid-template-columns').split(' ').length;
+        }
+
+        function switchViewPanel(targetId) {
+            document.querySelectorAll('.view-panel').forEach(view => view.classList.remove('active-view'));
+            const destinationView = document.getElementById(targetId);
+            if (destinationView) destinationView.classList.add('active-view');
+            contentIndex = 0;
+        }
+
+        function updateFocus() {
+            if (isVideoPlaying) return;
+            document.querySelectorAll('.focusable').forEach(el => el.classList.remove('focused'));
+            
+            const contentItems = getContentItems();
+
+            if (currentSection === 'sidebar') {
+                sidebarItems[sidebarIndex].classList.add('focused');
+                sidebarItems[sidebarIndex].scrollIntoView({ block: 'nearest' });
+                switchViewPanel(sidebarItems[sidebarIndex].getAttribute('data-target'));
+            } else if (currentSection === 'content' && contentItems.length > 0) {
+                if (contentIndex >= contentItems.length) contentIndex = contentItems.length - 1;
+                contentItems[contentIndex].classList.add('focused');
+                contentItems[contentItems].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // 3. Playback Controls & NEW: Zapper UI Trigger Engine Logic
+        function launchMedia(globalIndex) {
+            activeGlobalStreamIndex = parseInt(globalIndex);
+            const chan = masterChannelsList[activeGlobalStreamIndex];
+            if (!chan) return;
+
+            videoOverlay.style.display = 'flex';
+            isVideoPlaying = true;
+
+            // Trigger temporary visual feedback inside the zapper bar layout box
+            showZapperBar(chan);
+
+            if (hlsEngine) { hlsEngine.destroy(); hlsEngine = null; }
+
+            if (chan.stream.includes('.m3u8')) {
+                if (Hls.isSupported()) {
+                    hlsEngine = new Hls();
+                    hlsEngine.loadSource(chan.stream);
+                    hlsEngine.attachMedia(videoPlayer);
+                    hlsEngine.on(Hls.Events.MANIFEST_PARSED, () => {
+                        videoPlayer.play().catch(e => console.log("Stream failed: ", e));
+                    });
+                } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                    videoPlayer.src = chan.stream;
+                    videoPlayer.addEventListener('loadedmetadata', () => { videoPlayer.play(); });
+                }
+            } else {
+                videoPlayer.src = chan.stream;
+                videoPlayer.play().catch(e => console.log("Playback error: ", e));
+            }
+        }
+
+        function zapChannel(direction) {
+            if (direction === 'next') {
+                activeGlobalStreamIndex = (activeGlobalStreamIndex + 1) % masterChannelsList.length;
+            } else if (direction === 'prev') {
+                activeGlobalStreamIndex = (activeGlobalStreamIndex - 1 + masterChannelsList.length) % masterChannelsList.length;
+            }
+            launchMedia(activeGlobalStreamIndex);
+        }
+
+        function showZapperBar(chan) {
+            clearTimeout(zapperTimeout);
+            document.getElementById('zapNumber').innerText = chan.displayNum.toString().padStart(2, '0');
+            document.getElementById('zapIcon').innerText = chan.icon;
+            document.getElementById('zapTitle').innerText = chan.name;
+            
+            zapperBar.classList.add('visible');
+            zapperTimeout = setTimeout(() => {
+                zapperBar.classList.remove('visible');
+            }, 3500); // Automatically hides zapper bar overlay after 3.5 seconds
+        }
+
+        function closeMedia() {
+            videoPlayer.pause();
+            if (hlsEngine) { hlsEngine.destroy(); hlsEngine = null; }
+            videoPlayer.src = "";
+            videoOverlay.style.display = 'none'; 
+            zapperBar.classList.remove('visible');
+            isVideoPlaying = false;
+            updateFocus();
+        }
+
+        // 4. Input Mouse Event Observers
+        document.addEventListener('mouseover', (e) => {
+            if (isVideoPlaying) return;
+            const target = e.target.closest('.focusable');
+            if (!target) return;
+
+            if (target.classList.contains('nav-item')) {
+                currentSection = 'sidebar';
+                sidebarIndex = sidebarItems.indexOf(target);
+            } else {
+                currentSection = 'content';
+                contentIndex = getContentItems().indexOf(target);
+            }
+            updateFocus();
+   </script>
+</body>
+</html>
