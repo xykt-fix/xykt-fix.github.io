@@ -1,477 +1,661 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPTV Media Center</title>
+    <title>Mobicom IPTV Clone</title>
+    <script src="jsdelivr.net"></script>
+    <link href="cloudflare.com" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #0a0f1d;
-            --bg-sidebar: #111827;
-            --bg-card: #1f2937;
-            --accent: #3b82f6;
-            --accent-hover: #60a5fa;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
+            --bg-main: #0c0d0e;
+            --bg-card: #141619;
+            --accent-pink: #e91e63;
+            --text-white: #ffffff;
+            --text-gray: #7a7e85;
+            --border-focus: #ff2a74;
         }
 
         body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-main);
-            color: var(--text-main);
+            color: var(--text-white);
             display: flex;
+            flex-direction: column;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* Sidebar Navigation */
-        nav {
-            width: 240px;
-            background-color: var(--bg-sidebar);
+        /* Top Header Navbar */
+        header {
             display: flex;
-            flex-direction: column;
-            padding: 20px;
-            border-right: 1px solid #2d3748;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+
+        .logo-nav {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .brand-logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #e91e63, #9c27b0, #00bcd4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+        }
+
+        .main-menu {
+            display: flex;
+            gap: 25px;
+        }
+
+        .menu-item {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .menu-item.active {
+            color: var(--text-white);
+            border-bottom: 2px solid var(--accent-pink);
+            padding-bottom: 4px;
+        }
+
+        .menu-item:hover {
+            color: var(--text-white);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            color: var(--text-white);
+            font-size: 18px;
+        }
+
+        .action-icon {
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .action-icon:hover {
+            opacity: 0.7;
+        }
+
+        /* Playlist File Loader Button */
+        .upload-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        .file-label-btn {
+            font-size: 13px;
+            background: #202329;
+            border: 1px solid #333;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: var(--text-white);
+            transition: 0.2s;
+        }
+        .file-label-btn:hover {
+            background: var(--accent-pink);
+            border-color: var(--accent-pink);
+        }
+
+        /* Content Container */
+        main {
+            flex: 1;
+            padding: 10px 50px 40px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .page-title {
+            font-size: 42px;
+            font-weight: bold;
+            margin: 10px 0 30px;
+            letter-spacing: -0.5px;
+        }
+
+        /* Category Filter Submenu Line */
+        .filter-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .tab-btn {
+            background-color: #202328;
+            color: #b3b7bd;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--text-white);
+            color: #000000;
+        }
+
+        .tab-divider {
+            width: 1px;
+            height: 16px;
+            background-color: #333;
+            margin: 0 4px;
+        }
+
+        .sort-label {
+            color: var(--text-gray);
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Channels Flex/Grid Row Layout */
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        /* Channel Card Configuration */
+        .channel-card {
+            background-color: var(--bg-card);
+            border-radius: 6px;
+            height: 84px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            position: relative;
+            cursor: pointer;
+            border: 2px solid transparent;
+            box-sizing: border-box;
+            outline: none;
+            transition: transform 0.15s, border-color 0.15s;
+        }
+
+        /* Remote / Keyboard Active Focus State */
+        .channel-card:focus, .channel-card.focused {
+            border-color: var(--border-focus);
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(255, 42, 116, 0.25);
+            z-index: 5;
+        }
+
+        .logo-box {
+            width: 80px;
+            height: 48px;
+            background-color: #000000;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 12px;
+            color: #555;
+            letter-spacing: 0.5px;
+            text-align: center;
+            overflow: hidden;
+            border: 1px solid #1e2227;
             flex-shrink: 0;
         }
 
-        .brand {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--accent);
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding-left: 10px;
-        }
+        /* Visual identity color accents for logo banners matching image instances */
+        .mnb-theme { border-bottom: 3px solid #00bcd4; color: #00bcd4; }
+        .mkin-theme { border-bottom: 3px solid #ff9800; color: #ff9800; }
+        .sps-theme { border-bottom: 3px solid #e91e63; color: #e91e63; }
+        .ubs-theme { border-bottom: 3px solid #4caf50; color: #4caf50; }
 
-        .nav-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            text-align: left;
-            padding: 14px 16px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .nav-btn:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--text-main);
-        }
-
-        .nav-btn.active {
-            background-color: var(--accent);
-            color: #ffffff;
-        }
-
-        /* Main Content Viewport */
-        main {
-            flex-grow: 1;
-            padding: 30px;
-            overflow-y: auto;
-            height: 100%;
-        }
-
-        .view {
-            display: none;
-        }
-
-        .view.active {
-            display: block;
-        }
-
-        h2 {
-            font-size: 28px;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-
-        /* Live TV Layout */
-        .livetv-container {
-            display: grid;
-            grid-template-columns: 320px 1fr;
-            gap: 25px;
-            height: calc(100vh - 120px);
-        }
-
-        .channel-list {
-            background-color: var(--bg-sidebar);
-            border-radius: 12px;
-            overflow-y: auto;
-            border: 1px solid #2d3748;
-            padding: 10px;
-        }
-
-        .channel-item {
+        .channel-details {
+            margin-left: 16px;
             display: flex;
-            align-items: center;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-bottom: 6px;
-            transition: background 0.2s;
-        }
-
-        .channel-item:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .channel-item.active {
-            background-color: var(--accent);
-        }
-
-        .channel-num {
-            font-weight: 700;
-            width: 40px;
-            color: var(--text-muted);
-        }
-
-        .channel-item.active .channel-num {
-            color: rgba(255, 255, 255, 0.8);
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            padding-right: 24px;
         }
 
         .channel-name {
-            font-weight: 500;
-        }
-
-        .player-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .screen-mock {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background-color: #000000;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #2d3748;
-        }
-
-        .screen-content {
-            text-align: center;
-        }
-
-        .playing-icon {
-            font-size: 48px;
-            color: var(--accent);
-            margin-bottom: 10px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
-        }
-
-        .now-playing-title {
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        /* Grid Layout (Movies & Shows) */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid #2d3748;
-            position: relative;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            border-color: var(--accent);
-        }
-
-        .poster-mock {
-            width: 100%;
-            aspect-ratio: 2/3;
-            background: linear-gradient(135deg, #374151 0%, #111827 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            text-align: center;
-            font-weight: 600;
             font-size: 15px;
-            border-bottom: 1px solid #2d3748;
-        }
-
-        .card-info {
-            padding: 12px;
-        }
-
-        .card-title {
-            font-size: 14px;
-            font-weight: 600;
+            font-weight: 500;
+            color: var(--text-white);
+            margin-bottom: 4px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-bottom: 4px;
         }
 
-        .card-meta {
+        .epg-text {
             font-size: 12px;
-            color: var(--text-muted);
+            color: var(--text-gray);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* Settings Form */
-        .settings-box {
-            background-color: var(--bg-sidebar);
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 600px;
-            border: 1px solid #2d3748;
+        /* Premium Badge Flag Indicator */
+        .premium-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #ff0043;
+            color: var(--text-white);
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-bottom-left-radius: 4px;
+            border-top-right-radius: 4px;
+            letter-spacing: 0.5px;
+            display: none;
         }
 
-        .setting-group {
-            margin-bottom: 20px;
-        }
-
-        .setting-group label {
+        .is-paid .premium-badge {
             display: block;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-muted);
         }
 
-        .setting-group select, .setting-group input {
+        /* Inline Heart Favorite Toggle Switch */
+        .heart-icon {
+            position: absolute;
+            bottom: 12px;
+            right: 16px;
+            color: #40444c;
+            font-size: 13px;
+            transition: color 0.2s, transform 0.1s;
+        }
+
+        .heart-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .heart-icon.favorited {
+            color: var(--accent-pink);
+        }
+
+        /* Modal Cinematic Video Overlay Environment */
+        #video-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 12px;
-            background-color: var(--bg-card);
-            border: 1px solid #4b5563;
-            color: var(--text-main);
+            height: 100%;
+            background-color: #000000;
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .media-viewport {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Digital Numeric Channel Indicator (Zapper) */
+        .zapper-box {
+            position: absolute;
+            top: 50px;
+            right: 60px;
+            background-color: rgba(12, 13, 14, 0.85);
+            color: var(--accent-pink);
+            font-size: 54px;
+            font-weight: bold;
+            padding: 12px 32px;
             border-radius: 6px;
-            font-size: 15px;
-            outline: none;
+            border: 2px solid var(--accent-pink);
+            box-shadow: 0 0 25px rgba(233, 30, 99, 0.4);
+            display: none;
+            z-index: 1100;
+            font-family: monospace;
         }
 
-        .setting-group select:focus, .setting-group input:focus {
-            border-color: var(--accent);
-        }
-
-        .btn-save {
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 15px;
-            font-weight: 600;
+        .player-metadata-panel {
+            position: absolute;
+            bottom: 50px;
+            left: 60px;
+            background-color: rgba(20, 22, 25, 0.85);
+            padding: 20px 30px;
             border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.2s;
+            border-left: 6px solid var(--accent-pink);
+            backdrop-filter: blur(10px);
         }
 
-        .btn-save:hover {
-            background-color: var(--accent-hover);
+        .player-metadata-panel h2 {
+            margin: 0 0 6px 0;
+            font-size: 24px;
+            font-weight: 500;
         }
 
-        /* Scrollbar customization */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #4b5563;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6b7280;
+        .player-metadata-panel span {
+            color: var(--accent-pink);
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Sidebar Menu -->
-    <nav>
-        <div class="brand">NEXUS IPTV</div>
-        <button class="nav-btn active" onclick="switchView('live-tv')">📺 Live TV</button>
-        <button class="nav-btn" onclick="switchView('movies')">🎬 Movies</button>
-        <button class="nav-btn" onclick="switchView('tv-shows')">🍿 TV Shows</button>
-        <button class="nav-btn" onclick="switchView('settings')">⚙️ Settings</button>
-    </nav>
+    <!-- Header Navigation Section -->
+    <header>
+        <div class="logo-nav">
+            <div class="brand-logo">MO<span style="font-size:18px;vertical-align:super;"><i class="fas fa-play-circle"></i></span> TV</div>
+            <div class="main-menu">
+                <div class="menu-item">Home</div>
+                <div class="menu-item active">Channels</div>
+                <div class="menu-item">TV Guide</div>
+                <div class="menu-item">Library</div>
+                <div class="menu-item">Saved</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="upload-wrapper">
+                <input type="file" id="m3u-uploader" accept=".m3u" style="display:none" onchange="processLocalM3U(this)">
+                <label for="m3u-uploader" class="file-label-btn"><i class="fas fa-plus-circle"></i> Upload .M3U</label>
+            </div>
+            <i class="fas fa-search action-icon"></i>
+            <i class="fas fa-bell action-icon"></i>
+            <i class="fas fa-user-circle action-icon"></i>
+        </div>
+    </header>
 
-    <!-- Main Content Area -->
+    <!-- Content Workspace -->
     <main>
-        
-        <!-- Live TV View -->
-        <div id="live-tv" class="view active">
-            <h2>Live Channels</h2>
-            <div class="livetv-container">
-                <div class="channel-list" id="channel-container">
-                    <!-- 50 Channels populated by JS -->
-                </div>
-                <div class="player-container">
-                    <div class="screen-mock">
-                        <div class="screen-content">
-                            <div class="playing-icon">▶</div>
-                            <div class="now-playing-title" id="player-title">Select a channel</div>
-                            <p style="color: var(--text-muted); margin-top: 5px;" id="player-meta">Live Stream Mock</p>
-                        </div>
-                    </div>
-                </div>
+        <div class="page-title">Channels</div>
+
+        <!-- Filter Sub-navigation Controls Row -->
+        <div class="filter-row">
+            <div class="filter-tabs">
+                <button class="tab-btn active" onclick="executeFilter('all', this)">All</button>
+                <button class="tab-btn" onclick="executeFilter('tv', this)">Television</button>
+                <button class="tab-btn" onclick="executeFilter('radio', this)">Radios</button>
+                <div class="tab-divider"></div>
+                <button class="tab-btn" onclick="executeFilter('fav', this)">Favorites</button>
+                <button class="tab-btn" onclick="executeFilter('mn', this)">Өргөн Нэвтрүүлэг</button>
+                <button class="tab-btn" onclick="executeFilter('intl', this)">Төрөлжсөн Суваг</button>
+            </div>
+            <div class="sort-label">
+                <i class="fas fa-sliders-h"></i> Sort channels
             </div>
         </div>
 
-        <!-- Movies View -->
-        <div id="movies" class="view">
-            <h2>Popular Movies</h2>
-            <div class="grid" id="movies-container">
-                <!-- Movies populated by JS -->
-            </div>
-        </div>
-
-        <!-- TV Shows View -->
-        <div id="tv-shows" class="view">
-            <h2>Trending TV Shows</h2>
-            <div class="grid" id="shows-container">
-                <!-- Shows populated by JS -->
-            </div>
-        </div>
-
-        <!-- Settings View -->
-        <div id="settings" class="view">
-            <h2>System Settings</h2>
-            <div class="settings-box">
-                <div class="setting-group">
-                    <label>Streaming Server Quality</label>
-                    <select>
-                        <option>Auto (Recommended)</option>
-                        <option>4K Ultra HD</option>
-                        <option>1080p Full HD</option>
-                        <option>720p HD</option>
-                    </select>
-                </div>
-                <div class="setting-group">
-                    <label>EPG Provider URL</label>
-                    <input type="text" value="nexus-iptv.io">
-                </div>
-                <div class="setting-group">
-                    <label>Audio Track Language</label>
-                    <select>
-                        <option>English</option>
-                        <option>Spanish</option>
-                        <option>French</option>
-                        <option>German</option>
-                    </select>
-                </div>
-                <button class="btn-save" onclick="alert('Settings saved successfully!')">Save Changes</button>
-            </div>
-        </div>
-
+        <!-- Main Channels Row Shell Platform -->
+        <div class="channels-grid" id="channels-container-grid"></div>
     </main>
 
+    <!-- Overlay Video Player Execution Engine Workspace -->
+    <div id="video-overlay">
+        <div class="media-viewport">
+            <div id="zapper-display" class="zapper-box">01</div>
+            <video id="hls-video-core" controls></video>
+            <div class="player-metadata-panel">
+                <h2 id="stream-name-display">Channel</h2>
+                <span><i class="fas fa-circle" style="font-size:9px;vertical-align:middle;margin-right:4px;"></i> LIVE STREAMING</span>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Navigation Handler
-        function switchView(viewId) {
-            document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            
-            document.getElementById(viewId).classList.add('active');
-            event.currentTarget.classList.add('active');
+        // Curated Reference Lineup Data Array Layout
+        const nativeDatabaseLineup = [
+            { id: 1, name: "MNB", type: "tv", origin: "mn", epg: "FIFA 2026 - Хотуудаас өгүүлэх түүхүүд /Б...", premium: false, styleClass: "mnb-theme" },
+            { id: 2, name: "МКИНО", type: "tv", origin: "mn", epg: "Хөтөлбөр байхгүй", premium: false, styleClass: "mkin-theme" },
+            { id: 3, name: "901 SKY", type: "tv", origin: "intl", epg: "Хөтөлбөр байхгүй", premium: true, styleClass: "" },
+            { id: 4, name: "902 KIDS", type: "tv", origin: "intl", epg: "Хөтөлбөр байхгүй", premium: true, styleClass: "" },
+            { id: 5, name: "N Sports", type: "tv", origin: "intl", epg: "Хөтөлбөр байхгүй", premium: true, styleClass: "sps-theme" },
+            { id: 6, name: "Playmax", type: "tv", origin: "intl", epg: "Хөтөлбөр байхгүй", premium: true, styleClass: "" },
+            { id: 7, name: "903 HITS", type: "tv", origin: "intl", epg: "Хөтөлбөр байхгүй", premium: true, styleClass: "" },
+            { id: 8, name: "UBS", type: "tv", origin: "mn", epg: "Хөтөлбөр байхгүй", premium: true, styleClass: "ubs-theme" },
+            { id: 9, name: "MN25", type: "tv", origin: "mn", epg: "'Аяллын амт' Баримтат кино", premium: true, styleClass: "" },
+            { id: 10, name: "Premier Sports 1", type: "tv", origin: "intl", epg: "NBA: Атланта - Нью Йорк (Тоглолт №5)", premium: true, styleClass: "sps-theme" },
+            { id: 11, name: "Premier Sports 2", type: "tv", origin: "intl", epg: "UCL: Атлетико - Барселона (1/4 Хариу то...", premium: true, styleClass: "sps-theme" },
+            { id: 12, name: "Premier Sports 3", type: "tv", origin: "intl", epg: "Хөтөлбөр байхгүй", premium: true, styleClass: "sps-theme" }
+        ];
+
+        // Hydrate padding placeholders to fulfill 50 item target condition requirement matrix
+        for(let i = 13; i <= 25; i++) {
+            nativeDatabaseLineup.push({ id: i, name: `Mongolian TV Channel ${i}`, type: "tv", origin: "mn", epg: "Хөтөлбөр байхгүй", premium: Math.random() > 0.4, styleClass: "" });
+        }
+        for(let i = 26; i <= 50; i++) {
+            nativeDatabaseLineup.push({ id: i, name: `Foreign Channel ${i}`, type: "tv", origin: "intl", epg: "No Information Available", premium: true, styleClass: "" });
         }
 
-        // Generate 50 Random Channels
-        const genres = ['News', 'Sports', 'Movies', 'Docs', 'Kids', 'Music'];
-        const channelContainer = document.getElementById('channel-container');
-        
-        for (let i = 1; i <= 50; i++) {
-            const randomGenre = genres[Math.floor(Math.random() * genres.length)];
-            const chName = `${randomGenre} Network ${i}`;
+        let dynamicWorkingChannels = [...nativeDatabaseLineup];
+        let userFavoriteArray = JSON.parse(localStorage.getItem('mobi_iptv_favs')) || [];
+        let currentlySelectedFilter = 'all';
+        let activeHlsInstance = null;
+        let isVideoViewportActive = false;
+
+        // Populate channels interface grid structure logic
+        function paintInterfaceScreen() {
+            const gridContainer = document.getElementById('channels-container-grid');
+            gridContainer.innerHTML = dynamicWorkingChannels.length ? '' : '<p style="color:#55px;padding-left:10px;">No channels found matching selection parameters.</p>';
+
+            dynamicWorkingChannels.forEach((ch) => {
+                const isFavorited = userFavoriteArray.includes(ch.id);
+                const itemCard = document.createElement('div');
+                itemCard.className = `channel-card ${ch.premium ? 'is-paid' : ''}`;
+                itemCard.tabIndex = 0;
+                itemCard.id = `ui-card-node-${ch.id}`;
+                
+                itemCard.innerHTML = `
+                    <div class="premium-badge">$</div>
+                    <div class="logo-box ${ch.styleClass || ''}">${ch.name.substring(0, 7)}</div>
+                    <div class="channel-details">
+                        <div class="channel-name">${ch.name}</div>
+                        <div class="epg-text">${ch.epg || 'Хөтөлбөр байхгүй'}</div>
+                    </div>
+                    <i class="fa${isFavorited ? 's' : 'r'} fa-heart heart-icon ${isFavorited ? 'favorited' : ''}" onclick="mutateFavoriteStatus(${ch.id}, event)"></i>
+                `;
+                
+                itemCard.onclick = () => triggerStreamPlayback(ch.id);
+                gridContainer.appendChild(itemCard);
+            });
+
+            if (dynamicWorkingChannels.length) {
+                const firstCardElement = document.querySelector('.channel-card');
+                if(firstCardElement) firstCardElement.focus();
+            }
+        }
+
+        // Toggle heart element array data parameters locally
+        function mutateFavoriteStatus(id, event) {
+            event.stopPropagation();
+            if (userFavoriteArray.includes(id)) {
+                userFavoriteArray = userFavoriteArray.filter(item => item !== id);
+            } else {
+                userFavoriteArray.push(id);
+            }
+            localStorage.setItem('mobi_iptv_favs', JSON.stringify(userFavoriteArray));
+            executeFilter(currentlySelectedFilter, document.querySelector('.tab-btn.active'));
+        }
+
+        // Filter button processing execution layer
+        function executeFilter(categoryKey, actionButtonElement) {
+            currentlySelectedFilter = categoryKey;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            if(actionButtonElement) actionButtonElement.classList.add('active');
+
+            dynamicWorkingChannels = nativeDatabaseLineup.filter(ch => {
+                if (categoryKey === 'all') return true;
+                if (categoryKey === 'fav') return userFavoriteArray.includes(ch.id);
+                if (categoryKey === 'mn') return ch.origin === 'mn';
+                if (categoryKey === 'intl') return ch.origin === 'intl';
+                return ch.type === categoryKey;
+            });
+            paintInterfaceScreen();
+        }
+
+        // Process M3U Upload file conversion layer
+        function processLocalM3U(fileInputTarget) {
+            const uploadedFiles = fileInputTarget.files;
+            if(!uploadedFiles.length) return;
             
-            const div = document.createElement('div');
-            div.className = 'channel-item';
-            if (i === 1) div.classList.add('active');
-            div.innerHTML = `
-                <div class="channel-num">${String(i).padStart(2, '0')}</div>
-                <div class="channel-name">${chName}</div>
-            `;
-            
-            div.onclick = function() {
-                document.querySelectorAll('.channel-item').forEach(item => item.classList.remove('active'));
-                this.classList.add('active');
-                document.getElementById('player-title').innerText = chName;
-                document.getElementById('player-meta').innerText = `Playing in 1080p • Live desde Servidor #1`;
+            const fileReaderInstance = new FileReader();
+            fileReaderInstance.onload = (executionEvent) => {
+                const textContentLines = executionEvent.target.result.split('\n');
+                let extractedChannels = [];
+                let trackingChannelName = "";
+                let uniqueIdentifierIndex = 1;
+
+                textContentLines.forEach(lineItem => {
+                    if (lineItem.startsWith('#EXTINF:')) {
+                        trackingChannelName = lineItem.split(',').pop().trim();
+                    } else if (lineItem.startsWith('http')) {
+                        extractedChannels.push({
+                            id: uniqueIdentifierIndex,
+                            name: trackingChannelName || `Imported Channel ${uniqueIdentifierIndex}`,
+                            type: "tv",
+                            origin: uniqueIdentifierIndex <= 25 ? "mn" : "intl",
+                            epg: "M3U Stream Active Pipeline Logo Link",
+                            premium: uniqueIdentifierIndex > 2,
+                            url: lineItem.trim(),
+                            styleClass: uniqueIdentifierIndex === 1 ? "mnb-theme" : ""
+                        });
+                        uniqueIdentifierIndex++;
+                    }
+                });
+
+                if (extractedChannels.length > 0) {
+                    nativeDatabaseLineup.length = 0;
+                    nativeDatabaseLineup.push(...extractedChannels.slice(0, 50));
+                    executeFilter('all', document.querySelector('.tab-btn'));
+                    alert(`Loaded ${nativeDatabaseLineup.length} channels from playlist.`);
+                }
             };
-            
-            channelContainer.appendChild(div);
+            fileReaderInstance.readAsText(uploadedFiles[0]);
         }
-        // Initialize default player text
-        document.getElementById('player-title').innerText = "News Network 1";
 
-        // Generate Random Movies
-        const movieTitles = [
-            'Interstellar Odyssey', 'Cyberpunk 2099', 'The Last Horizon', 'Shadow Protocol', 
-            'Chronicles of Time', 'Deep Abyss', 'Velocity Rogue', 'Gridlock', 
-            'Neon Dreams', 'Infinite Sky', 'The Forgotten Kingdom', 'Artificial Mind'
-        ];
-        const moviesContainer = document.getElementById('movies-container');
-        
-        movieTitles.forEach((title, idx) => {
-            const year = 2022 + (idx % 5);
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <div class="poster-mock">🎬<br><br>${title}</div>
-                <div class="card-info">
-                    <div class="card-title">${title}</div>
-                    <div class="card-meta">${year} • Movie</div>
-                </div>
-            `;
-            moviesContainer.appendChild(card);
+        // Launch Core Video Rendering Engine Stream pipeline
+        function triggerStreamPlayback(id) {
+            const targetedChannelObject = nativeDatabaseLineup.find(ch => ch.id === id);
+            if (!targetedChannelObject) return;
+
+            const htmlVideoTagNode = document.getElementById('hls-video-core');
+            const visualZapperOverlayNode = document.getElementById('zapper-display');
+            
+            isVideoViewportActive = true;
+            document.getElementById('stream-name-display').innerText = targetedChannelObject.name;
+            document.getElementById('video-overlay').style.display = 'flex';
+            
+            // Replicate Digital Zapper HUD sequence overlay window behavior
+            visualZapperOverlayNode.innerText = String(id).padStart(2, '0');
+            visualZapperOverlayNode.style.display = 'block';
+            setTimeout(() => visualZapperOverlayNode.style.display = 'none', 2200);
+
+            // Cross-origin test manifest resource vectors fallback paths configuration logic
+            const sourceStreamUrl = targetedChannelObject.url || (id % 2 === 0 
+                ? "akamaized.net" 
+                : "mux.dev");
+
+            if (Hls.isSupported()) {
+                if (activeHlsInstance) activeHlsInstance.destroy();
+                activeHlsInstance = new Hls();
+                activeHlsInstance.loadSource(sourceStreamUrl);
+                activeHlsInstance.attachMedia(htmlVideoTagNode);
+                activeHlsInstance.on(Hls.Events.MANIFEST_PARSED, () => htmlVideoTagNode.play());
+            } else if (htmlVideoTagNode.canPlayType('application/vnd.apple.mpegurl')) {
+                htmlVideoTagNode.src = sourceStreamUrl;
+                htmlVideoTagNode.play();
+            }
+        }
+
+        function shutdownPlaybackEngine() {
+            const htmlVideoTagNode = document.getElementById('hls-video-core');
+            htmlVideoTagNode.pause();
+            if (activeHlsInstance) activeHlsInstance.stopLoad();
+            document.getElementById('video-overlay').style.display = 'none';
+            isVideoViewportActive = false;
+            
+            const currentFocusedNode = document.activeElement;
+            if (currentFocusedNode && currentFocusedNode.classList.contains('channel-card')) {
+                currentFocusedNode.focus();
+            }
+        }
+
+        // Set-Top D-Pad Remote Keyboard Key Processing Handler Module Matrix
+        document.addEventListener('keydown', (keyboardEvent) => {
+            if (isVideoViewportActive) {
+                if (keyboardEvent.key === "Escape" || keyboardEvent.key === "Backspace") {
+                    keyboardEvent.preventDefault();
+                    shutdownPlaybackEngine();
+                }
+                return;
+            }
+
+            const activeFocusedElementNode = document.activeElement;
+            if (!activeFocusedElementNode || !activeFocusedElementNode.classList.contains('channel-card')) return;
+
+            const allVisibleActiveCardsInDom = Array.from(document.querySelectorAll('.channel-card'));
+            const activeCardPointerIndex = allVisibleActiveCardsInDom.indexOf(activeFocusedElementNode);
+            
+            // Dynamic column count grid space auto-detection logic calculation step
+            const gridLayoutColumnWidthCount = Math.floor(activeFocusedElementNode.parentNode.offsetWidth / 320) || 3;
+
+            switch(keyboardEvent.key) {
+                case "ArrowRight": 
+                    if(activeCardPointerIndex < allVisibleActiveCardsInDom.length - 1) {
+                        keyboardEvent.preventDefault();
+                        allVisibleActiveCardsInDom[activeCardPointerIndex + 1].focus();
+                    }
+                    break;
+                case "ArrowLeft": 
+                    if(activeCardPointerIndex > 0) {
+                        keyboardEvent.preventDefault();
+                        allVisibleActiveCardsInDom[activeCardPointerIndex - 1].focus();
+                    }
+                    break;
+                case "ArrowDown": 
+                    if(activeCardPointerIndex + gridLayoutColumnWidthCount < allVisibleActiveCardsInDom.length) {
+                        keyboardEvent.preventDefault();
+                        allVisibleActiveCardsInDom[activeCardPointerIndex + gridLayoutColumnWidthCount].focus();
+                    }
+                    break;
+                case "ArrowUp": 
+                    if(activeCardPointerIndex - gridLayoutColumnWidthCount >= 0) {
+                        keyboardEvent.preventDefault();
+                        allVisibleActiveCardsInDom[activeCardPointerIndex - gridLayoutColumnWidthCount].focus();
+                    }
+                    break;
+                case "Enter": 
+                    keyboardEvent.preventDefault();
+                    activeFocusedElementNode.click(); 
+                    break;
+            }
         });
 
-        // Generate Random TV Shows
-        const showTitles = [
-            'Dark Matter Theory', 'Breaking Code', 'The Chef Master', 'Dynasty of Kings', 
-            'Strangers in Town', 'Unsolved Echoes', 'The Last Outpost', 'Silicon Valley Life',
-            'Midnight Tales', 'Planet Wild', 'Cosmic Journey', 'Underworld Laws'
-        ];
-        const showsContainer = document.getElementById('shows-container');
-        
-        showTitles.forEach((title, idx) => {
-            const seasons = 1 + (idx % 6);
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <div class="poster-mock">🍿<br><br>${title}</div>
-                <div class="card-info">
-                    <div class="card-title">${title}</div>
-                    <div class="card-meta">Season ${seasons} • TV Show</div>
-                </div>
-            `;
-            showsContainer.appendChild(card);
-        });
+        // Initialize setup logic routine step engine execution core run loop
+        paintInterfaceScreen();
     </script>
 </body>
 </html>
