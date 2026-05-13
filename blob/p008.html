@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><title>XyktPTL</title>
+    <style>
+        body { margin: 0; display: flex; height: 100vh; background: #121212; color: #fff; font-family: sans-serif; overflow: hidden; }
+        .sidebar { width: 220px; background: #000; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .menu-item { padding: 15px; cursor: pointer; border-radius: 8px; color: #b3b3b3; text-decoration: none; }
+        .menu-item.active, .menu-item:hover { background: #00bcd4; color: #fff; }
+        .main { flex: 1; padding: 20px; overflow-y: auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+        .card { background: #1e1e1e; padding: 15px; border-radius: 8px; border: 1px solid #333; }
+        .card:hover { border-color: #00bcd4; }
+        .title { font-weight: bold; margin-bottom: 5px; }
+        .sub { color: #b3b3b3; font-size: 12px; }
+        .hidden { display: none; }
+        input { background: #333; border: none; padding: 10px; color: #fff; width: 100%; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Q-Stream</h2>
+        <a href="#" class="menu-item active" onclick="show('live')">📺 Live TV</a>
+        <a href="#" class="menu-item" onclick="show('vod')">🎬 Movies</a>
+        <a href="#" class="menu-item" onclick="show('settings')">⚙️ Settings</a>
+    </div>
+    <div class="main">
+        <h2 id="view-title">Live Channels</h2>
+        <div id="live" class="grid">
+            <script>
+                for (let i = 1; i <= 50; i++) {
+                    document.write(`<div class="card"><div class="title">Channel ${i}</div><div class="sub">Now: Program ${i}</div></div>`);
+                }
+            </script>
+        </div>
+        <div id="vod" class="hidden">Movies & VOD Section</div>
+        <div id="settings" class="hidden">
+            <h3>Settings</h3>
+            <label>M3U URL:</label><input type="text" value="http://example.com">
+        </div>
+    </div>
+    <script>
+        function show(id) {
+            document.querySelectorAll('.main > div:not(#view-title)').forEach(d => d.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById('view-title').innerText = id.charAt(0).toUpperCase() + id.slice(1);
+        }
+    </script>
+</body>
+</html>
