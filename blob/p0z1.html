@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV Box Simulator</title>
+    <!-- External Dependencies -->
+    <script src="jsdelivr.net"></script>
+    <link href="cloudflare.com" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #121417;
+            --bg-panel: #1a1d24;
+            --bg-card: #252932;
+            --accent-blue: #00d2ff;
+            --text-main: #ffffff;
+            --text-dim: #8892a0;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* Master Grid Layout */
+        .app-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Left Navigation Bar (Image 1, 2, 3, 4) */
+        nav {
+            width: 90px;
+            background-color: #0b0c0e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 30px;
+            border-right: 1px solid #1f232b;
+            z-index: 10;
+        }
+
+        .nav-item {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            color: var(--text-dim);
+            transition: all 0.2s ease;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item span {
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--accent-blue);
+            background-color: rgba(0, 210, 255, 0.1);
+        }
+
+        /* Content Display Workspace */
+        .content-workspace {
+            flex: 1;
+            position: relative;
+            background-color: var(--bg-dark);
+        }
+
+        /* Screens Visibility Control Matrix */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            box-sizing: border-box;
+            padding: 40px;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* Top Actions Bar (Shopping Cart Context) */
+        .top-action-bar {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        .top-action-bar i {
+            font-size: 24px;
+            color: var(--text-main);
+        }
+
+        .top-action-bar span {
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        /* GRID: Image 1 Live TV Mode */
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+            margin-top: 60px;
+            max-height: calc(100% - 80px);
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .channel-card {
+            background-color: var(--bg-panel);
+            border: 2px solid #2d3341;
+            border-radius: 8px;
+            aspect-ratio: 16/10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .channel-card:hover {
+            border-color: var(--accent-blue);
+            background-color: var(--bg-card);
+            transform: translateY(-4px);
+        }
+
+        .channel-card .img-placeholder {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .channel-card .ch-label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .channel-card .ch-idx {
+            position: absolute;
+            top: 6px;
+            left: 8px;
+            font-size: 11px;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        /* CONFIG: Image 4 Control Dashboard */
+        .config-container {
+            max-width: 600px;
+            margin-top: 60px;
+            background-color: var(--bg-panel);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #2d3341;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-group input, .form-group select {
+            flex: 1;
+            background-color: var(--bg-dark);
+            border: 1px solid #3a4253;
+            padding: 12px 16px;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .action-btn {
+            background-color: var(--accent-blue);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .action-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* PORTAL MODAL: Image 5 Blue Activation Portal */
+        #portal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            z-index: 500;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .portal-window {
+            width: 550px;
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .portal-window h2 {
+            margin-top: 0;
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .pin-box-row {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .pin-field {
+            width: 100%;
+            background-color: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 4px;
+            outline: none;
+        }
+
+        .portal-footer-tip {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* CINEMA LAYER: Image 6 Fullscreen Video Workspace & Zapper */
+        #video-viewport-layer {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000;
+            z-index: 100;
+        }
+
+        #main-video-element {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* ZAPPER HUD: Image 6 Overlay Panel */
+        .zapper-hud-overlay {
+            position: absolute;
+            top: 40px;
+            left: 50px;
+            background-color: rgba(18, 20, 23, 0.9);
+            border-left: 5px solid var(--accent-blue);
+            padding: 20px 40px;
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+            pointer-events: none;
+            display: none;
+            z-index: 120;
+        }
+
+        .zapper-hud-overlay h2 {
+            margin: 0 0 5px 0;
+            font-size: 48px;
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        .zapper-hud-overlay p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* INTERACTIVE OVERLAY PANEL: Image 7 Floating Channel List While Playing */
+        .sidebar-channel-panel {
+            position: absolute;
+            top: 0;
+            right: -380px;
+            width: 350px;
+            height: 100%;
+            background-color: rgba(26, 29, 36, 0.95);
+            box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+            transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 150;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            border-left: 1px solid #2d3341;
+        }
+
+        .sidebar-channel-panel.open {
+            right: 0;
+        }
+
+        .sidebar-channel-panel h3 {
+            margin-top: 0;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #2d3341;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-list-container {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .sidebar-row-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background-color: var(--bg-dark);
+            margin-bottom: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .sidebar-row-item:hover, .sidebar-row-item.playing {
+            border-color: var(--accent-blue);
+            background-color: var(--bg-card);
+        }
+
+        .sidebar-row-item .row-idx {
+            font-weight: bold;
+            color: var(--accent-blue);
+            width: 35px;
+        }
+
+        .sidebar-row-item .row-details {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Floating HUD Indicator Label Context */
+        .control-hint-pill {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            background-color: rgba(0,0,0,0.7);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-dim);
+            z-index: 110;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar Shell Blocks Container Layout (Image 1, 2, 3, 4 Navigation Nodes) -->
+        <nav>
+            <div class="nav-item active" onclick="switchMainScreen('live-tv-view', this)">
+                <i class="fas fa-tv"></i>
+                <span>LIVE</span>
+            </div>
+            <div class="nav-item" onclick="switchMainScreen('movies-view', this)">
+                <i class="fas fa-film"></i>
+                <span>MOVIES</span>
+            </div>
+            <div class="nav-item" onclick="switchMainScreen('shows-view', this)">
+                <i class="fas fa-video"></i>
+                <span>SHOWS</span>
+            </div>
+            <div class="nav-item" onclick="switchMainScreen('settings-view', this)">
+                <i class="fas fa-cog"></i>
+                <span>SETTINGS</span>
+            </div>
+        </nav>
+
+        <!-- Dynamic Main Window Frame -->
+        <div class="content-workspace">
+            
+            <!-- Global Shopping Action Component Flag Context Tag (Image 1, 2, 3, 4, 7 Cart Badge Link) -->
+            <div class="top-action-bar" onclick="displaySystemActivationPortal()">
+                <span>buy package</span>
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+
+            <!-- SCREEN 1: Live TV Grid Selection Dashboard Area (Image 1 Blueprint Framework Template) -->
+            <div id="live-tv-view" class="screen active">
+                <h1 style="font-weight: 300; margin: 0 0 10px 0;">Live Television</h1>
+                <div class="channel-grid" id="main-channels-dom-target"></div>
+            </div>
+
+            <!-- SCREEN 2: Empty Movie Space Container Base Shell Mock Frame Layout (Image 2) -->
+            <div id="movies-view" class="screen">
+                <h1 style="font-weight: 300; margin: 0 0 10px 0;">Movies Library</h1>
+                <p style="color: var(--text-dim);">No customized video titles available in database storage line.</p>
+            </div>
+
+            <!-- SCREEN 3: Empty TV Series Video Space Content Frame Block Element (Image 3) -->
+            <div id="shows-view" class="screen">
+                <h1 style="font-weight: 300; margin: 0 0 10px 0;">TV Shows</h1>
+                <p style="color: var(--text-dim);">No localized network serial entries detected in catalog data array.</p>
+            </div>
+
+            <!-- SCREEN 4: Settings Config Setup Panel Control Center Workspace Area Layer (Image 4 Frame) -->
+            <div id="settings-view" class="screen">
+                <h1 style="font-weight: 300; margin: 0 0 10px 0;">System Configuration</h1>
+                
+                <div class="config-container">
+                    <div class="form-group">
+                        <label>M3U Network Stream Playlist Link (.m3u)</label>
+                        <div class="input-row">
+                            <input type="text" id="m3u-playlist-url-field" placeholder="Paste your custom network streaming M3U absolute URL link here...">
+                            <button class="action-btn" onclick="executeConfigPortalRedirect()">Config Portal</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Interface Language Profile</label>
+                        <select>
+                            <option>English (Global Core)</option>
+                            <option>Монгол Хэл (Mongolian Unit)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ACTIVATION PORTAL MODAL WINDOW BLOCK ENGINE: Blue Box Configuration (Image 5 Display Interface Layer) -->
+    <div id="portal-overlay" onclick="dismissSystemActivationPortal()">
+        <div class="portal-window" onclick="event.stopPropagation()">
+            <h2 style="text-transform: uppercase;">New Pin Code Portal</h2>
+            <div style="font-size: 32px; font-family: monospace; font-weight: bold; margin-bottom: 5px; color: #fff;">XXXX - XX - XX XX:XX</div>
+            
+            <div class="pin-box-row">
+                <input type="text" class="pin-field" placeholder="ENTER PORTAL ACTIVATION KEY CODE" id="portal-pin-input-node">
+            </div>
+
+            <div class="portal-footer-tip">
+                <span>Status: WAITING SECURITY VERIFICATION</span>
+                <span style="cursor:pointer; font-weight:bold; color:var(--accent-blue);" onclick="dismissSystemActivationPortal()">[ BACK TO HOME ]</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- FULLSCREEN THEATER CORE RUNTIME ENVIRONMENT: Image 6 Cinematic Execution Player Matrix -->
+    <div id="video-viewport-layer">
+        <!-- ZAPPER MODULE COMPONENT HUD GRAPHICS WINDOW: Image 6 Status Indicator Box Lineup Overlay -->
+        <div id="zapper-hud-panel" class="zapper-hud-overlay">
+            <h2 id="zapper-num-label">XX</h2>
+            <p id="zapper-title-label">STREAMING PIPELINE ACTIVE</p>
+        </div>
+
+        <video id="main-video-element"></video>
+        
+        <!-- CONTROL CONTEXT OVERLAY PILL COMPONENT TRACKING SYSTEM -->
+        <div class="control-hint-pill">Press <strong style="color:#fff;">[ CH List ] / Spacebar</strong> for Channel Guide | <strong style="color:#fff;">[ Backspace ]</strong> to Exit Player</div>
+
+        <!-- FLOATING OVERLAY PANEL SELECTOR COMPONENT GRID DRAWER: Image 7 Live Inter-Channel Switch Layer Menu -->
+        <div id="floating-list-drawer" class="sidebar-channel-panel">
+            <h3>Channel List</h3>
+            <div class="sidebar-list-container" id="drawer-injection-target"></div>
+        </div>
+    </div>
+
+    <script>
+        // Curated Reference Lineup Data Array Layout (25 Mongolian & 25 International Channels)
+        const channelDataLineupRegistry = [
+            // 25 Mongolian Channels Group Lineup
+            { id: 1, name: "MNB HD", cat: "Mongolian", url: "mux.dev" },
+            { id: 2, name: "Mongol HD", cat: "Mongolian", url: "mux.dev" },
+            { id: 3, name: "Eagle News", cat: "Mongolian", url: "mux.dev" },
+            { id: 4, name: "NTV Mongolia", cat: "Mongolian", url: "" },
+            { id: 5, name: "TV5 Mongolia", cat: "Mongolian", url: "" },
+            { id: 6, name: "TV9 HD", cat: "Mongolian", url: "" },
+            { id: 7, name: "UBS TV", cat: "Mongolian", url: "" },
+            { id: 8, name: "MN25", cat: "Mongolian", url: "" },
+            { id: 9, name: "SBN TV", cat: "Mongolian", url: "" },
+            { id: 10, name: "C1 Television", cat: "Mongolian", url: "" },
+            { id: 11, name: "ETV HD", cat: "Mongolian", url: "" },
+            { id: 12, name: "Edutainment TV", cat: "Mongolian", url: "" },
+            { id: 13, name: "Bloomberg MN", cat: "Mongolian", url: "" },
+            { id: 14, name: "MNC TV", cat: "Mongolian", url: "" },
+            { id: 15, name: "VTV Mongolia", cat: "Mongolian", url: "" },
+            { id: 16, name: "TV8 HD", cat: "Mongolian", url: "" },
+            { id: 17, name: "SPS Sports", cat: "Mongolian", url: "" },
+            { id: 18, name: "SPS NBA", cat: "Mongolian", url: "" },
+            { id: 19, name: "Mass TV", cat: "Mongolian", url: "" },
+            { id: 20, name: "Ekh Oron TV", cat: "Mongolian", url: "" },
+            { id: 21, name: "Moviebox MN", cat: "Mongolian", url: "" },
+            { id: 22, name: "AsianBox", cat: "Mongolian", url: "" },
+            { id: 23, name: "Dream TV", cat: "Mongolian", url: "" },
+            { id: 24, name: "Star TV", cat: "Mongolian", url: "" },
+            { id: 25, name: "Suld TV", cat: "Mongolian", url: "" },
+
+            // 25 International Channels Lineup Data Array
+            { id: 26, name: "CNN International", cat: "International", url: "akamaized.net" },
+            { id: 27, name: "BBC World News", cat: "International", url: "" },
+            { id: 28, name: "Al Jazeera English", cat: "International", url: "" },
+            { id: 29, name: "HBO HD Global", cat: "International", url: "" },
+            { id: 30, name: "Warner TV", cat: "International", url: "" },
+            { id: 31, name: "National Geographic", cat: "International", url: "" },
+            { id: 32, name: "Discovery Channel", cat: "International", url: "" },
+            { id: 33, name: "Animal Planet", cat: "International", url: "" },
+            { id: 34, name: "Disney Channel", cat: "International", url: "" },
+            { id: 35, name: "Nickelodeon", cat: "International", url: "" },
+            { id: 36, name: "Cartoon Network", cat: "International", url: "" },
+            { id: 37, name: "ESPN Live", cat: "International", url: "" },
+            { id: 38, name: "Sky Sports News", cat: "International", url: "" },
+            { id: 39, name: "Fox News Channel", cat: "International", url: "" },
+            { id: 40, name: "CNBC Global", cat: "International", url: "" },
+            { id: 41, name: "Bloomberg TV Intl", cat: "International", url: "" },
+            { id: 42, name: "Eurosport 1", cat: "International", url: "" },
+            { id: 43, name: "MTV Live HD", cat: "International", url: "" },
+            { id: 44, name: "VH1 Classic", cat: "International", url: "" },
+            { id: 45, name: "Fashion TV", cat: "International", url: "" },
+            { id: 46, name: "CCTV News World", cat: "International", url: "" },
+            { id: 47, name: "Arirang TV", cat: "International", url: "" },
+            { id: 48, name: "NHK World Japan", cat: "International", url: "" },
+            { id: 49, name: "France 24 Eng", cat: "International", url: "" },
+            { id: 50, name: "TV5Monde Asie", cat: "International", url: "" }
+        ];
+
+        let coreHlsEngineInstance = null;
+        let isVideoOverlayFullscreenActive = false;
+        let isFloatingListDrawerOpen = false;
+
+        // Initialize App Interface Generation Run Loop Routine Step Engine
+        function initializeSystemSandboxCore() {
+            const gridContainerNode = document.getElementById('main-channels-dom-target');
+            const drawerContainerNode = document.getElementById('drawer-injection-target');
+            
+            gridContainerNode.innerHTML = "";
+            drawerContainerNode.innerHTML = "";
+
+            channelDataLineupRegistry.forEach((ch) => {
+                // Populate Main Selection Grid View Elements (Image 1 Blueprint Framework Context)
+                const cardNode = document.createElement('div');
+                cardNode.className = 'channel-card';
+                cardNode.innerHTML = `
+                    <div class="ch-idx">${ch.id}</div>
+                    <div class="img-placeholder">img here</div>
+                    <div class="ch-label">${ch.name}</div>
+                `;
+                cardNode.onclick = () => activateTheaterPlaybackEnvironment(ch.id);
+                gridContainerNode.appendChild(cardNode);
+
+                // Populate Right Floating List View Components (Image 7 Sidebar Context Matrix)
+                const rowNode = document.createElement('div');
+                rowNode.className = 'sidebar-row-item';
+                rowNode.id = `sidebar-row-node-link-${ch.id}`;
+                rowNode.innerHTML = `
+                    <div class="row-idx">${ch.id}</div>
+                    <div class="row-details">
+                        <div style="font-weight:bold;">${ch.name}</div>
+                        <div style="font-size:11px; color:var(--text-dim); margin-top:2px;">${ch.cat} Package Channel</div>
+                    </div>
+                `;
+                rowNode.onclick = () => activateTheaterPlaybackEnvironment(ch.id);
+                drawerContainerNode.appendChild(rowNode);
+            });
+        }
+
+        // Left Menu Screen Navigation Switch Handler Method Routing System
+        function switchMainScreen(screenId, menuItemElement) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            document.getElementById(screenId).classList.add('active');
+            menuItemElement.classList.add('active');
+        }
+
+        // Image 4 Button Event Target Trigger Route handler logic mapping sequence steps
+        function executeConfigPortalRedirect() {
+            displaySystemActivationPortal();
+        }
+
+        // Image 5 Portal UI Display Controller visibility logic functions
+        function displaySystemActivationPortal() {
+            document.getElementById('portal-overlay').style.display = 'flex';
+            document.getElementById('portal-pin-input-node').focus();
+        }
+
+        function dismissSystemActivationPortal() {
+            document.getElementById('portal-overlay').style.display = 'none';
+        }
+
+        // Launch Theatre Playback Core Engine Instance Core Environment Layer (Image 6 Pipeline)
+        function activateTheaterPlaybackEnvironment(channelId) {
+            const chObj = channelDataLineupRegistry.find(c => c.id === channelId);
+            if (!chObj) return;
+
+            isVideoOverlayFullscreenActive = true;
+            const videoTagNodeRef = document.getElementById('main-video-element');
+            
+            // Re-render display tracking layer framework window context variables state properties
+            document.getElementById('video-viewport-layer').style.display = 'block';
+
+            // Fire Digital Numeric HUD Overlay Zapper Layer Sequence Window (Image 6 Frame Element)
+            triggerZapperHudOverlayDisplay(chObj.id, chObj.name);
+
+            // Highlight target item in drawer array node path layout context framework
+            document.querySelectorAll('.sidebar-row-item').forEach(r => r.classList.remove('playing'));
+            const activeRowItemNode = document.getElementById(`sidebar-row-node-link-${channelId}`);
+            if (activeRowItemNode) {
+                activeRowItemNode.classList.add('playing');
+                activeRowItemNode.scrollIntoView({ block: 'center' });
+            }
+
+            // Cross-origin test manifest resource vectors fallback paths configuration logic step
+            const sourceStreamUrl = chObj.url || (channelId % 2 === 0 
+                ? "akamaized.net" 
+                : "mux.dev");
+
+            if (Hls.isSupported()) {
+                if (coreHlsEngineInstance) coreHlsEngineInstance.destroy();
+                coreHlsEngineInstance = new Hls();
+                coreHlsEngineInstance.loadSource(sourceStreamUrl);
+                coreHlsEngineInstance.attachMedia(videoTagNodeRef);
+                coreHlsEngineInstance.on(Hls.Events.MANIFEST_PARSED, () => videoTagNodeRef.play());
+            } else if (videoTagNodeRef.canPlayType('application/vnd.apple.mpegurl')) {
+                videoTagNodeRef.src = sourceStreamUrl;
+                videoTagNodeRef.play();
+            }
+        }
+
+        // Digital Zapper HUD Overlay Rendering Mechanics Execution Module Routing Loop
+        function triggerZapperHudOverlayDisplay(idNumber, channelTitleName) {
+            const zapperPanel = document.getElementById('zapper-hud-panel');
+            document.getElementById('zapper-num-label').innerText = String(idNumber).padStart(2, '0');
+            document.getElementById('zapper-title-label').innerText = channelTitleName.toUpperCase();
+            
+            zapperPanel.style.display = 'block';
+            
+            // Clear tracking delay loop timeouts intervals frames cleanly
+            if (window.zapperClearTimeoutReferenceIndex) clearTimeout(window.zapperClearTimeoutReferenceIndex);
+            window.zapperClearTimeoutReferenceIndex = setTimeout(() => {
+                zapperPanel.style.display = 'none';
+            }, 3000);
+        }
+
+        // Toggle Floating Interactive list Sidebar Drawer Layer Engine (Image 7 Flow Layout Switch)
+        function toggleFloatingListDrawerPanel() {
+            const drawerElementNodeRef = document.getElementById('floating-list-drawer');
+            isFloatingListDrawerOpen = !isFloatingListDrawerOpen;
+            
+            if (isFloatingListDrawerOpen) {
+                drawerElementNodeRef.classList.add('open');
+            } else {
+                drawerElementNodeRef.classList.remove('open');
+            }
+        }
+
+        function shutdownActiveTheaterEnvironment() {
+            const videoTagNodeRef = document.getElementById('main-video-element');
+            videoTagNodeRef.pause();
+            
+            if (coreHlsEngineInstance) coreHlsEngineInstance.stopLoad();
+            
+            document.getElementById('floating-list-drawer').classList.remove('open');
+            document.getElementById('video-viewport-layer').style.display = 'none';
+            
+            isFloatingListDrawerOpen = false;
+            isVideoOverlayFullscreenActive = false;
+        }
+
+        // Universal Set-Top Box Controller Remote Key Event Distribution Matrix Mapping Logic Router
+        document.addEventListener('keydown', (keyEvent) => {
+            if (isVideoOverlayFullscreenActive) {
+                if (keyEvent.key === "Escape" || keyEvent.key === "Backspace") {
+                    keyEvent.preventDefault();
+                    shutdownActiveTheaterEnvironment();
+                }
+                // Trigger/Dismiss Overlay list via Spacebar or native custom map route hook triggers
+                if (keyEvent.key === " " || keyEvent.code === "Space") {
+                    keyEvent.preventDefault();
+                    toggleFloatingListDrawerPanel();
+                }
+                return;
+            }
+        });
+
+        // Instantiate core processes run loop sequences parameters framework parameters runtime mapping step context
+        initializeSystemSandboxCore();
+    </script>
+</body>
+</html>
