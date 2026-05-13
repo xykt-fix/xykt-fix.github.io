@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV Media Center</title>
+    <style>
+        :root {
+            --bg-main: #0a0f1d;
+            --bg-sidebar: #111827;
+            --bg-card: #1f2937;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 240px;
+            background-color: var(--bg-sidebar);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            border-right: 1px solid #2d3748;
+            flex-shrink: 0;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-left: 10px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            text-align: left;
+            padding: 14px 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+
+        .nav-btn.active {
+            background-color: var(--accent);
+            color: #ffffff;
+        }
+
+        /* Main Content Viewport */
+        main {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        /* Live TV Layout */
+        .livetv-container {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 25px;
+            height: calc(100vh - 120px);
+        }
+
+        .channel-list {
+            background-color: var(--bg-sidebar);
+            border-radius: 12px;
+            overflow-y: auto;
+            border: 1px solid #2d3748;
+            padding: 10px;
+        }
+
+        .channel-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 6px;
+            transition: background 0.2s;
+        }
+
+        .channel-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .channel-item.active {
+            background-color: var(--accent);
+        }
+
+        .channel-num {
+            font-weight: 700;
+            width: 40px;
+            color: var(--text-muted);
+        }
+
+        .channel-item.active .channel-num {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .channel-name {
+            font-weight: 500;
+        }
+
+        .player-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .screen-mock {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #000000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #2d3748;
+        }
+
+        .screen-content {
+            text-align: center;
+        }
+
+        .playing-icon {
+            font-size: 48px;
+            color: var(--accent);
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        .now-playing-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        /* Grid Layout (Movies & Shows) */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #2d3748;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border-color: var(--accent);
+        }
+
+        .poster-mock {
+            width: 100%;
+            aspect-ratio: 2/3;
+            background: linear-gradient(135deg, #374151 0%, #111827 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 15px;
+            border-bottom: 1px solid #2d3748;
+        }
+
+        .card-info {
+            padding: 12px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+
+        .card-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Settings Form */
+        .settings-box {
+            background-color: var(--bg-sidebar);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            border: 1px solid #2d3748;
+        }
+
+        .setting-group {
+            margin-bottom: 20px;
+        }
+
+        .setting-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .setting-group select, .setting-group input {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-card);
+            border: 1px solid #4b5563;
+            color: var(--text-main);
+            border-radius: 6px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .setting-group select:focus, .setting-group input:focus {
+            border-color: var(--accent);
+        }
+
+        .btn-save {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-save:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Scrollbar customization */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Menu -->
+    <nav>
+        <div class="brand">NEXUS IPTV</div>
+        <button class="nav-btn active" onclick="switchView('live-tv')">📺 Live TV</button>
+        <button class="nav-btn" onclick="switchView('movies')">🎬 Movies</button>
+        <button class="nav-btn" onclick="switchView('tv-shows')">🍿 TV Shows</button>
+        <button class="nav-btn" onclick="switchView('settings')">⚙️ Settings</button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main>
+        
+        <!-- Live TV View -->
+        <div id="live-tv" class="view active">
+            <h2>Live Channels</h2>
+            <div class="livetv-container">
+                <div class="channel-list" id="channel-container">
+                    <!-- 50 Channels populated by JS -->
+                </div>
+                <div class="player-container">
+                    <div class="screen-mock">
+                        <div class="screen-content">
+                            <div class="playing-icon">▶</div>
+                            <div class="now-playing-title" id="player-title">Select a channel</div>
+                            <p style="color: var(--text-muted); margin-top: 5px;" id="player-meta">Live Stream Mock</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movies View -->
+        <div id="movies" class="view">
+            <h2>Popular Movies</h2>
+            <div class="grid" id="movies-container">
+                <!-- Movies populated by JS -->
+            </div>
+        </div>
+
+        <!-- TV Shows View -->
+        <div id="tv-shows" class="view">
+            <h2>Trending TV Shows</h2>
+            <div class="grid" id="shows-container">
+                <!-- Shows populated by JS -->
+            </div>
+        </div>
+
+        <!-- Settings View -->
+        <div id="settings" class="view">
+            <h2>System Settings</h2>
+            <div class="settings-box">
+                <div class="setting-group">
+                    <label>Streaming Server Quality</label>
+                    <select>
+                        <option>Auto (Recommended)</option>
+                        <option>4K Ultra HD</option>
+                        <option>1080p Full HD</option>
+                        <option>720p HD</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>EPG Provider URL</label>
+                    <input type="text" value="nexus-iptv.io">
+                </div>
+                <div class="setting-group">
+                    <label>Audio Track Language</label>
+                    <select>
+                        <option>English</option>
+                        <option>Spanish</option>
+                        <option>French</option>
+                        <option>German</option>
+                    </select>
+                </div>
+                <button class="btn-save" onclick="alert('Settings saved successfully!')">Save Changes</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Navigation Handler
+        function switchView(viewId) {
+            document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(viewId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Generate 50 Random Channels
+        const genres = ['News', 'Sports', 'Movies', 'Docs', 'Kids', 'Music'];
+        const channelContainer = document.getElementById('channel-container');
+        
+        for (let i = 1; i <= 50; i++) {
+            const randomGenre = genres[Math.floor(Math.random() * genres.length)];
+            const chName = `${randomGenre} Network ${i}`;
+            
+            const div = document.createElement('div');
+            div.className = 'channel-item';
+            if (i === 1) div.classList.add('active');
+            div.innerHTML = `
+                <div class="channel-num">${String(i).padStart(2, '0')}</div>
+                <div class="channel-name">${chName}</div>
+            `;
+            
+            div.onclick = function() {
+                document.querySelectorAll('.channel-item').forEach(item => item.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('player-title').innerText = chName;
+                document.getElementById('player-meta').innerText = `Playing in 1080p • Live desde Servidor #1`;
+            };
+            
+            channelContainer.appendChild(div);
+        }
+        // Initialize default player text
+        document.getElementById('player-title').innerText = "News Network 1";
+
+        // Generate Random Movies
+        const movieTitles = [
+            'Interstellar Odyssey', 'Cyberpunk 2099', 'The Last Horizon', 'Shadow Protocol', 
+            'Chronicles of Time', 'Deep Abyss', 'Velocity Rogue', 'Gridlock', 
+            'Neon Dreams', 'Infinite Sky', 'The Forgotten Kingdom', 'Artificial Mind'
+        ];
+        const moviesContainer = document.getElementById('movies-container');
+        
+        movieTitles.forEach((title, idx) => {
+            const year = 2022 + (idx % 5);
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="poster-mock">🎬<br><br>${title}</div>
+                <div class="card-info">
+                    <div class="card-title">${title}</div>
+                    <div class="card-meta">${year} • Movie</div>
+                </div>
+            `;
+            moviesContainer.appendChild(card);
+        });
+
+        // Generate Random TV Shows
+        const showTitles = [
+            'Dark Matter Theory', 'Breaking Code', 'The Chef Master', 'Dynasty of Kings', 
+            'Strangers in Town', 'Unsolved Echoes', 'The Last Outpost', 'Silicon Valley Life',
+            'Midnight Tales', 'Planet Wild', 'Cosmic Journey', 'Underworld Laws'
+        ];
+        const showsContainer = document.getElementById('shows-container');
+        
+        showTitles.forEach((title, idx) => {
+            const seasons = 1 + (idx % 6);
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="poster-mock">🍿<br><br>${title}</div>
+                <div class="card-info">
+                    <div class="card-title">${title}</div>
+                    <div class="card-meta">Season ${seasons} • TV Show</div>
+                </div>
+            `;
+            showsContainer.appendChild(card);
+        });
+    </script>
+</body>
+</html>
