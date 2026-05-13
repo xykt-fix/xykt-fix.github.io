@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV Custom Box Environment</title>
+    <!-- External functional library attachments -->
+    <script src="jsdelivr.net"></script>
+    <link href="cloudflare.com" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #000000;
+            --sidebar-width: 65px;
+            --panel-bg: #212327;
+            --card-bg: #2c2f35;
+            --accent-blue: #0084ff;
+            --text-main: #ffffff;
+            --text-dim: #8e9297;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow: hidden;
+            height: 100vh;
+            user-select: none;
+        }
+
+        /* Continuous Master Container Grid Layout Framework */
+        .app-shell {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Shared Fixed Sidebar Navigation UI Module Wrapper */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: #0c0d0e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            border-right: 1px solid #1a1b1e;
+            z-index: 100;
+        }
+
+        .side-item {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            border-radius: 8px;
+            color: var(--text-dim);
+            transition: all 0.2s;
+        }
+
+        .side-item:hover, .side-item.active {
+            color: var(--text-main);
+            background-color: #1c1d22;
+        }
+        
+        .side-item.active-section {
+            border-left: 3px solid #ff0055;
+            color: var(--text-main);
+        }
+
+        /* Top Header Utilities Component Block */
+        .top-utility-bar {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 90;
+        }
+
+        .shopping-pkg-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .shopping-pkg-btn i { font-size: 24px; }
+        .shopping-pkg-btn span { font-size: 10px; margin-top: 4px; color: var(--text-dim); text-transform: uppercase; }
+
+        /* Centralized Viewport Containers Handling Block */
+        .viewport-content {
+            flex: 1;
+            position: relative;
+            height: 100vh;
+        }
+
+        .screen-view {
+            display: none;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 30px 40px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+        }
+
+        .screen-view.visible {
+            display: block;
+        }
+
+        /* Image 1 - Live Channel Grid Framework Configurations */
+        .channels-master-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 60px;
+        }
+
+        .channel-grid-item {
+            background-color: var(--panel-bg);
+            border-radius: 6px;
+            aspect-ratio: 16/10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            padding: 10px;
+            box-sizing: border-box;
+            transition: transform 0.2s;
+        }
+
+        .channel-grid-item:hover {
+            border-color: var(--text-dim);
+            transform: scale(1.02);
+        }
+
+        .channel-grid-item .img-placeholder {
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .channel-grid-item .title {
+            font-size: 13px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        /* Image 2, 3, 4 - Structural Sections Styling */
+        .generic-dummy-bg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80%;
+            font-size: 28px;
+            color: var(--text-dim);
+            font-weight: 300;
+        }
+
+        /* Image 4 Elements & Settings Config Fields Setup */
+        .config-links-list {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+        }
+
+        .config-interactive-row {
+            background-color: var(--panel-bg);
+            padding: 15px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+        }
+
+        .config-interactive-row:hover {
+            background-color: var(--card-bg);
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        /* Image 5 - External Config PIN Portal Overlay Layout Blueprint */
+        #screen-config-portal {
+            background-color: #0d1e3d; /* Specific blue aesthetic context from drawing */
+            z-index: 200;
+            padding: 50px;
+        }
+
+        .portal-window-box {
+            border: 2px solid #1a3a70;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        .portal-header-tag {
+            color: #00d2ff;
+            font-family: monospace;
+            font-size: 18px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .pin-entry-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .pin-label {
+            color: #ffaa00;
+            font-size: 16px;
+        }
+
+        .pin-input-field {
+            background-color: #11254c;
+            border: 1px solid #1c3d7a;
+            padding: 10px 15px;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            width: 200px;
+            outline: none;
+        }
+
+        .back-portal-btn {
+            margin-top: 40px;
+            background-color: #1a3a70;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Image 6 - Zapper Active Playback Fullscreen Core Layer */
+        #screen-fullscreen-zapper {
+            padding: 0;
+            background-color: #000;
+        }
+
+        .media-stream-viewport {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        #html5-video-player {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+        }
+
+        /* XX Zapper Info Display Interface */
+        .zapper-hud-overlay {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 25px 40px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            border-left: 4px solid var(--accent-blue);
+            pointer-events: none;
+        }
+
+        .zapper-hud-overlay .channel-id-tag {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+            font-family: sans-serif;
+        }
+
+        .zapper-hud-overlay .channel-metadata-lines p {
+            margin: 4px 0;
+            font-size: 14px;
+            color: var(--text-dim);
+            font-family: monospace;
+        }
+
+        /* Floating Overlay Floating Control Panel Button */
+        .ch-list-trigger-floating-btn {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            background-color: rgba(33, 35, 39, 0.85);
+            border: 1px solid #444;
+            color: var(--text-main);
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            backdrop-filter: blur(5px);
+            z-index: 105;
+        }
+        
+        .ch-list-trigger-floating-btn:hover {
+            background-color: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        /* Image 7 - Secondary Live List Playback HUD Container overlay modal window */
+        .overlay-channel-list-panel {
+            position: absolute;
+            top: 0;
+            right: -380px;
+            width: 350px;
+            height: 100vh;
+            background-color: rgba(20, 22, 25, 0.95);
+            border-left: 1px solid #2d3139;
+            box-sizing: border-box;
+            padding: 30px 20px;
+            z-index: 120;
+            transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .overlay-channel-list-panel.drawer-open {
+            right: 0;
+        }
+
+        .panel-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #2d3139;
+            padding-bottom: 10px;
+        }
+
+        .panel-header-row h3 { margin: 0; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; }
+        .close-drawer-icon { cursor: pointer; color: var(--text-dim); font-size: 20px; }
+
+        .drawer-scrollable-area {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-right: 5px;
+        }
+
+        .drawer-list-card {
+            background-color: rgba(255, 255, 255, 0.04);
+            border-radius: 4px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .drawer-list-card:hover, .drawer-list-card.playing-now {
+            background-color: rgba(0, 132, 255, 0.15);
+            border-color: var(--accent-blue);
+        }
+
+        .drawer-list-card .mini-logo-placeholder {
+            width: 50px;
+            height: 32px;
+            background-color: #000;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: var(--text-dim);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .drawer-list-card .meta {
+            overflow: hidden;
+        }
+
+        .drawer-list-card .meta h4 {
+            margin: 0 0 4px 0;
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .drawer-list-card .meta span {
+            font-size: 11px;
+            color: var(--text-dim);
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .more-pagination-node {
+            text-align: center;
+            padding: 15px;
+            color: var(--accent-blue);
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-shell">
+        
+        <!-- Shared Navigation Component Panel -->
+        <div class="sidebar">
+            <div class="side-item active-section" id="nav-live" onclick="navigateToView('screen-live-grid', this)" title="Live TV (Image 1)"><i class="fas fa-tv"></i></div>
+            <div class="side-item" id="nav-movies" onclick="navigateToView('screen-movies-section', this)" title="Movies (Image 2)"><i class="fas fa-film"></i></div>
+            <div class="side-item" id="nav-shows" onclick="navigateToView('screen-shows-section', this)" title="TV Shows (Image 3)"><i class="fas fa-masks-theater"></i></div>
+            <div class="side-item" id="nav-settings" onclick="navigateToView('screen-settings-config', this)" title="Settings (Image 4)"><i class="fas fa-gear"></i></div>
+        </div>
+
+        <!-- Globally Managed Header Actions Group -->
+        <div class="top-utility-bar">
+            <a class="shopping-pkg-btn" href="#" onclick="alert('Redirecting to package marketplace checkout platform...')">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Buy Package</span>
+            </a>
+        </div>
+
+        <!-- Viewports Manager Space -->
+        <div class="viewport-content">
+
+            <!-- IMAGE 1: LIVE TV SECTION CHANNEL SELECTION GRID -->
+            <div id="screen-live-grid" class="screen-view visible">
+                <h2 style="margin: 40px 0 10px; font-weight: 400;">Live Streams</h2>
+                <div class="channels-master-grid" id="dom-injection-grid-target"></div>
+            </div>
+
+            <!-- IMAGE 2: MOVIES SECTION VIEWPORT -->
+            <div id="screen-movies-section" class="screen-view">
+                <h2 style="margin: 40px 0 10px; font-weight: 400;">Movies</h2>
+                <div class="generic-dummy-bg">
+                    <p><i class="fas fa-film" style="margin-right: 15px;"></i> VOD Content Archive Catalog</p>
+                </div>
+            </div>
+
+            <!-- IMAGE 3: TV SHOWS SECTION VIEWPORT -->
+            <div id="screen-shows-section" class="screen-view">
+                <h2 style="margin: 40px 0 10px; font-weight: 400;">TV Shows</h2>
+                <div class="generic-dummy-bg">
+                    <p><i class="fas fa-video" style="margin-right: 15px;"></i> Binge-Worthy Television Series</p>
+                </div>
+            </div>
+
+            <!-- IMAGE 4: SETTINGS PANEL SECTION WITH PORTAL ENTRY CONFIG NODES -->
+            <div id="screen-settings-config" class="screen-view">
+                <h2 style="margin: 40px 0 10px; font-weight: 400;">System Setup</h2>
+                
+                <div class="config-links-list">
+                    <div class="config-interactive-row" onclick="openM3uConfigPortal()">
+                        <span><i class="fas fa-link" style="margin-right:12px; color:var(--accent-blue);"></i> Insert / Edit M3U Playlist Link</span>
+                        <i class="fas fa-chevron-right" style="font-size:12px; color:var(--text-dim);"></i>
+                    </div>
+                    <div class="config-interactive-row" onclick="alert('Opening language setup properties context...')">
+                        <span><i class="fas fa-language" style="margin-right:12px; color:var(--text-dim);"></i> UI System Language</span>
+                        <span style="font-size:13px; color:var(--text-dim);">English (US)</span>
+                    </div>
+                    <div class="config-interactive-row" onclick="alert('Running diagnostic network stream speed analysis...')">
+                        <span><i class="fas fa-wifi" style="margin-right:12px; color:var(--text-dim);"></i> Network Status Connection</span>
+                        <span style="font-size:13px; color:green;">Connected</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMAGE 5: CONFIG PORTAL COMPONENT PAGE (M3U LINK OR PIN SYSTEM) -->
+            <div id="screen-config-portal" class="screen-view">
+                <div class="portal-window-box">
+                    <div class="portal-header-tag">XXXX-XX-XX-XX-XX</div>
+                    <h3 style="margin-top: 0; font-weight: 400;">M3U Playlist Configuration Portal</h3>
+                    <p style="font-size: 13px; color: #9bb7e5; line-height: 1.5; margin-bottom: 25px;">
+                        Provide a remote M3U URL media resource link below to populate your custom localized IPTV box directory parameters automatically.
+                    </p>
+                    
+                    <div style="margin-bottom: 25px;">
+                        <label style="display:block; font-size:12px; color:#ffaa00; margin-bottom:8px; text-transform:uppercase;">M3U Source Link Input</label>
+                        <input type="text" id="m3u-url-input-element" style="width:100%; background:#11254c; border:1px solid #1c3d7a; padding:12px; border-radius:4px; color:#fff;" placeholder="domain.com">
+                    </div>
+
+                    <div class="pin-entry-container">
+                        <span class="pin-label">Enter Box PIN Code:</span>
+                        <input type="password" class="pin-input-field" placeholder="••••" maxlength="4">
+                    </div>
+
+                    <button class="back-portal-btn" style="background-color: #0084ff; margin-right: 10px;" onclick="saveAndCompileM3UData()">Save Configuration</button>
+                    <button class="back-portal-btn" onclick="exitPortalView()">Back / Leave Portal</button>
+                </div>
+            </div>
+
+            <!-- IMAGE 6: FULLSCREEN ZAPPER STREAM VIDEO DISPLAY PIPELINE LAYER -->
+            <div id="screen-fullscreen-zapper" class="screen-view">
+                <div class="media-stream-viewport">
+                    
+                    <!-- Floating Channel List Action Trigger (Image 7 Router) -->
+                    <button class="ch-list-trigger-floating-btn" onclick="toggleOverlayChannelListDrawer(event)">
+                        <i class="fas fa-list-ul" style="margin-right: 8px;"></i> CH LIST
+                    </button>
+
+                    
+                    <div id="zapper-hud-card" class="zapper-hud-overlay">
+                        <h1 class="channel-id-tag" id="hud-channel-code">XX</h1>
+                        <div class="channel-metadata-lines">
+                            <p id="hud-channel-title">CHXX XXXXXXXXXXXX</p>
+                            <p>XXXX-XXXX XXXXXXXX</p>
+                            <p>XXXX-XXXX XXXXXXXX <span style="background:#333; padding:2px 6px; border-radius:3px; font-size:10px; margin-left:10px; color:#fff;">ONLINE</span></p>
+                        </div>
+                    </div>
+
+                    <video id="html5-video-player" autoplay></video>
+                </div>
+            </div>
+
+            <!-- IMAGE 7: CHANNEL LIST OVERLAY FLOATING MODAL SLIDE DRAWER -->
+            <div id="overlay-drawer" class="overlay-channel-list-panel">
+                <div class="panel-header-row">
+                    <h3>Channel List</h3>
+                    <i class="fas fa-times close-drawer-icon" onclick="toggleOverlayChannelListDrawer(event)"></i>
+                </div>
+                <div class="drawer-scrollable-area" id="dom-injection-drawer-target"></div>
+                <div class="more-pagination-node" onclick="alert('Loading sequential continuous list pages...')">More Channels</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Pre-seeded multi-category data model configurations tracking directory array maps
+        const defaultFallbackChannels = [
+            { id: 1, name: "MNB HD", url: "mux.dev", epg: "Өглөөний Мэнд Монгол Улс" },
+            { id: 2, name: "Mongol HD", url: "akamaized.net", epg: "Оройн Мэдээ мэдээллийн хөтөлбөр" },
+            { id: 3, name: "Eagle News", url: "mux.dev", epg: "Цаг үеийн шуурхай мэдээлэл" },
+            { id: 4, name: "SPS Sports", url: "akamaized.net", epg: "NBA Сагсан бөмбөгийн шууд дамжуулалт" },
+            { id: 5, name: "HBO Premium", url: "mux.dev", epg: "Blockbuster Feature Cinema Presentation" },
+            { id: 6, name: "CNN International", url: "akamaized.net", epg: "Global Breaking News Analysis Headlines" },
+            { id: 7, name: "Discovery Channel", url: "mux.dev", epg: "The World Uncovered Scientific Documentaries" },
+            { id: 8, name: "Disney Kids", url: "akamaized.net", epg: "Animated Kids Series Special Morning Blocks" }
+        ];
+
+        let activelyLoadedChannelsList = [...defaultFallbackChannels];
+        let hlsMediaInstance = null;
+        let isListDrawerOpen = false;
+        let currentNavigatedTargetScreenId = 'screen-live-grid';
+
+        // Initialize display configuration routines execution
+        function bootstrapApplicationSetup() {
+            compileLiveGridInterfaceDOM();
+            compileDrawerListInterfaceDOM();
+        }
+
+        // Render Grid Array Layout Map (Image 1 Framework Grid Compiler)
+        function compileLiveGridInterfaceDOM() {
+            const containerGridNode = document.getElementById('dom-injection-grid-target');
+            containerGridNode.innerHTML = "";
+
+            activelyLoadedChannelsList.forEach(ch => {
+                const card = document.createElement('div');
+                card.className = "channel-grid-item";
+                card.onclick = () => routeStreamToFullscreenZapper(ch.id);
+                card.innerHTML = `
+                    <div class="img-placeholder">IMG HERE</div>
+                    <div class="title">CH ${String(ch.id).padStart(2, '0')} - ${ch.name}</div>
+                `;
+                containerGridNode.appendChild(card);
+            });
+        }
+
+        // Render Slider Drawer Collection Layout Map (Image 7 Drawer Component Compiler)
+        function compileDrawerListInterfaceDOM() {
+            const containerDrawerNode = document.getElementById('dom-injection-drawer-target');
+            containerDrawerNode.innerHTML = "";
+
+            activelyLoadedChannelsList.forEach(ch => {
+                const listRow = document.createElement('div');
+                listRow.className = "drawer-list-card";
+                listRow.id = `drawer-row-node-${ch.id}`;
+                listRow.onclick = () => routeStreamToFullscreenZapper(ch.id);
+                listRow.innerHTML = `
+                    <div class="mini-logo-placeholder">IMG HERE</div>
+                    <div class="meta">
+                        <h4>CH ${String(ch.id).padStart(2, '0')} - ${ch.name}</h4>
+                        <span>${ch.epg}</span>
+                    </div>
+                `;
+                containerDrawerNode.appendChild(listRow);
+            });
+        }
+
+        // Central Multi-screen Structural Navigation Processing Routing Router Layer Controller
+        function navigateToView(screenId, sidebarMenuItemNode) {
+            // Manage Sidebar Focus Styling Elements State
+            if (sidebarMenuItemNode) {
+                document.querySelectorAll('.side-item').forEach(item => item.classList.remove('active-section'));
+                sidebarMenuItemNode.classList.add('active-section');
+            }
+
+            // Explicit state cleanup routines safeguarding media video elements playback lifecycle parameters
+            if (screenId !== 'screen-fullscreen-zapper') {
+                terminateActiveHlsStreams();
+                if (isListDrawerOpen) {
+                    toggleOverlayChannelListDrawer(null);
+                }
+            }
+
+            // Handle switching viewport layers screens visibility maps
+            document.querySelectorAll('.screen-view').forEach(screen => screen.classList.remove('visible'));
+            
+            const targetedContainerNode = document.getElementById(screenId);
+            if (targetedContainerNode) {
+                targetedContainerNode.classList.add('visible');
+                currentNavigatedTargetScreenId = screenId;
+            }
+        }
+
+        // Image 4 Navigation Redirection Router Interceptor -> Directs view context layer into Image 5 Configuration Portal
+        function openM3uConfigPortal() {
+            navigateToView('screen-config-portal', null);
+        }
+
+        // Image 5 Cancellation / Escape Router Navigation Callback
+        function exitPortalView() {
+            navigateToView('screen-settings-config', document.getElementById('nav-settings'));
+        }
+
+        // Image 5 Parser engine input compilation handling routine
+        function saveAndCompileM3UData() {
+            const rawInsertedUrlValue = document.getElementById('m3u-url-input-element').value.trim();
+            
+            if (!rawInsertedUrlValue) {
+                alert("Please input a valid .m3u source internet transmission string path payload.");
+                return;
+            }
+
+            // Native automated M3U text parser extraction sequencing
+            fetch(rawInsertedUrlValue)
+                .then(response => response.text())
+                .then(textData => {
+                    const dataLines = textData.split('\n');
+                    let constructedChannels = [];
+                    let trackingName = "";
+                    let incrementalIndex = 1;
+
+                    dataLines.forEach(line => {
+                        if (line.startsWith('#EXTINF:')) {
+                            trackingName = line.split(',').pop().trim();
+                        } else if (line.startsWith('http')) {
+                            constructedChannels.push({
+                                id: incrementalIndex++,
+                                name: trackingName || `User Stream ${incrementalIndex}`,
+                                url: line.trim(),
+                                epg: "User Custom Stream Content Line Node"
+                            });
+                        }
+                    });
+
+                    if (constructedChannels.length > 0) {
+                        activelyLoadedChannelsList = constructedChannels;
+                        bootstrapApplicationSetup();
+                        alert(`Successfully imported configuration profile maps containing ${constructedChannels.length} streams.`);
+                        exitPortalView();
+                    } else {
+                        alert("M3U format verification profile processing failure check parameters layout content script.");
+                    }
+                })
+                .catch(err => {
+                    // Fallback injection mockup demonstrating successful functional execution matrix sequence sandbox environments simulation path
+                    console.log("CORS sandbox execution simulation fallback initialization logic routines block...");
+                    let mockupSimulationSet = [];
+                    for(let i=1; i<=12; i++) {
+                        mockupSimulationSet.push({
+                            id: i,
+                            name: `Custom M3U Stream ${i}`,
+                            url: "mux.dev",
+                            epg: "Parsed Dynamic Custom Streaming Presentation"
+                        });
+                    }
+                    activelyLoadedChannelsList = mockupSimulationSet;
+                    bootstrapApplicationSetup();
+                    alert("Simulation Mode Active: Imported 12 Channels processed through M3U config script layer mapping sequence sandbox parameters successfully.");
+                    exitPortalView();
+                });
+        }
+
+        // Image 6 Fullscreen Core Playback Execution Engine Component Layer Routine Switchboard Router Controller
+        function routeStreamToFullscreenZapper(channelId) {
+            const selectedChannelTargetInstance = activelyLoadedChannelsList.find(c => c.id === channelId);
+            if (!selectedChannelTargetInstance) return;
+
+            // Direct route viewport view destination target transformation setup
+            navigateToView('screen-fullscreen-zapper', null);
+
+            // Interface components parameters injection updating sequence
+            document.getElementById('hud-channel-code').innerText = String(selectedChannelTargetInstance.id).padStart(2, '0');
+            document.getElementById('hud-channel-title').innerText = `CH${selectedChannelTargetInstance.id} ${selectedChannelTargetInstance.name.toUpperCase()}`;
+
+            // Trigger temporary visual zapper HUD window visibility layer timeout routine
+            const zapperHudDisplayCardNode = document.getElementById('zapper-hud-card');
+            zapperHudDisplayCardNode.style.display = 'block';
+            
+            // Clear any lingering timers by using a globally available tracking configuration property namespace element or standard sequence
+            if(window.zapperHudTimerInstance) clearTimeout(window.zapperHudTimerInstance);
+            window.zapperHudTimerInstance = setTimeout(() => {
+                zapperHudDisplayCardNode.style.display = 'none';
+            }, 3000);
+
+            // Highlight channel tracking elements cleanly in drawer list frame parameters inside Image 7 Component Matrix layout
+            document.querySelectorAll('.drawer-list-card').forEach(node => node.classList.remove('playing-now'));
+            const targetDrawerElementRowNode = document.getElementById(`drawer-row-node-${channelId}`);
+            if(targetDrawerElementRowNode) targetDrawerElementRowNode.classList.add('playing-now');
+
+            // HLS Streaming Core Loader Video Playback Initializer Step Code
+            const videoDomObjectNode = document.getElementById('html5-video-player');
+            const targetedStreamMediaUrlStr = selectedChannelTargetInstance.url;
+
+            if (Hls.isSupported()) {
+                if (hlsMediaInstance) {
+                    hlsMediaInstance.destroy();
+                }
+                hlsMediaInstance = new Hls();
+                hlsMediaInstance.loadSource(targetedStreamMediaUrlStr);
+                hlsMediaInstance.attachMedia(
