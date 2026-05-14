@@ -1,0 +1,45 @@
+        const mongolianChannels = Array.from({length: 50}, (_, i) => `MN Channel ${i + 1}`);
+        const foreignChannels = Array.from({length: 50}, (_, i) => `INT Channel ${i + 1}`);
+
+        // Channel Filtering Logic
+        function filterChannels(type) {
+            document.querySelectorAll('.controls .btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            const channelGrid = document.getElementById('channel-grid');
+            channelGrid.innerHTML = '';
+            const list = type === 'mongolian' ? mongolianChannels : foreignChannels;
+
+            list.forEach(name => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `<div class="card-img">📺</div><div><strong>${name}</strong></div>`;
+                channelGrid.appendChild(card);
+            });
+        }
+
+        // Generate Movie Data (15 Mock Items)
+        const movies = ["Action Universe", "Sci-Fi Saga", "Drama Movie 1", "Comedy Hour", "Horror 3D", "Mongolian Legend", "Fantasy Quest", "Thriller Night", "Docu Series", "Anime Movie", "Warriors", "Detective", "Romance", "Adventure", "Western"];
+        const movieGrid = document.getElementById('movie-grid');
+        movies.forEach(name => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `<div class="card-img">🎬</div><div><strong>${name}</strong></div>`;
+            movieGrid.appendChild(card);
+        });
+
+        // Generate TV Show Data (15 Mock Items)
+        const shows = ["Drama Series 1", "Global News", "Travel Mongolia", "Cooking Today", "Talk Show Live", "Documentary P1", "Sitcom S3", "Sci-Fi Weekly", "Crime Files", "History Channel", "Sports Highlights", "Kids Zone", "Nature Life", "Reality TV", "Home Design"];
+        const showGrid = document.getElementById('show-grid');
+        shows.forEach(name => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `<div class="card-img">🖥️</div><div><strong>${name}</strong></div>`;
+            showGrid.appendChild(card);
+        });
+
+        // Initial Load
+        filterChannels('mongolian');
+    </script>
+</body>
+</html>
