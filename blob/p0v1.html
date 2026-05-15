@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyLine IPTV Pro Ultimate</title>
+    <style>
+        :root {
+            --bg-main: #f8f9fa;
+            --bg-sidebar: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --accent: #007bff;
+            --accent-hover: #0056b3;
+            --border: #e9ecef;
+            --favorite: #ffc107;
+            --danger: #dc3545;
+            --success: #28a745;
+        }
+
+        [data-theme="dark"] {
+            --bg-main: #121212;
+            --bg-sidebar: #1e1e1e;
+            --bg-card: #242424;
+            --text-main: #f8f9fa;
+            --text-muted: #a0a0a0;
+            --accent: #3b82f6;
+            --accent-hover: #1d4ed8;
+            --border: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 240px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent);
+            padding: 0 24px;
+            margin-bottom: 30px;
+        }
+
+        .menu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 0 12px;
+        }
+
+        .menu-item {
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background-color: var(--bg-main);
+            color: var(--accent);
+        }
+
+        /* Main Workspace Structure */
+        .main-layout {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            height: 60px;
+            background-color: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: relative;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-container {
+            position: relative;
+            width: 250px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 6px 14px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            outline: none;
+        }
+
+        /* Sorting Options Dropdown */
+        .sort-select {
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* History Dropdown Menu */
+        .history-dropdown {
+            display: none;
+            position: absolute;
+            top: 105%;
+            left: 0;
+            right: 0;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 100;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            padding: 8px 12px;
+            font-size: 13px;
+            cursor: pointer;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .history-item:hover {
+            background-color: var(--bg-main);
+        }
+
+        .workspace {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .content-display {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        .section-title {
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        /* Content Component Layouts */
+        .grid-channels {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 16px;
+        }
+
+        .grid-media {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 16px;
+        }
+
+        /* Custom Adaptive Cards */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .fav-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .card.is-fav .fav-btn {
+            color: var(--favorite);
+        }
+
+        .channel-logo-box {
+            height: 80px;
+            background: rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 13px;
+            text-align: center;
+            padding: 8px;
+        }
+
+        .poster-box {
+            height: 180px;
+            background: rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .card-info {
+            padding: 10px;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Right Panel Media Engine & EPG */
+        .player-panel {
+            width: 360px;
+            background-color: var(--bg-sidebar);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vol-slider {
+            width: 60px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .epg-container {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        .epg-header {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .epg-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .epg-slot {
+            padding: 10px;
+            background: var(--bg-main);
+            border-left: 3px solid var(--border);
+            border-radius: 0 6px 6px 0;
+            position: relative;
+        }
+
+        .epg-slot.current {
+            border-left-color: var(--accent);
+            background: rgba(0, 123, 255, 0.1);
+        }
+
+        .pvr-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 11px;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        .pvr-btn:hover {
+            background-color: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: rgba(0,0,0,0.1);
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background-color: var(--accent);
+            height: 100%;
+            width: 45%;
+        }
+
+        /* Settings View Configuration */
+        .settings-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px;
+            max-width: 500px;
+        }
+
+        .settings-group {
+            margin-bottom: 16px;
+        }
+
+        .settings-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .settings-group select, .settings-group input[type="text"], .settings-group input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg-main);
+            color: var(--text-main);
+            outline: none;
+        }
+
+        /* Parental Controls Block */
+        .pincode-display {
+            font-size: 11px;
+            color: var(--success);
+            margin-top: 4px;
+            font-weight: bold;
+        }
+
+        /* PVR Table Design */
+        .pvr-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .pvr-table th, .pvr-table td {
+            border: 1px solid var(--border);
+            padding: 10px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        .pvr-table th {
+            background-color: var(--bg-main);
+        }
+
+        /* Switch toggle button styling */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 22px;
+        }
+
+        .switch input { display: none; }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            border-radius: 22px;
+            transition: .3s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px; width: 16px;
+            left: 3px; bottom: 3px;
+            background-color: white;
+            border-radius: 50%;
+            transition: .3s;
+        }
+
+        input:checked + .slider { background-color: var(--accent); }
+        input:checked + .slider:before { transform: translateX(22px); }
+
+        .btn {
+            background-color: var(--accent);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+        }
+
+        .file-label {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Menu -->
+    <nav class="sidebar">
+        <div class="logo">📺 SkyLine IPTV</div>
+        <ul class="menu-list">
+            <li class="menu-item active" onclick="switchTab('mn-tv')"><span>🇲🇳 Mongolian TV</span> <span id="mn-count">(50)</span></li>
+            <li class="menu-item" onclick="switchTab('int-tv')"><span>🌐 Foreign TV</span> <span id="int-count">(50)</span></li>
+            <li class="menu-item" onclick="switchTab('adult-tv')"><span>🔞 Adult Premium</span> <span id="adult-count">(5)</span></li>
+            <li class="menu-item" onclick="switchTab('favorites')"><span>⭐ Bookmarked</span> <span id="fav-count">(0)</span></li>
+            <li class="menu-item" onclick="switchTab('pvr-view')"><span>🔴 PVR Schedules</span> <span id="pvr-count">(0)</span></li>
+            <li class="menu-item" onclick="switchTab('movies')"><span>🎬 Movies</span></li>
+            <li class="menu-item" onclick="switchTab('shows')"><span>🍿 TV Shows</span></li>
+            <li class="menu-item" onclick="switchTab('settings')"><span>⚙️ Settings</span></li>
+        </ul>
+    </nav>
+
+    <div class="main-layout">
+        <header class="header">
+            <div class="header-left">
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="search-input" placeholder="Search operational streams..." oninput="filterChannels()" onfocus="showHistory()" onblur="setTimeout(hideHistory, 200)">
+                    <div class="history-dropdown" id="history-box"></div>
+                </div>
+                <select class="sort-select" id="sort-engine" onchange="triggerSortOrder()">
+                    <option value="default">Default Structuring</option>
+                    <option value="asc">Sort Order: A-Z Alphabetical</option>
+                    <option value="desc">Sort Order: Z-A Reverse</option>
+                </select>
+            </div>
+            <div style="font-size: 14px; font-weight: 500;">User: Enterprise Streamer</div>
+        </header>
+
+        <div class="workspace">
+            <main class="content-display">
+                
+                <!-- Channels views -->
+                <section id="mn-tv" class="view-section active">
+                    <h2 class="section-title">Mongolian Television Channels</h2>
+                    <div class="grid-channels stream-grid-host" id="mn-grid"></div>
+                </section>
+
+                <section id="int-tv" class="view-section">
+                    <h2 class="section-title">International Television Channels</h2>
+                    <div class="grid-channels stream-grid-host" id="int-grid"></div>
+                </section>
+
+                <!-- Adult Protected View Section -->
+                <section id="adult-tv" class="view-section">
+                    <h2 class="section-title">Adult Premium Dynamic Channels</h2>
+                    <div id="adult-lock-screen" style="padding: 30px; text-align: center; border: 1px dashed var(--border); background: var(--bg-card); border-radius:10px;">
+                        <p style="margin-bottom: 15px; font-weight: 600;">🔒 Content Protected by Parental Lock Password Mechanism</p>
+                        <input type="password" id="adult-pin-input" placeholder="Enter Parental Lock PIN" style="padding:8px; border-radius:6px; border:1px solid var(--border); margin-right:10px; width: 180px; text-align:center;">
+                        <button class="btn" onclick="verifyParentalLock()">Unlock Grid Feed</button>
+                    </div>
+                    <div class="grid-channels stream-grid-host" id="adult-grid" style="display: none;"></div>
+                </section>
+
+                <section id="favorites" class="view-section">
+                    <h2 class="section-title">Bookmarked Channels</h2>
+                    <div class="grid-channels" id="fav-grid"></div>
+                </section>
+
+                <!-- PVR Schedule View Window -->
+                <section id="pvr-view" class="view-section">
+                    <h2 class="section-title">PVR Scheduled & Active Cloud Recordings</h2>
+                    <div class="settings-box" style="max-width: 100%;">
+                        <table class="pvr-table">
+                            <thead>
+                                <tr>
+                                    <th>Channel Source</th>
+                                    <th>Program Title</th>
+                                    <th>Time Matrix Block</th>
+                                    <th>Operational Status</th>
+                                    <th>Control Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pvr-table-body">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; color: var(--text-muted);">No cloud PVR capture operations mapped. Use the EPG timeline buttons to build schedule tracks.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- VOD Items -->
+                <section id="movies" class="view-section">
+                    <h2 class="section-title">On-Demand Movies</h2>
+                    <div class="grid-media" id="movies-grid"></div>
+                </section>
+
+                <section id="shows" class="view-section">
+                    <h2 class="section-title">TV Series Collection</h2>
+                    <div class="grid-media" id="shows-grid"></div>
+                </section>
+
+                <!-- Advanced Operational Settings -->
+                <section id="settings" class="view-section">
+                    <h2 class="section-title">Application Settings</h2>
+                    <div class="settings-box">
+                        <div class="settings-group" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                            <label style="margin-bottom: 0;">Application Dark Mode Theme</label>
+                            <label class="switch">
+                                <input type="checkbox" id="theme-toggle" onchange="toggleTheme()">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="settings-group">
+                            <label>Update Parental Lock PIN Code</label>
+                            <input type="password" id="sys-pin-setter" value="1234" maxlength="8" style="text-align: center; width: 120px; letter-spacing: 4px;">
+                            <div class="pincode-display">Current active security token active</div>
+                        </div>
+                        <div class="settings-group">
+                            <label>Import Real M3U Local File Playlist</label>
+                            <label class="file-label">
+                                Choose M3U File
+                                <input type="file" id="m3u-uploader" accept=".m3u,.m3u8" style="display:none;" onchange="handleM3UUpload(event)">
+                            </label>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Dashboard Stream Core Window -->
+            <aside class="player-panel">
+                <div class="video-container" id="video-box">
+                    <div style="font-size: 24px;">▶️</div>
+                    <div id="player-status" style="margin-top: 8px; font-size: 14px;">Select a channel to play</div>
+                    <div class="video-controls">
+                        <div class="control-group"><span>● LIVE</span></div>
+                        <div class="control-group">
+                            🔊 <input type="range" class="vol-slider" min="0" max="100" value="80" title="Audio Adjust">
+                            <button style="background:none; border:none; color:white; cursor:pointer;" onclick="toggleFullscreen()">⛶</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="epg-container">
+                    <div class="epg-header">📅 TV Guide (EPG) - <span id="epg-target">No Active Channel</span></div>
+                    <div class="epg-timeline" id="epg-list">
+                        <div style="color: var(--text-muted); font-size: 13px; text-align: center; margin-top: 20px;">
+                            Click a stream to populate timeslots.
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        let favoritesList = [];
+        let playbackHistory = [];
+        let pvrSchedules = [];
+        let initialGridsCachedData = {};
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.view-section').forEach(section => section.classList.remove('active'));
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            
+            const targetItem = Array.from(document.querySelectorAll('.menu-item')).find(item => item.getAttribute('onclick').includes(tabId));
+            if(targetItem) targetItem.classList.add('active');
+            
+            if(tabId === 'favorites') renderFavoritesGrid();
+        }
+
+        // Search engine optimization mapping matrix
+        function filterChannels() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            document.querySelectorAll('.grid-channels .card, .grid-media .card').forEach(card => {
+                const title = card.querySelector('.card-title').innerText.toLowerCase();
+                card.style.display = title.includes(query) ? 'block' : 'none';
+            });
+        }
+
+        // A-Z Sorting Architecture Implementation
+        function triggerSortOrder() {
+            const rule = document.getElementById('sort-engine').value;
+            const targetGrids = ['mn-grid', 'int-grid', 'adult-grid'];
+            
+            targetGrids.forEach(gridId => {
+                const grid = document.getElementById(gridId);
+                const cards = Array.from(grid.children);
+                
+                if (rule === 'default') {
+                    grid.innerHTML = initialGridsCachedData[gridId];
+                    return;
+                }
+
+                cards.sort((alpha, beta) => {
+                    const titleA = alpha.querySelector('.card-title').innerText.toLowerCase();
+                    const titleB = beta.querySelector('.card-title').innerText.toLowerCase();
+                    
+                    if(rule === 'asc') return titleA.localeCompare(titleB);
+                    if(rule === 'desc') return titleB.localeCompare(titleA);
+                });
+
+                grid.innerHTML = '';
+                cards.forEach(card => grid.appendChild(card));
+            });
+        }
+
+        // Parental Lock Password Mechanism Protection Core
+        function verifyParentalLock() {
+            const enteredPin = document.getElementById('adult-pin-input').value;
+            const verifiedSystemPin = document.getElementById('sys-pin-setter').value;
+
+            if (enteredPin === verifiedSystemPin) {
+                document.getElementById('adult-lock-screen').style.display = 'none';
+                document.getElementById('adult-grid').style.display = 'grid';
+            } else {
+                alert("Invalid Protective PIN! Access Denied.");
+            }
+        }
+
+        // PVR Automation Capture Management Block
+        function appendToPVREngine(channelName, programName, timeSlot) {
+            const isAssigned = pvrSchedules.some(item => item.channel === channelName && item.time === timeSlot);
+            if(isAssigned) {
+                alert("This block time track sequence is already targeted for recording capture!");
+                return;
+            }
+
+            pvrSchedules.push({
+                id: 'pvr-' + Date.now(),
+                channel: channelName,
+                program: programName,
+                time: timeSlot,
+                status: 'Active Pending'
+            });
+
+            document.getElementById('pvr-count').innerText = `(${pvrSchedules.length})`;
+            renderPVRTableLayout();
+            alert(`PVR Sequence Registered: Capturing ${programName} on ${channelName}.`);
+        }
+
+        function cancelPVRTrack(id) {
+            pvrSchedules = pvrSchedules.filter(item => item.id !== id);
+            document.getElementById('pvr-count').innerText = `(${pvrSchedules.length})`;
+            renderPVRTableLayout();
+        }
+
+        function renderPVRTableLayout() {
+            const tbody = document.getElementById('pvr-table-body');
+            if (pvrSchedules.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No cloud PVR capture operations mapped. Use EPG to build tracks.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = '';
+            pvrSchedules.forEach(item => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><b>${item.channel}</b></td>
+                        <td>${item.program}</td>
+                        <td><code>${item.time}</code></td>
+                        <td style="color:var(--accent); font-weight:bold;">🔴 ${item.status}</td>
+                        <td><button class="btn btn-danger" style="padding:4px 8px; font-size:12px;" onclick="cancelPVRTrack('${item.id}')">Drop Schedule</button></td>
+                    </tr>`;
+            });
+        }
+
+        // Live History and Stream Boot Pipeline
+        function playStream(name) {
+            document.getElementById('player-status').innerText = `Streaming: ${name}`;
+            document.getElementById('epg-target').innerText = name;
+            
+            playbackHistory = [name, ...playbackHistory.filter(item => item !== name)].slice(0, 5);
+            
+            const currentShow = `${name} Block Broadcast A`;
+            const futureShow = `${name} Late Evening Feature`;
+            
+            document.getElementById('epg-list').innerHTML = `
+                <div class="epg-slot current">
+                    <div style="font-size:11px; font-weight:bold; color:var(--accent);">15:00 - 16:30 (Current)</div>
+                    <div class="epg-title">${currentShow}</div>
+                    <button class="pvr-btn" onclick="appendToPVREngine('${name}', '${currentShow}', '15:00-16:30')">🔴 PVR</button>
+                    <div class="progress-container"><div class="progress-bar"></div></div>
+                </div>
+                <div class="epg-slot">
+                    <div style="font-size:11px; font-weight:bold; color:var(--text-muted);">16:30 - 18:00 (Next)</div>
+                    <div class="epg-title">${futureShow}</div>
+                    <button class="pvr-btn" onclick="appendToPVREngine('${name}', '${futureShow}', '16:30-18:00')">🔴 PVR</button>
+                </div>
+            `;
+        }
+
+        function showHistory() {
+            const box = document.getElementById('history-box');
+            if(playbackHistory.length === 0) return;
+            box.innerHTML = '<div style="padding:6px 12px; font-size:11px; color:var(--text-muted); font-weight:bold;">RECENT STREAMS</div>';
+            playbackHistory.forEach(item => {
+                box.innerHTML += `<div class="history-item" onmousedown="playStream('${item}')"><span>🕒 ${item}</span></div>`;
+            });
+            box.style.display = 'block';
+        }
+        function hideHistory() { document.getElementById('history-box').style.display = 'none'; }
+
+        // M3U Local File Playlist Reader Engine
+        function handleM3UUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const lines = e.target.result.split('\n');
+                let parsedChannels = [];
+                
+                for(let i = 0; i < lines.length; i++) {
+                    if(lines[i].startsWith('#EXTINF:')) {
+                        const infoLine = lines[i];
+                        const splitParts = infoLine.split(',');
+                        if (splitParts.length > 1) {
+                            parsedChannels.push(splitParts[1].trim());
+                        }
+                    }
+                }
+
+                if(parsedChannels.length > 0) {
+                    repopulateUIWithM3U(parsedChannels);
+                } else {
+                    alert("No valid structural streams found in M3U file container.");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function repopulateUIWithM3U(channels) {
+            const mnGrid = document.getElementById('mn-grid');
+            const intGrid = document.getElementById('int-grid');
+            mnGrid.innerHTML = '';
+            intGrid.innerHTML = '';
+
+            const mid = Math.ceil(channels.length / 2);
+            const mnArr = channels.slice(0, mid);
+            const intArr = channels.slice(mid);
+
+            mnArr.forEach((name, i) => { mnGrid.innerHTML += createCardHTML(`m-${i}`, 'mn', name, '🇲🇳'); });
+            intArr.forEach((name, i) => { intGrid.innerHTML += createCardHTML(`i-${i}`, 'int', name, '🌐'); });
+
+            document.getElementById('mn-count').innerText = `(${mnArr.length})`;
+            document.getElementById('int-count').innerText = `(${intArr.length})`;
+            
+            // Re-cache structural points for sorting engine support resetting
+            initialGridsCachedData['mn-grid'] = mnGrid.innerHTML;
+            initialGridsCachedData['int-grid'] = intGrid.innerHTML;
+            alert(`Parsed and loaded ${channels.length} new streams successfully into the layout grids!`);
+        }
+
+        function createCardHTML(id, type, name, icon) {
+            return `
+                <div class="card" data-id="${id}" onclick="playStream('${name}')">
+                    <button class="fav-btn" onclick="toggleFavorite(event, '${id}', '${type}', '${name}')">★</button>
+                    <div class="channel-logo-box">${icon} ${name}</div>
+                    <div class="card-info"><div class="card-title">${name}</div></div>
+                
