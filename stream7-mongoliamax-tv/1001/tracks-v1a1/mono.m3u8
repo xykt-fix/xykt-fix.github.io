@@ -1,5 +1,6 @@
 #EXTM3U
 #EXT-X-VERSION:6
-#EXT-X-KEY:METHOD=SAMPLE-AES,URI="https://voo.mn/drm.php/widevine?token=https://voo.mn/drm.php/widevine?token=4c5ea894d219141aab618147b8c30998cf5f632",KEYFORMATVERSIONS="1"\
-#EXT-X-STREAM-INF:BANDWIDTH=1844757,RESOLUTION=1280x720,CODECS="avc1.4D401F,mp4a.40.2"
+#EXT-X-KEY:METHOD=SAMPLE-AES,URI="https://voo.mn"
+#EXT-X-TARGETDURATION:10
+#EXT-X-MEDIA-SEQUENCE:0
 https://mobinet-live.spectar.tv/MBN_1_023/sample_aes_a_def.m3u8?id=MBN_1_023&video_id=6054&token=fhttps://voo.mn/drm.php/widevine?token=4c5ea894d219141aab618147b8c30998cf5f632&authority_instance_id=spectar-prd-mobinet&profile_id=15090325&application_installation_id=14212233&uuid=69de0334acf930-04595217&subscriber_id=12890674&application_id=calcifer&detected_delivery_method=hls&playlist_template=nginx&ps=ff39539837dd36a50b3546516a265c3364c497575844290f0ff7859fbdda4a89bbcb22adeec17cd3bce9f4f483e021c4400564dd570cdb0b9839c6e887c4deba&vh=0e674a7ebc7873be1a7ecb0517d1184b05cff4ab1e4689a446bac7e7b5a5023b23c2d346b80342cdb023a77047bf429e3e307d7d413b4831d58f750e25b9617a
