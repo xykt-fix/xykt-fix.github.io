@@ -1,0 +1,39 @@
+name: Refresh Mobinet IPTV Token
+on:
+  schedule:
+    - cron: '0 */3 * * *' # Automatically runs every 3 hours
+  workflow_dispatch: # Allows you to manually trigger it with a button click
+
+jobs:
+  refresh-stream:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository Code
+      uses: actions/checkout@v4
+
+    - name: Construct Updated M3U8 Stream File
+      run: |
+        # Define variables (Update your token values if needed)
+        TOKEN="f4c5ea894d219141aab618147b8c30998cf5f632"
+        VIDEO_ID="6535"
+        CHANNEL="MBN_1_067"
+        
+        # Rewrite the complete static master stream file
+        cat <<EOF > iptv/streams/MN53.m3u8
+        #EXTM3U
+        #EXT-X-VERSION:6
+        #EXT-X-INDEPENDENT-SEGMENTS
+        #EXT-X-KEY:METHOD=SAMPLE-AES,URI="https://voo.mn{TOKEN}",KEYFORMATVERSIONS="1"
+        #EXT-X-STREAM-INF:BANDWIDTH=1844757,AVERAGE-BANDWIDTH=1755950,RESOLUTION=1280x720,FRAME-RATE=30.000,CODECS="avc1.4D401F,mp4a.40.2"
+        https://mobinet-live.spectar.tv/MBN_1_067/sample_aes_a_def.m3u8?id=MBN_1_067&video_id=6535&token=f4c5ea894d219141aab618147b8c30998cf5f632&authority_instance_id=spectar-prd-mobinet&profile_id=15090325&application_installation_id=14212233&uuid=69de0334acf930-04595217&subscriber_id=12890674&application_id=calcifer&detected_delivery_method=hls&playlist_template=nginx&ps=437598edbbf6e4333ebef700c80eba317b95c148d1a51157ebb4535623139126d27d2795d7956ac00838d14dc66f66d0f0be04500b11beb694fd3dddf64511b3&vh=d0f086dd926f3e4a05d6037eb234b0bdac19e8d40dab76668d9ec0cfb6e8a46a6dedb7224ee60d8ead76bef0da722e60d2e88988f1df3aa264bc6331eddfe794
+        #EXT-X-STREAM-INF:BANDWIDTH=1258118,AVERAGE-BANDWIDTH=1205986,RESOLUTION=854x480,FRAME-RATE=30.000,CODECS="avc1.4D401F,mp4a.40.2"
+        https://mobinet-live.spectar.tv/MBN_1_067/sample_aes_a_def.m3u8?id=MBN_1_067&video_id=6535&token=f4c5ea894d219141aab618147b8c30998cf5f632&authority_instance_id=spectar-prd-mobinet&profile_id=15090325&application_installation_id=14212233&uuid=69de0334acf930-04595217&subscriber_id=12890674&application_id=calcifer&detected_delivery_method=hls&playlist_template=nginx&ps=437598edbbf6e4333ebef700c80eba317b95c148d1a51157ebb4535623139126d27d2795d7956ac00838d14dc66f66d0f0be04500b11beb694fd3dddf64511b3&vh=d0f086dd926f3e4a05d6037eb234b0bdac19e8d40dab76668d9ec0cfb6e8a46a6dedb7224ee60d8ead76bef0da722e60d2e88988f1df3aa264bc6331eddfe794
+        EOF
+
+    - name: Commit and Push Changes to Github Pages
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add iptv/streams/MN53/index.m3u8
+        git commit -m "Auto-update token parameters" || exit 0
+        git push
