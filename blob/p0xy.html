@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyLine IPTV Pro Ultimate</title>
+    <style>
+        :root {
+            --bg-main: #f8f9fa;
+            --bg-sidebar: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --accent: #007bff;
+            --accent-hover: #0056b3;
+            --border: #e9ecef;
+            --favorite: #ffc107;
+            --danger: #dc3545;
+        }
+
+        [data-theme="dark"] {
+            --bg-main: #121212;
+            --bg-sidebar: #1e1e1e;
+            --bg-card: #242424;
+            --text-main: #f8f9fa;
+            --text-muted: #a0a0a0;
+            --accent: #3b82f6;
+            --accent-hover: #1d4ed8;
+            --border: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 240px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent);
+            padding: 0 24px;
+            margin-bottom: 30px;
+        }
+
+        .menu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 0 12px;
+        }
+
+        .menu-item {
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background-color: var(--bg-main);
+            color: var(--accent);
+        }
+
+        /* Layout Framework */
+        .main-layout {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            height: 60px;
+            background-color: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 5;
+        }
+
+        .controls-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-container {
+            position: relative;
+            width: 250px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 6px 14px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .dropdown-select {
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            outline: none;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        /* Dropdown Overlay */
+        .history-dropdown {
+            display: none;
+            position: absolute;
+            top: 105%;
+            left: 0;
+            right: 0;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 99;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            padding: 8px 12px;
+            font-size: 13px;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        .history-item:hover {
+            background-color: var(--bg-main);
+        }
+
+        .workspace {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .content-display {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        .section-title {
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        /* Presentation Layouts */
+        .grid-channels {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 16px;
+        }
+
+        .grid-media {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 16px;
+        }
+
+        /* Cards Structure */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .fav-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .card.is-fav .fav-btn {
+            color: var(--favorite);
+        }
+
+        .channel-logo-box {
+            height: 80px;
+            background: rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 13px;
+            text-align: center;
+            padding: 8px;
+        }
+
+        .poster-box {
+            height: 180px;
+            background: rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .card-info {
+            padding: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Right Dashboard Engine Panel */
+        .player-panel {
+            width: 360px;
+            background-color: var(--bg-sidebar);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vol-slider {
+            width: 60px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .pvr-indicator {
+            padding: 2px 6px;
+            background: var(--danger);
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .epg-container {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        .epg-header {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pvr-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .epg-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .epg-slot {
+            padding: 10px;
+            background: var(--bg-main);
+            border-left: 3px solid var(--border);
+            border-radius: 0 6px 6px 0;
+        }
+
+        .epg-slot.current {
+            border-left-color: var(--accent);
+            background: rgba(0, 123, 255, 0.08);
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: rgba(0,0,0,0.1);
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background-color: var(--accent);
+            height: 100%;
+            width: 45%;
+        }
+
+        /* Settings Interfacing Layouts */
+        .settings-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px;
+            max-width: 500px;
+        }
+
+        .settings-group {
+            margin-bottom: 16px;
+        }
+
+        .settings-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .settings-group select, .settings-group input[type="text"], .settings-group input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg-main);
+            color: var(--text-main);
+            outline: none;
+        }
+
+        /* Switch styling structures */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 22px;
+        }
+
+        .switch input { display: none; }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            border-radius: 22px;
+            transition: .3s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px; width: 16px;
+            left: 3px; bottom: 3px;
+            background-color: white;
+            border-radius: 50%;
+            transition: .3s;
+        }
+
+        input:checked + .slider { background-color: var(--accent); }
+        input:checked + .slider:before { transform: translateX(22px); }
+
+        .btn {
+            background-color: var(--accent);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .file-label {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left Navigation Menu -->
+    <nav class="sidebar">
+        <div class="logo">📺 SkyLine IPTV</div>
+        <ul class="menu-list">
+            <li class="menu-item active" id="btn-mn-tv" onclick="switchTab('mn-tv')"><span>🇲🇳 Mongolian TV</span> <span id="mn-count">(50)</span></li>
+            <li class="menu-item" id="btn-int-tv" onclick="switchTab('int-tv')"><span>🌐 Foreign TV</span> <span id="int-count">(50)</span></li>
+            <li class="menu-item" id="btn-adult-tv" onclick="switchTab('adult-tv')"><span>🔒 Adult Streams</span> <span>(5)</span></li>
+            <li class="menu-item" id="btn-favorites" onclick="switchTab('favorites')"><span>⭐ Bookmarked</span> <span id="fav-count">(0)</span></li>
+            <li class="menu-item" id="btn-pvr-records" onclick="switchTab('pvr-records')"><span>🔴 PVR Vault</span> <span id="pvr-count">(0)</span></li>
+            <li class="menu-item" id="btn-movies" onclick="switchTab('movies')"><span>🎬 Movies</span></li>
+            <li class="menu-item" id="btn-shows" onclick="switchTab('shows')"><span>🍿 TV Shows</span></li>
+            <li class="menu-item" id="btn-settings" onclick="switchTab('settings')"><span>⚙️ Settings</span></li>
+        </ul>
+    </nav>
+
+    <div class="main-layout">
+        <!-- Interactive Header System Controls -->
+        <header class="header">
+            <div class="controls-row">
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="search-input" placeholder="Search streams..." oninput="filterChannels()" onfocus="showHistory()" onblur="setTimeout(hideHistory, 250)">
+                    <div class="history-dropdown" id="history-box"></div>
+                </div>
+                <select class="dropdown-select" id="sort-engine" onchange="applySortingRules()">
+                    <option value="default">Default List Sorting</option>
+                    <option value="az">Alphabetical Sorting (A-Z)</option>
+                </select>
+            </div>
+            <div style="font-size: 14px; font-weight: 500;">User: Enterprise Streamer</div>
+        </header>
+
+        <div class="workspace">
+            <main class="content-display">
+                
+                <!-- Mongolian Channel Grid Section -->
+                <section id="mn-tv" class="view-section active">
+                    <h2 class="section-title">Mongolian Television Channels</h2>
+                    <div class="grid-channels" id="mn-grid"></div>
+                </section>
+
+                <!-- International Channel Grid Section -->
+                <section id="int-tv" class="view-section">
+                    <h2 class="section-title">International Television Channels</h2>
+                    <div class="grid-channels" id="int-grid"></div>
+                </section>
+
+                <!-- Parental Lock Protected Adult Grid Section -->
+                <section id="adult-tv" class="view-section">
+                    <h2 class="section-title">🔒 Parental Lock Channels</h2>
+                    <div id="plp-lock-screen" style="padding: 40px; text-align: center; background: var(--bg-card); border: 1px solid var(--border); border-radius:10px; max-width: 400px; margin: 0 auto;">
+                        <p style="margin-bottom:15px; font-weight:600;">Enter Parental Security PIN to unlock assets:</p>
+                        <input type="password" id="plp-input" placeholder="Enter PIN (Default: 1234)" style="padding:8px; border:1px solid var(--border); border-radius:6px; text-align:center; width:100%; margin-bottom:15px; outline:none;">
+                        <button class="btn" onclick="verifyParentalLockPin()">Verify Access</button>
+                    </div>
+                    <div class="grid-channels" id="adult-grid" style="display:none;"></div>
+                </section>
+
+                <!-- Bookmarks Saved Streams Grid Section -->
+                <section id="favorites" class="view-section">
+                    <h2 class="section-title">Bookmarked Channels</h2>
+                    <div class="grid-channels" id="fav-grid"></div>
+                </section>
+
+                <!-- Dynamic PVR Vault Recordings List Section -->
+                <section id="pvr-records" class="view-section">
+                    <h2 class="section-title">PVR Vault Recordings</h2>
+                    <div class="grid-media" id="pvr-grid"></div>
+                </section>
+
+                <!-- Movies Assets Section -->
+                <section id="movies" class="view-section">
+                    <h2 class="section-title">On-Demand Movies</h2>
+                    <div class="grid-media" id="movies-grid"></div>
+                </section>
+
+                <!-- Shows Assets Section -->
+                <section id="shows" class="view-section">
+                    <h2 class="section-title">TV Series Collection</h2>
+                    <div class="grid-media" id="shows-grid"></div>
+                </section>
+
+                <!-- Global Application Configuration Settings Section -->
+                <section id="settings" class="view-section">
+                    <h2 class="section-title">Application Settings</h2>
+                    <div class="settings-box">
+                        <div class="settings-group" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                            <label style="margin-bottom: 0;">Application Dark Mode Theme</label>
+                            <label class="switch">
+                                <input type="checkbox" id="theme-toggle" onchange="toggleTheme()">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="settings-group">
+                            <label>Import Real M3U Local File Playlist</label>
+                            <label class="file-label">
+                                Choose M3U File
+                                <input type="file" id="m3u-uploader" accept=".m3u,.m3u8" style="display:none;" onchange="handleM3UUpload(event)">
+                            </label>
+                        </div>
+                        <div class="settings-group" style="margin-top:20px;">
+                            <label>Modify Parental Lock PIN</label>
+                            <input type="password" id="new-pin-input" placeholder="Enter new numerical code" style="margin-bottom: 10px;">
+                            <button class="btn" onclick="updateParentalLockPin()">Save New Code</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Dashboard Media Control Stream Window -->
+            <aside class="player-panel">
+                <div class="video-container" id="video-box">
+                    <span class="pvr-indicator" id="rec-dot">🔴 RECORDING</span>
+                    <div style="font-size: 24px;">▶️</div>
+                    <div id="player-status" style="margin-top: 8px; font-size: 14px;">Select a channel to play</div>
+                    <div class="video-controls">
+                        <div class="control-group"><span>● LIVE</span></div>
+                        <div class="control-group">
+                            🔊 <input type="range" class="vol-slider" min="0" max="100" value="80" title="Audio Adjust">
+                            <button style="background:none; border:none; color:white; cursor:pointer;" onclick="toggleFullscreen()">⛶</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="epg-container">
+                    <div class="epg-header">
+                        <span>📅 TV Guide (EPG)</span>
+                        <button class="pvr-btn" id="pvr-trigger" onclick="togglePvrRecording()" style="display:none;">Record Show</button>
+                    </div>
+                    <div id="epg-target" style="font-size:12px; font-weight:bold; color:var(--accent); margin-bottom:10px;">No Active Channel Selected</div>
+                    <div class="epg-timeline" id="epg-list">
+                        <div style="color: var(--text-muted); font-size: 13px; text-align: center; margin-top: 20px;">
+                            Click a stream to populate timeslots.
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        // Memory states arrays architecture
+        let favoritesList = [];
+        let playbackHistory = [];
+        let pvrVaultList = [];
+        let currentActiveStream = null;
+        let parentalLockPinCode = "1234";
+        let adultChannelsUnlocked = false;
+
+        // Structured initial catalog content array matrix lists
+        let mongolianChannelsSource = [];
+        let internationalChannelsSource = [];
+        let adultChannelsSource = [];
+
+        // Isolated safe layout switching mechanism
+        function switchTab(tabId) {
+            document.querySelectorAll('.view-section').forEach(section => section.classList.remove('active'));
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            
+            const targetedBtn = document.getElementById(`btn-${tabId}`);
+            if(targetedBtn) targetedBtn.classList.add('active');
+
+            if(tabId === 'favorites') renderFavoritesGrid();
+            if(tabId === 'pvr-records') renderPvrVaultGrid();
+            
+            if(tabId === 'adult-tv' && !adultChannelsUnlocked) {
+                document.getElementById('plp-lock-screen').style.display = 'block';
+                document.getElementById('adult-grid').style.display = 'none';
+            }
+        }
+
+        // Global structural searching algorithm filter
+        function filterChannels() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            document.querySelectorAll('.grid-channels .card, .grid-media .card').forEach(card => {
+                const title = card.querySelector('.card-title').innerText.toLowerCase();
+                card.style.display = title.includes(query) ? 'block' : 'none';
+            });
+        }
+
+        // Alphabetical A-Z sorting rules processor engine
+        function applySortingRules() {
+            const rule = document.getElementById('sort-engine').value;
+            
+            const sortAndRender = (gridId, sourceArray, type, icon) => {
+                let WorkingArray = [...sourceArray];
+                if(rule === 'az') {
+                    WorkingArray.sort((a,b) => a.name.localeCompare(b.name));
+                } else {
+                    WorkingArray.sort((a,b) => a.index - b.index);
+                }
+                const targetGrid = document.getElementById(gridId);
+                targetGrid.innerHTML = '';
+                WorkingArray.forEach(item => {
+                    targetGrid.innerHTML += createCardHTML(item.id, type, item.name, icon);
+                });
+            };
+
+            sortAndRender('mn-grid', mongolianChannelsSource, 'mn', '🇲🇳');
+            sortAndRender('int-grid', internationalChannelsSource, 'int', '🌐');
+            sortAndRender('adult-grid', adultChannelsSource, 'adult', '🔞');
+        }
+
+        // Media playback engine loading pipeline controller
+        function playStream(name) {
+            currentActiveStream = name;
+            document.getElementById('player-status').innerText = `Streaming: ${name}`;
+            document.getElementById('epg-target').innerText = name;
+            
+            // Expose active recording control operations layout buttons
+            const pvrBtn = document.getElementById('pvr-trigger');
+            pvrBtn.style.display = 'block';
+            pvrBtn.innerText = pvrVaultList.some(r => r.channel === name) ? 'Stop Recording' : 'Record Show';
+
+            // Push execution metrics safely to trace log
+            if(!playbackHistory.includes(name)) {
+                playbackHistory.unshift(name);
+                if(playbackHistory.length > 5) playbackHistory.pop();
+            }
+            
+            // Set dynamic current EPG timeline presentation parameters
+            document.getElementById('epg-list').innerHTML = `
+                <div class="epg-slot current">
+                    <div style="font-size:11px; font-weight:bold; color:var(--accent);">15:00 - 16:30 (Current Block)</div>
+                    <div class="epg-title">${name} Live Airing Broadcast</div>
+                    <div class="progress-container"><div class="progress-bar"></div></div>
+                </div>
+            `;
+            
+            // Evaluation check matching operations for recording running indicators
+            document.getElementById('rec-dot').style.display = pvrVaultList.some(r => r.channel === name) ? 'block' : 'none';
+        }
+
+        // PVR Vault engine functional mechanisms
+        function togglePvrRecording() {
+            if(!currentActiveStream) return;
+            const index = pvrVaultList.findIndex(r => r.channel === currentActiveStream);
+            const pvrBtn = document.getElementById('pvr-trigger');
+
+            if(index > -1) {
+                // Halt active recording execution sequence
+                pvrVaultList.splice(index, 1);
+                pvrBtn.innerText = 'Record Show';
+                document.getElementById('rec-dot').style.display = 'none';
+            } else {
+                // Initiate local dynamic storage allocation structural file logging
+                pvrVaultList.push({
+                    id: `pvr-${Date.now()}`,
+                    channel: currentActiveStream,
+                    timestamp: new Date().toLocaleTimeString()
+                });
+                pvrBtn.innerText = 'Stop Recording';
+                document.getElementById('rec-dot').style.display = 'block';
+            }
+            document.getElementById('pvr-count').innerText = `(${pvrVaultList.length})`;
+        }
+
+        function renderPvrVaultGrid() {
+            const grid = document.getElementById('pvr-grid');
+            grid.innerHTML = pvrVaultList.length === 0 ? 
+                '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">No captures registered in PVR storage blocks.</div>' : '';
+            
+            pvrVaultList.forEach(item => {
+                grid.innerHTML += `
+                    <div class="card" onclick="playStream('${item.channel}')">
+                        <div class="poster-box" style="background:rgba(220,53,69,0.1); color:var(--danger);">🔴 RECORDED VOD</div>
+                        <div class="card-info">
+                            <div class="card-title">${item.channel}</div>
+                            <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">Captured at ${item.timestamp}</div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        // Parental Control Matrix Processing Logic Validation Layers
+        function verifyParentalLockPin() {
+            const val = document.getElementById('plp-input').value;
+            if(val === parentalLockPinCode) {
+                adultChannelsUnlocked = true;
+                document.getElementById('plp-lock-screen').style.display = 'none';
+                document.getElementById('adult-grid').style.display = 'grid';
+                renderAdultChannelsDefaultDataGrid();
+            } else {
+                alert("Security Authorization failed. Invalid Parental PIN Entry.");
+            }
+        }
+
+        function updateParentalLockPin() {
+            const newPin = document.getElementById('new-pin-input').value;
+            if(newPin.length >= 4) {
+                parentalLockPinCode = newPin;
+                alert("Parental Protection Security verification profile key codes updated successfully.");
+                document.getElementById('new-pin-input').value = '';
+            } else {
+                alert("Invalid configuration values. Code must consist of 4 characters.");
+            }
+        }
+
+        // Recent streams trace histories UI interactions
+        function showHistory() {
+            const box = document.getElementById('history-box');
+            if(playbackHistory.length === 0) return;
+            box.innerHTML = '<div style="padding:6px 12px; font-size:11px; color:var(--text-muted); font-weight:bold;">RECENT LIVE CONNECTIONS</div>';
+            playbackHistory.forEach(item => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'history-item';
+                wrapper.innerText = `🕒 ${item}`;
+                wrapper.onmousedown = () => playStream(item);
+                box.appendChild(wrapper);
+            });
+            box.style.display = 'block';
+        }
+        function hideHistory() { document.getElementById('history-box').style.display = 'none'; }
+
+        // Dynamic Bookmark Registry engine storage functions
+        function toggleFavorite(event, id, type, name) {
+            event.stopPropagation();
+            const idx = favoritesList.findIndex(item => item.id === id);
+            const cards = document.querySelectorAll(`[data-id="${id}"]`);
+
+            if (idx > -1) {
+                favoritesList.splice(idx, 1);
+                cards.forEach(c => c.classList.remove('is-fav'));
+            } else {
+                favoritesList.push({ id, type, name });
+                cards.forEach(c => c.classList.add('is-fav'));
+            }
+            document.getElementById('fav-count').innerText = `(${favoritesList.length})`;
+            if(document.getElementById('favorites').classList.contains('active')) renderFavoritesGrid();
+        }
+
+        function renderFavoritesGrid() {
+            const grid = document.getElementById('fav-grid');
+            grid.innerHTML = favoritesList.length === 0 ? '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">No Bookmarks.</div>' : '';
+            favoritesList.forEach(item => {
+                grid.innerHTML += createCardHTML(item.id, item.type, item.name, item.type === 'mn' ? '🇲🇳' : '🌐');
+            });
+        }
+
+        // Local processing engine uploader file mapping infrastructure
+        function handleM3UUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const lines = e.target.result.split('\n');
+                let rawStreams = [];
+                for(let i=0; i<lines.length; i++) {
+                    if(lines[i].startsWith('#EXTINF:')) {
+                        const chunks = lines[i].split(',');
+                        if(chunks.length > 1) rawStreams.push(chunks[1].trim());
+                    }
+                }
+                if(rawStreams.length
