@@ -1,0 +1,8 @@
+https://voo.mn/drm.php/widevine?token=4d2e6fbf3353e09ee36a18ce1f9556c584377ea0token=f4c5ea894d219141aab618147b8c30998cf5f632
+#EXTM3U
+#EXT-X-VERSION:6
+#EXT-X-TARGETDURATION:10
+#EXT-X-MEDIA-SEQUENCE:0
+#EXT-X-SESSION-KEY:METHOD=SAMPLE-AES,URI="https://voo.mn/drm.php/widevine?token=4d2e6fbf3353e09ee36a18ce1f9556c584377ea0token=f4c5ea894d219141aab618147b8c30998cf5f632",KEYFORMAT="urn:uuid:edef8ba9-79d6-4ace-a3c8-27dcd51d21ed",KEYFORMATVERSIONS="1"
+#EXT-X-KEY:METHOD=SAMPLE-AES,URI="https://voo.mn/drm.php/widevine?token=4d2e6fbf3353e09ee36a18ce1f9556c584377ea0token=f4c5ea894d219141aab618147b8c30998cf5f632",KEYFORMAT="urn:uuid:edef8ba9-79d6-4ace-a3c8-27dcd51d21ed",KEYFORMATVERSIONS="1"
+https://mobinet-live.spectar.tv/MBN_1_015/sample_aes_a_def.m3u8?id=MBN_1_015&video_id=6034&token=f4c5ea894d219141aab618147b8c30998cf5f632&authority_instance_id=spectar-prd-mobinet&profile_id=15090325&application_installation_id=14212233&uuid=69de0334acf930-04595217&subscriber_id=12890674&application_id=calcifer&detected_delivery_method=hls&playlist_template=nginx&ps=c1bea1be2daa5e4743fe4f06db62008abda05feeee91ae35663ca0d4e2e99abcc05c5f70df964889dca12b2416b46a123408e5c4cb67c3837a425411cfa48dfa&vh=23870adf365f2ff76220b2daafc52218cca880368578e6abb1349db10ccdb8fa26ac3607382cbc7a3abebce6313488314ca4284fe87c613d2af189fab035a790
