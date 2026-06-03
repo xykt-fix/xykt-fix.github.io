@@ -1,0 +1,41 @@
+      - name: Fetch and Rewrite Live M3U8
+        run: |
+          # 1. Define variables correctly (Fully complete paths)
+          BASE_URL="https://cdn4.skygo.mn"
+          TARGET_URL="https://cdn4.skygo.mn/live/disk1/GlobalTV/HLSv3-FTA/GlobalTV-avc1_3000000=9-mp4a_256000=11.m3u8"
+          OUTPUT_FILE="xykt-fix.github.io/proxy/K4x9qL2bT8w3/unf.m3u8"
+          
+          # 2. Fetch the raw upstream stream data using the full web path
+          curl -s "$TARGET_URL" > raw.m3u8
+          
+          # 3. Build the standard M3U8 structure
+          echo "#EXTM3U" > "$OUTPUT_FILE"
+          echo "#EXT-X-VERSION:3" >> "$OUTPUT_FILE"
+          
+          # 4. Extract live rolling metadata sequences
+          grep "TARGETDURATION" raw.m3u8 >> "$OUTPUT_FILE"
+          grep "MEDIA-SEQUENCE" raw.m3u8 >> "$OUTPUT_FILE"
+          
+          # 5. Parse the video segments and append the target masking query string
+          awk -v base="$BASE_URL" '
+            /#EXTINF/ {print} 
+            !/#/ && NF {print base $0 "?stream_0_32794.jpg"}
+          ' raw.m3u8 >> "$OUTPUT_FILE"
+          
+          grep "ENDLIST" raw.m3u8 >> "$OUTPUT_FILE" || true
+
+      # Create a completely new step below it for the Git actions
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@://github.com"
+        
+        # Now you add the scrambled path to git safely
+        git add proxy/K4x9qL2bT8w3/unf.m3u8
+        
+        if ! git diff --cached --quiet; then
+          git commit -m "Automated update of proxy m3u8"
+          git push origin main
+        else
+          echo "No changes detected in the playlist file."
+        fi
