@@ -1,0 +1,4 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=828000,RESOLUTION=576x324,NAME="1080p"
+https://v4.tustreaming.cl/dunastv/tracks-v1a1/mono.ts.m3u8
