@@ -1,0 +1,4 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=828000,RESOLUTION=576x324,NAME="1080p"
+https://video-auth4.iol.pt/live_tvi_reality/live_tvi_reality/edge_servers/tvireality-720_passthrough/chunks.m3u8?wmsAuthSign=c2VydmVyX3RpbWU9NS8yNi8yMDI2IDEyOjI1OjM5IEFNJmhhc2hfdmFsdWU9c1ZGMkFxcjZCUE5vdEdQZStiWE9XQT09JnZhbGlkbWludXRlcz0xNDQwJmlkPTk0MjUxMjY2LTg4ZjUtNGMyMS04MDhkLWRkOWU2ODdlNmFmYw==
