@@ -1,0 +1,8 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=828000,RESOLUTION=576x324,NAME="1080p"
+https://ecffa8bebf654e029cad87d5b24beac1.mediatailor.ap-northeast-1.amazonaws.com/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-m5y15fbf80yi9-ssai-prd/64e730a5-7cfa-43e5-917d-83810102f1ce/0.m3u8
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=828000,RESOLUTION=576x324,NAME="1080p"
+https://ecffa8bebf654e029cad87d5b24beac1.mediatailor.ap-northeast-1.amazonaws.com/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-m5y15fbf80yi9-ssai-prd/64e730a5-7cfa-43e5-917d-83810102f1ce/1.m3u8
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=828000,RESOLUTION=576x324,NAME="1080p"
+https://ecffa8bebf654e029cad87d5b24beac1.mediatailor.ap-northeast-1.amazonaws.com/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-m5y15fbf80yi9-ssai-prd/64e730a5-7cfa-43e5-917d-83810102f1ce/2.m3u8
