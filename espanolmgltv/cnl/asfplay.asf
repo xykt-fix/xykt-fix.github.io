@@ -1,0 +1,97 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="MNB.mn@HD", Disney Jr
+http://190.14.10.19:16000/play/a02d/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", NewsMax
+https://n1ottesorkatv.akamaized.net/hls/live/2113795/Live_1/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", CGTN Spanish 
+https://dash4.antik.sk/live/test_cgtn_esp_tizen/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Univision W
+http://108.181.20.255:27347/livehttpplay?channel_id=23088
+#EXTINF:-1 tvg-id="MNB.mn@HD", Univision Lat
+http://177.234.249.178:8888/UNIVISION/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", DW Esp
+http://177.234.249.178:8888/DW/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", RT esp
+http://177.234.249.135:8888/RT/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Cindie
+https://d20xuwbyc4yoag.cloudfront.net/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/DistroTV-MuxIP-CINDIE/387.m3u8?ads.vf=grWTpG3NQNi
+#EXTINF:-1 tvg-id="MNB.mn@HD", Beyblade 
+https://amg01796-amg01796c8-rakuten-es-5333.playouts.now.amagi.tv/playlist/amg01796-fastmediafast-beybladees-rakutenes/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", jTV
+https://82934cf9c8696bd2.mediapackage.us-east-1.amazonaws.com/out/v1/72b5a55e4c35445f9e742871aa0aefa2/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", BPTV
+https://streaming.hostpannel.lat/hls/fc517baca1d452f22f56a2563f93f500/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Prattel
+https://183.bozztv.com/ssh101/ssh101/pratteltvperu/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", AMTV
+http://187.102.210.46/AMERICA/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", TC
+https://45.171.108.253:8888/TC/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Anteres
+https://5949aa132c8fb.streamlock.net:1963/iptvantares/liveantarestv/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", VeneV
+https://138.186.23.7:8082/VENEVISION/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Retromusica
+https://vdochile.com:3864/stream/play.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Inrecatico 
+https://mist01.homestream.fun/hls/interactivotv2/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Andes TV
+https://stmv2.srvif.com/tvsicuani/tvsicuani/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Solar
+https://7.innovatestream.pe:19360/corporacionperiodistica/corporacionperiodistica.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", NZK
+https://eu1.servers10.com:8081/8258/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", LPC
+https://streamlov.alsolnet.com/lapuracrema/live/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", RTI R
+https://azura2.bitstreaming.net/hls/kollasuyo3/live.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Conexion PTV
+https://tvstream.conexionpositivaradio.com/memfs/69239c4d-4116-4f4f-b065-bf17e81b1411.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Auput
+https://canal.aupurtv.co/live/stream/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Star Channel
+http://138.121.15.230:9002/STAR-CHANNEL/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Sony Channel
+http://bantel-cdn1.iptvperu.tv:1935/btnscrtn/sonychannel.stream/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", NMT
+https://stream-204968.castr.net/64e0c91d08bff3041638aee3/live_a16fa020f4c411f09ddaa1978319689a/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Historia
+https://jmp2.uk/plu-61cd7b49543066000713b620.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Nick JR
+https://cdn.telecloud.tv/CH16325/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Fifa+
+https://d63fabad.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWVzX0ZJRkFQbHVzU3BhbmlzaF9ITFM/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", EWTN
+https://cdn3.wowza.com/1/SmVrQmZCUXZhVDgz/b3J3MFJv/hls/live/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", C10
+https://5ca3e84a76d30.streamlock.net/tves/videotves/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Nickelodeon
+https://cdn.telecloud.tv/CH16283/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", BabyTV
+https://cdn.telecloud.tv/CH16259/tracks-v1a1/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", ODTV
+http://bantel-cdn1.iptvperu.tv:1935/btnscrtn/SYFY.stream/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", MTV
+http://138.186.23.7:8082/MTV/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Lifetime
+http://138.186.23.7:8082/LIFETIME/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", AE
+http://138.186.23.7:8082/AE/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", FX
+http://177.245.131.133:8080/FX/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", History
+http://177.234.249.178:8888/HISTORY/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Tlnovela
+http://177.234.249.135:8888/Telenovelas/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", E!
+http://72.1.184.5:8089/play/a05d/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Disney Channel
+http://190.14.10.19:16000/play/a06z/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Telemundo
+https://streaming.cnetplay.com/TELEMUNDOHD/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Espn Deporte
+https://gpuserver7.tier1streams.com/ESPN_DEPORTES/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Canal Infa
+http://177.234.218.66:8084/play/a01x/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", FMHM
+http://138.186.23.7:8082/PARAMOUNT/index.m3u8
