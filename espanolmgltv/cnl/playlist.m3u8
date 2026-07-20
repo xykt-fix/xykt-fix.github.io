@@ -95,6 +95,46 @@ https://gpuserver7.tier1streams.com/ESPN_DEPORTES/index.m3u8
 http://177.234.218.66:8084/play/a01x/index.m3u8
 #EXTINF:-1 tvg-id="MNB.mn@HD", FMHM
 http://138.186.23.7:8082/PARAMOUNT/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Tarapoto
+https://live-evg11.tv360.bitel.com.pe/bitel/tvtarapotoSRT/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", NowMedia
+https://stream-204968.castr.net/64e0c91d08bff3041638aee3/live_a16fa020f4c411f09ddaa1978319689a/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", CLuz
+https://5f71743aa95e4.streamlock.net:1936/CanalLuz/enDirecto/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", AqRT tv
+https://streamlov.alsolnet.com/grupocentrobo/live/playlist.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", UTV
+https://v2.tustreaming.cl/utv/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", ConexionTV
+https://video0.rogohosting.com:19360/conex/conex.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Tiburon
+https://jmp2.uk/plu-619d5e6a093e7c0007489211.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", CNL5
+http://45.181.87.106/CANAL5HD/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", A7RD
+https://d3gie3ig6argu.cloudfront.net/ts:abr.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", AXN pelicula HD
+https://cdn.telecloud.tv/CH17828/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", AXN
+https://cdn.telecloud.tv/CH16815/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Antenna 3
+https://cdn.telecloud.tv/CH14616/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Boing
+https://cdn.telecloud.tv/CH16262/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Calle13
+https://cdn.telecloud.tv/CH16217/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", La hora 20j
+https://cdn.telecloud.tv/CH1399/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Canal+ Domo
+https://cdn.telecloud.tv/CH15678/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", ComedyCent
+https://cdn.telecloud.tv/CH16274/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", 4tro
+https://cdn.telecloud.tv/CH10381/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", syfy
+https://cdn.telecloud.tv/CH16824/index.m3u8
+#EXTINF:-1 tvg-id="MNB.mn@HD", Trece
+https://cdn.telecloud.tv/CH16848/index.m3u8
 #EXTINF:-1 tvg-id="MNB.mn@HD", Cindie
 
 #EXTINF:-1 tvg-id="MNB.mn@HD", Cindie
@@ -112,24 +152,6 @@ http://138.186.23.7:8082/PARAMOUNT/index.m3u8
 #EXTINF:-1 tvg-id="MNB.mn@HD", Cindie
 
 #EXTINF:-1 tvg-id="MNB.mn@HD", Cindie
-
-#EXTINF:-1 tvg-id="MNB.mn@HD", Cindie
-
-#EXTINF:-1 tvg-id="MNB.mn@HD", Cindie
-
-#EXTINF:-1 tvg-id="MNB.mn@HD", Cindie
-
-#EXTINF:-1 tvg-id="MNB.mn@HD", Cindie
-
-#EXTINF:-1 tvg-id="MNB.mn@HD", Cindie
-
-#EXTINF:-1 tvg-id="MNB.mn@HD", Cindie
-
-#EXTINF:-1 tvg-id="MNB.mn@HD", Cindie
-
-#EXTINF:-1 tvg-id="MNB.mn@HD", Cindie
-
-
 
 
 
