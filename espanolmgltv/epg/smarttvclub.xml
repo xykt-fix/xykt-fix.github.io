@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<tv generator-info-name="Original XML Generated with Tempest EPG Generator (made by Kvanc) - Processed by Open-EPG Visual Processor v0.9" generator-info-url="https://github.com/K-vanc/Tempest-EPG-Generator.git">
+<channel id="Nickelodeon.es"><display-name>Nickelodeon.es</display-name></channel>
+<channel id="UBS.mn"><display-name>UBS.mn</display-name></channel>
+<channel id="БоловсролТВ.mn"><display-name>БоловсролТВ.mn</display-name></channel>
+<channel id="TV9.mn"><display-name>TV9.mn</display-name></channel>
+<channel id="Central TV.mn"><display-name>Central TV.mn</display-name></channel>
+<channel id="MongolTV.mn"><display-name>MongolTV.mn</display-name></channel>
+<channel id="FashionTVParisLOriginal.fr"><display-name>FashionTVParisLOriginal.fr</display-name></channel>
+<channel id="AFV.us"><display-name>AFV.us</display-name></channel>
+<channel id="3ABNInternational.us"><display-name>3ABNInternational.us</display-name></channel>
+<channel id="ToonGoggles.us"><display-name>ToonGoggles.us</display-name></channel>
+<channel id="Dream.mn"><display-name>Dream.mn</display-name></channel>
+<channel id="DaVinci.de"><display-name>DaVinci.de</display-name></channel>
+<channel id="TraceUrban.fr"><display-name>TraceUrban.fr</display-name></channel>
+<programme start="20260721075500 +0000" stop="20260721082000 +0000" channel="Nickelodeon.es"><title>Una Casa de Locos</title></programme>
+<programme start="20260721075500 +0000" stop="20260721082000 +0000" channel="Nickelodeon.es"><title>Una Casa de Locos</title></programme> 
+<programme start="20260721085500 +0000" stop="20260721092000 +0000" channel="Nickelodeon.es"><title>Primos Del Sonic</title></
+<programme start="20260721092000 +0000" stop="20260721094500 +0000" channel="Nickelodeon.es"><title>Programma Bloq</title></programme>      
+<programme start="20260721094500 +0000" stop="20260721101000 +0000" channel="Nickelodeon.es"><title>Programma Bloq</title></programme>                                                                                                                            
