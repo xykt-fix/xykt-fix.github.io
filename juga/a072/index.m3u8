@@ -1,4 +1,13 @@
 #EXTM3U
-#EXT-X-VERSION:3
-#EXT-X-STREAM-INF:PROGRAM-ID=0,BANDWIDTH=4716800,AVERAGE-BANDWIDTH=4540800,CODECS="avc1.640028,mp4a.40.2",RESOLUTION=1920x1080,FRAME-RATE=25.000
-a072tv.m3u8
+#EXT-X-VERSION:5
+#EXT-X-TARGETDURATION:10
+#EXT-X-MEDIA-SEQUENCE:35642455
+#EXT-X-INDEPENDENT-SEGMENTS
+#EXTINF:10,
+https://xykt-fix.github.io/juga/a072/Untitled design.mp4
+#EXTINF:10,
+https://xykt-fix.github.io/juga/a072/Untitled design 2.mp4
+#EXTINF:10
+https://xykt-fix.github.io/juga/a072/Untitled design 3.mp4
+#EXTINF:10
+https://xykt-fix.github.io/juga/a072/ahora! Misheel.mp4
