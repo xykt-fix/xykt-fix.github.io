@@ -1,1 +1,9 @@
-TBd added soon
+#EXTM3U
+#EXT-X-VERSION:5
+#EXT-X-TARGETDURATION:10
+#EXT-X-MEDIA-SEQUENCE:35642455
+#EXT-X-INDEPENDENT-SEGMENTS
+#EXTINF:10
+https://xykt-fix.github.io/Cbeebies_avc001-1.MOV
+#EXTINF:10
+https://xykt-fix.github.io/media/CH706_avc-2.ts.MOV
