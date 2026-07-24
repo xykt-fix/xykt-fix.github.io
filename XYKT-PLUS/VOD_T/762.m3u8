@@ -1,0 +1,17 @@
+#EXTM3U
+#EXT-X-VERSION:5
+#EXT-X-TARGETDURATION:7
+#EXT-X-MEDIA-SEQUENCE:35642455
+#EXT-X-INDEPENDENT-SEGMENTS
+#EXTINF:7
+https://stmv2.srvif.com/tvsicuani/tvsicuani/tvsicuani-1653.ts
+#EXTINF:7
+https://stmv2.srvif.com/tvsicuani/tvsicuani/tvsicuani-1654.ts
+#EXTINF:7
+https://stmv2.srvif.com/tvsicuani/tvsicuani/tvsicuani-1655.ts
+#EXTINF:7
+https://stmv2.srvif.com/tvsicuani/tvsicuani/tvsicuani-1656.ts
+#EXTINF:7
+https://stmv2.srvif.com/tvsicuani/tvsicuani/tvsicuani-1657.ts
+#EXTINF:7
+https://xykt-fix.github.io/juga/a072/ahora! Misheel.mp4
