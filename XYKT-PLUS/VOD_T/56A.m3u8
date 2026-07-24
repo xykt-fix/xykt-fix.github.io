@@ -1,0 +1,9 @@
+#EXTM3U
+#EXT-X-VERSION:5
+#EXT-X-TARGETDURATION:7
+#EXT-X-MEDIA-SEQUENCE:35642455
+#EXT-X-INDEPENDENT-SEGMENT
+#EXTINF:7
+https://stmv2.srvif.com/tvsicuani/tvsicuani/tvsicuani-77.ts
+#EXTINF:7
+https://stmv2.srvif.com/tvsicuani/tvsicuani/tvsicuani-83.ts
