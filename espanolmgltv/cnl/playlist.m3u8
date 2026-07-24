@@ -122,7 +122,7 @@ http://190.14.10.19:16000/play/a02d/index.m3u8
 #EXTINF:-1 tvg-id="MNB.mn@HD" group-title="Children & Animation", Beyblade 
 https://amg01796-amg01796c8-rakuten-es-5333.playouts.now.amagi.tv/playlist/amg01796-fastmediafast-beybladees-rakutenes/playlist.m3u8
 #EXTINF:-1 tvg-id="Nickjr.es" group-title="Children & Animation", Nick JR
-https://cdn.telecloud.tv/CH16225/index.m3u8
+https://cdn.telecloud.tv/CH16325/index.m3u8
 #EXTINF:-1 x-tvg-url="https://raw.githubusercontent.com/xykt-fix/xykt-fix.github.io/refs/heads/main/espanolmgltv/epg/tv.xml" tvg-id="Nickelodeon.es" group-title="Children & Animation", Nickelodeon
 https://cdn.telecloud.tv/CH16283/index.m3u8
 #EXTINF:-1 tvg-id="MNB.mn@HD" group-title="Children & Animation", BabyTV
