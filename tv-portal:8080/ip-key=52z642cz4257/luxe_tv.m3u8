@@ -3,14 +3,6 @@
 #EXT-X-MEDIA-SEQUENCE:14584327
 #EXT-X-TARGETDURATION:4
 #EXTINF:4.000000,
-https://cdn4.skygo.mn/live/disk1/HLSv3-FTA/LuxeTV/HLSv3-FTA/LuxeTV-avc1_3000000=3-mp4a_256000_eng=2-begin=3648855250000000-dur=40000000-seq=91221382.ts
-#EXTINF:4.000000,
-https://cdn4.skygo.mn/live/disk1/HLSv3-FTA/LuxeTV/HLSv3-FTA/LuxeTV-avc1_3000000=3-mp4a_256000_eng=2-begin=3648855290000000-dur=40000000-seq=91221383.ts
-#EXTINF:4.000000,
-https://cdn4.skygo.mn/live/disk1/HLSv3-FTA/LuxeTV/HLSv3-FTA/LuxeTV-avc1_3000000=3-mp4a_256000_eng=2-begin=3648855330000000-dur=40000000-seq=91221384.ts
-#EXTINF:4.000000,
-https://cdn4.skygo.mn/live/disk1/HLSv3-FTA/LuxeTV/HLSv3-FTA/LuxeTV-avc1_3000000=3-mp4a_256000_eng=2-begin=3648855370000000-dur=40000000-seq=91221385.ts
-#EXTINF:4.000000,
 https://cdn4.skygo.mn/live/disk1/LuxeTV/HLSv3-FTA/LuxeTV-avc1_3000000=3-mp4a_256000_eng=2-begin=3648855410000000-dur=40000000-seq=91221386.ts
 #EXTINF:4.000000,
 https://cdn4.skygo.mn/live/disk1/LuxeTV/HLSv3-FTA/LuxeTV-avc1_3000000=3-mp4a_256000_eng=2-begin=3648855450000000-dur=40000000-seq=91221387.ts
