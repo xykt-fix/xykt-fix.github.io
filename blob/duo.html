@@ -1,103 +1,122 @@
-<!DOCTYPE html>
+DIN Rounded Typographic Architecture: Configured font-family layout stack targeting system-specific modern round variants, dropping back securely onto Google's high-grade heavy weight geometry parameters (Nunito, 800/900 weight).Duolingo Element Styling: Realized flat 3D effects across interactive blocks alongside the dynamic animated "START" bouncing speech indicator overlay block.Would you like to introduce a scrolling script mechanism to generate infinitely long random level path tracks?You sent: 1 image and said: use this + Learning path + lessonuse this + Learning path + lessonHere is the ultimate, unified Duolingo experience. It seamlessly merges the Character Roster Quiz Engine with the Snake Learning Path Layout, using the actual character artwork provided in your image, styled fully in DIN Rounded Bold typography.Complete Single-File Code (app.html)html<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Duolingo Learning Path</title>
-    <!-- Importing DIN Rounded alternative from Google Fonts (Nunito is the universal web alternative) -->
+    <title>Duolingo Learning App</title>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
-        /* CORE CONFIGURATION */
+        /* CORE CONFIGURATION & DIN TYPOGRAPHY */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            /* Applying DIN Rounded typography attributes system-wide */
             font-family: "DIN Next Rounded Bold", "Nunito", -apple-system, sans-serif;
             font-weight: 800;
         }
 
         body {
             background-color: #ffffff;
+            color: #3c3c3c;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* TOP SECTION BANNER */
-        .section-banner {
+        /* TOP NAVIGATION HEADER */
+        header {
             background-color: #00a2f3;
             color: #ffffff;
             width: 100%;
-            max-width: 450px;
-            padding: 18px 24px;
-            border-radius: 0 0 16px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 0 #008cd4;
+            max-width: 500px;
+            padding: 16px;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 0 #008cd4;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            font-size: 20px;
+            cursor: pointer;
+            display: none; /* Only visible inside a active lesson */
+        }
+
+        .header-text {
+            flex-grow: 1;
         }
 
         .banner-title {
-            font-size: 13px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.8px;
-            opacity: 0.8;
-            margin-bottom: 2px;
+            opacity: 0.9;
         }
 
         .banner-subtitle {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 900;
         }
 
-        .menu-icon {
-            font-size: 24px;
-            cursor: pointer;
+        .progress-container {
+            width: 120px;
+            background-color: #008cd4;
+            height: 12px;
+            border-radius: 12px;
+            overflow: hidden;
+            display: none;
         }
 
-        /* SNAKE LEVEL PATH CONTAINER */
-        .path-container {
+        .progress-bar {
+            background-color: #58cc02;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* VIEW 1: HOME LEARNING PATH LAYOUT */
+        #pathView {
             width: 100%;
-            max-width: 450px;
+            max-width: 500px;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 40px 0;
-            gap: 24px;
-            position: relative;
+            gap: 35px;
         }
 
-        /* ALTERNATING POSITION LAYOUTS (The Snake Alignment) */
-        .node-wrapper {
+        .node-row {
             display: flex;
             justify-content: center;
             width: 100%;
             position: relative;
         }
 
-        .pos-left { justify-content: center; transform: translateX(-40px); }
-        .pos-mid { justify-content: center; }
-        .pos-right { justify-content: center; transform: translateX(40px); }
+        /* Snake Alternating Multi-positions */
+        .pos-left { transform: translateX(-50px); }
+        .pos-mid-left { transform: translateX(-25px); }
+        .pos-mid { transform: translateX(0); }
+        .pos-mid-right { transform: translateX(25px); }
+        .pos-right { transform: translateX(50px); }
 
-        /* ACTIVE REPETITIVE START TOOLTIP */
         .start-tooltip {
             position: absolute;
             top: -45px;
             background-color: #ffffff;
             border: 2px solid #e5e5e5;
             color: #1899d6;
-            padding: 6px 16px;
+            padding: 6px 14px;
             border-radius: 12px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 900;
-            letter-spacing: 0.5px;
             box-shadow: 0 4px 0 #e5e5e5;
             animation: bounce 2s infinite;
+            z-index: 10;
         }
 
         .start-tooltip::after {
@@ -109,14 +128,12 @@
             border-width: 8px 8px 0;
             border-style: solid;
             border-color: #ffffff transparent;
-            display: block;
-            width: 0;
         }
 
-        /* GENERIC INTERACTIVE BUTTON PROPERTIES */
+        /* Path Level Buttons Style */
         .node-btn {
-            width: 70px;
-            height: 70px;
+            width: 76px;
+            height: 72px;
             border-radius: 50%;
             border: none;
             cursor: pointer;
@@ -124,112 +141,193 @@
             align-items: center;
             justify-content: center;
             font-size: 28px;
-            transition: transform 0.1s ease;
+            background-color: #e5e5e5;
+            box-shadow: 0 6px 0 #cccccc;
+            color: #afafaf;
+            transition: transform 0.1s;
         }
 
-        .node-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* ACTIVE LEVEL NODE LOOKS */
-        .node-active {
+        .node-btn.unlocked {
             background-color: #1cb0f6;
-            box-shadow: 0 8px 0 #1899d6;
+            box-shadow: 0 6px 0 #1899d6;
+            color: #ffffff;
+        }
+
+        .node-btn.current {
+            background-color: #58cc02;
+            box-shadow: 0 6px 0 #46a302;
             color: #ffffff;
             outline: 6px solid #e5e5e5;
             outline-offset: 4px;
         }
 
-        /* UNLOCKED COMPLETION LOOKS */
-        .node-completed {
-            background: linear-gradient(135deg, #2be005, #1cb0f6);
-            box-shadow: 0 8px 0 #24bc04;
-            color: #ffffff;
+        .node-btn:active:not(.locked) {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 transparent;
         }
 
-        /* LOCKED GREYED OUT LEVEL LOOKS */
-        .node-locked {
-            background-color: #e5e5e5;
-            box-shadow: 0 8px 0 #cccccc;
-            color: #afafaf;
-            cursor: not-allowed;
+        /* VIEW 2: INTERACTIVE LESSON PANEL */
+        #lessonView {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            padding: 32px 16px;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
-        /* ASSET COMPONENT VARIANTS */
-        .node-chest {
-            width: 75px;
-            height: 60px;
-            border-radius: 16px;
+        .question-title {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 24px;
         }
 
-        /* STARS INJECTION LAYOUT */
-        .stars-row {
+        /* Image sprite sheet positioning frames */
+        .character-box {
             display: flex;
-            gap: 4px;
-            margin-top: 6px;
-            font-size: 14px;
-            color: #ccc;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
         }
-        .star-filled { color: #ffd700; }
 
-        /* BOUNCING ANIMS FOR TOOLTIP */
+        .sprite-avatar {
+            width: 90px;
+            height: 95px;
+            background-image: url('https://squarespace-cdn.com');
+            background-size: auto 95px;
+            background-repeat: no-repeat;
+            flex-shrink: 0;
+        }
+
+        .speech-bubble {
+            border: 2px solid #e5e5e5;
+            border-radius: 18px;
+            padding: 16px;
+            position: relative;
+            font-size: 17px;
+            font-weight: 800;
+            flex-grow: 1;
+            background-color: #ffffff;
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 6px 12px 6px 0;
+            border-style: solid;
+            border-color: transparent #e5e5e5 transparent transparent;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: auto;
+            margin-bottom: 40px;
+        }
+
+        .option-card {
+            background-color: #ffffff;
+            border: 2px solid #e5e5e5;
+            border-radius: 16px;
+            padding: 18px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            text-align: left;
+            box-shadow: 0 4px 0 #e5e5e5;
+            transition: all 0.05s ease;
+        }
+
+        .option-card:hover:not(.checked) {
+            background-color: #f7f7f7;
+        }
+
+        .option-card.selected {
+            background-color: #ddf4ff;
+            border-color: #84d8ff;
+            box-shadow: 0 4px 0 #84d8ff;
+            color: #1899d6;
+        }
+
+        .option-card:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 transparent;
+        }
+
+        /* FOOTER ACTIONS BAR */
+        footer {
+            border-top: 2px solid #e5e5e5;
+            padding: 20px 16px;
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            margin-top: auto;
+        }
+
+        .check-btn {
+            background-color: #58cc02;
+            color: #ffffff;
+            border: none;
+            border-radius: 16px;
+            padding: 16px;
+            font-size: 17px;
+            font-weight: 900;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #46a302;
+            width: 100%;
+            text-align: center;
+        }
+
+        .check-btn:disabled {
+            background-color: #e5e5e5;
+            color: #afafaf;
+            box-shadow: 0 4px 0 #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-6px); }
+        }
+
+        @media (min-width: 480px) {
+            .options-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Section & Unit Metadata Info Frame -->
-    <div class="section-banner">
-        <div>
-            <div class="banner-title">Section 3, Unit 1</div>
-            <div class="banner-subtitle">Describe activities</div>
+    <!-- Unified Banner Layout -->
+    <header>
+        <div class="back-btn" id="backBtn" onclick="showPathView()">✕</div>
+        <div class="header-text">
+            <div class="banner-title" id="topTitle">Section 3, Unit 1</div>
+            <div class="banner-subtitle" id="topSubtitle">Describe activities</div>
         </div>
-        <div class="menu-icon">📋</div>
-    </div>
-
-    <!-- Central Game Path Flow -->
-    <div class="path-container">
-
-        <!-- Stage 1: Speech Bubble Node -->
-        <div class="node-wrapper pos-mid">
-            <button class="node-btn node-completed">💬</button>
+        <div class="progress-container" id="progressFrame">
+            <div class="progress-bar" id="progressBar"></div>
         </div>
+    </header>
 
-        <!-- Stage 2: Main Active Selection Level -->
-        <div class="node-wrapper pos-left" style="margin-top: 25px;">
+    <!-- VIEW 1: SNAKE LEVEL FLOW -->
+    <main id="pathView">
+        <div class="node-row pos-mid"><button class="node-btn unlocked">💬</button></div>
+        
+        <div class="node-row pos-mid-left">
             <div class="start-tooltip">START</div>
-            <button class="node-btn node-active">⭐</button>
+            <button class="node-btn current" onclick="startLesson(0)">⭐</button>
         </div>
-
-        <!-- Stage 3: Gray Book Node -->
-        <div class="node-wrapper pos-left">
-            <button class="node-btn node-locked">📖</button>
-        </div>
-
-        <!-- Stage 4: Gray Locked Treasure Chest Box -->
-        <div class="node-wrapper pos-mid">
-            <button class="node-btn node-locked node-chest">🔒</button>
-        </div>
-
-        <!-- Stage 5: Right Aligned Star Node -->
-        <div class="node-wrapper pos-right">
-            <div style="display: flex; flex-direction: column; align-items: center;">
-                <button class="node-btn node-locked">⭐</button>
-                <div class="stars-row">
-                    <span>★</span><span>★</span><span>★</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Stage 6: Left Shifted Barbell/Dumbbell Gym Exercise -->
-        <div class="node-wrapper pos-mid">
-            <button class="node-btn node-locked">🏋️</button>
-        </div>
-
-    </div>
-
-</body>
-</html>
+        
+        <div class="node-row pos-left"><button class="node-btn locked" id="node-1" onclick="startLesson(1)">🎒</button></div>
+        <div class="node-row pos-mid-left"><button class="node-btn locked" id="node-2" onclick="startLesson(2)">💖</button></div>
+        <div class="node-row pos-mid"><button class="node-btn locked" id="node-3" onclick="startLesson(3)">💀</button></div>
+        <div class="node-row pos-mid-right"><button class="node-btn locked" id="node-4" onclick="startLesson(4)">🏃‍♂️</button></div>
+        <div class="node-row pos-right"><button class="node-btn locked" id="node-5" onclick="startLesson(5)">👳🏽‍♂️</button></div>
+        <div class="node-row pos-mid-right"><button class="node-btn locked" id="node-6" onclick="startLesson(6)">🎨</button></div>
+    </main>
