@@ -79,8 +79,8 @@ https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00567-estrellamedia-estrellagames-d
 https://e7c8f7d5.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWdiX1JlZEJ1bGxUVi0xX0hMUw/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.ytimg.com/vi/QLNN2mY3c74/maxresdefault.jpg" tvg-id="FUELTV.pt@AU",1333 Fuel TV (1080p)
 https://amg01074-fueltv-fueltvnz-samsungnz-i8ani.amagi.tv/playlist/amg01074-fueltv-fueltvnz-samsungnz/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://www.freelivesports.tv/wp-content/uploads/2025/01/motoracing-212.png" tvg-id="MatchTV.ru@SD", 1340 Motor Racing
-https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/motorracing/cb776c01-6025-45f6-bbd8-b72138adf40e/2.m3u8
+#EXTINF:-1 tvg-logo="https://www.freelivesports.tv/wp-content/uploads/2025/01/motoracing-212.png" tvg-id="MatchTV.ru@SD", 1340 Cbeebies
+https://cdn4.skygo.mn/live/disk1/Cbeebies/HLSv3-FTA/Cbeebies.m3u8
 #EXTINF:-1 tvg-logo="" tvg-id="",1350 Stadium Poker
 https://wurl120sports.global.transmit.live/hls/679a907dce42a042c23ace37/v1/stadium_gracenote/samsung_us/latest/main/hls/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/pG3ygQj.png" tvg-id="MNBSport.mn@HD",1352 MNB Sport
