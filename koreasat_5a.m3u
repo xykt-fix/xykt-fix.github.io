@@ -1,0 +1,5 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="Koreasat5A-Ch1" tvg-name="Koreasat 5A Test Channel 1" group-title="Koreasat 5A",Koreasat 5A Channel 1
+rtsp://192.168.1.100:554/stream1
+#EXTINF:-1 tvg-id="Koreasat5A-Ch2" tvg-name="Koreasat 5A Test Channel 2" group-title="Koreasat 5A",Koreasat 5A Channel 2
+rtsp://192.168.1.100:554/stream2
