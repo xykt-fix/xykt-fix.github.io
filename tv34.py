@@ -2,7 +2,7 @@ import http.server
 import urllib.request
 import time
 
-PORT = 1782
+PORT = 5234
 # FIX 1: Removed the filename from the end so chunks append correctly
 BASE_CDN_URL = "https://cdn4.skygo.mn/live/disk1/Dreambox/HLSv3-FTA" 
 
