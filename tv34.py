@@ -3,31 +3,35 @@ import urllib.request
 import time
 
 PORT = 1782
-# Replace this with the actual base URL of your SkyGo CDN stream
-BASE_CDN_URL = "https://cdn4.skygo.mn/live/disk1/Dreambox/HLSv3-FTA/Dreambox.m3u8" 
+# FIX 1: Removed the filename from the end so chunks append correctly
+BASE_CDN_URL = "https://cdn4.skygo.mn/live/disk1/Dreambox/HLSv3-FTA" 
 
 class DelayedProxy(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
-        # Check if the player is asking for a video chunk (.ts file)
+        # Handle the playlist file request directly
+        if "index.m3u8" in self.path:
+            # Point directly to the source manifest
+            real_url = f"{BASE_CDN_URL}/Dreambox.m3u8"
+        else:
+            # Point to the individual .ts chunks
+            real_url = BASE_CDN_URL + self.path
+
         if ".ts" in self.path:
-            print(f"Loading chunk: {self.path} - Intentionally slowing down...")
-            # FORCE A DELAY: Sleep for 5 seconds before downloading
-            time.sleep(5.0) 
+            print(f"Loading chunk: {self.path} - Delaying 8 seconds...")
+            time.sleep(8.0) # Keeps your 3 seconds extra delay (5s + 3s)
             
-        # Fetch the real file from the SkyGo CDN
-        real_url = BASE_CDN_URL + self.path
         try:
             req = urllib.request.Request(real_url, headers={'User-Agent': 'Mozilla/5.0'})
             with urllib.request.urlopen(req) as response:
                 self.send_response(200)
-                # Copy headers
                 for key, val in response.headers.items():
                     self.send_header(key, val)
                 self.end_headers()
-                # Stream the data to your video player
                 self.wfile.write(response.read())
         except Exception as e:
+            print(f"Error fetching: {real_url} -> {e}")
             self.send_error(500, f"Error fetching chunk: {e}")
 
-print(f"Proxy server running on http://localhost:{PORT}")
-http.server.HTTPServer(('tvmon.jk', 1782), DelayedProxy).serve_forever()
+print(f"Proxy server running. Use http://127.0.0.1:{PORT}/index.m3u8 in your player.")
+# FIX 2: Switched 'tvmon.jk' to '129.12.58.1' so it accepts local computer connections
+http.server.HTTPServer(('129.12.58.1', PORT), DelayedProxy).serve_forever()
