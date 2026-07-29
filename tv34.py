@@ -33,5 +33,5 @@ class DelayedProxy(http.server.SimpleHTTPRequestHandler):
             self.send_error(500, f"Error fetching chunk: {e}")
 
 print(f"Proxy server running. Use http://127.0.0.1:{PORT}/index.m3u8 in your player.")
-# FIX 2: Switched 'tvmon.jk' to '129.12.58.1' so it accepts local computer connections
-http.server.HTTPServer(('129.12.58.1', PORT), DelayedProxy).serve_forever()
+# FIX 2: Switched 'tvmon.jk' to '192.168.1.41' so it accepts local computer connections
+http.server.HTTPServer(('192.168.1.41', 5234), DelayedProxy).serve_forever()
