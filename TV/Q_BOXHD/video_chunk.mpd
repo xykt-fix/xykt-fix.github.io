@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MPD xmlns="urn:mpeg:dash:schema:mpd:2011" 
+     minBufferTime="PT1.500S" 
+     type="static" 
+     mediaPresentationDuration="PT0H10M0.0S" 
+     profiles="urn:mpeg:dash:profile:isoff-on-demand:2011">
+
+  <Period id="0" duration="PT0H10M0.0S">
+    <!-- Video Adaptation Set -->
+    <AdaptationSet mimeType="video/mp4" codecs="avc1.64001f" width="1920" height="1080" frameRate="30" segmentAlignment="true">
+      <Representation id="v1" bandwidth="2000000">
+        <BaseURL>https://xykt-fix.github.io/TV/asianbox.m3u8</BaseURL>
+      </Representation>
+    </AdaptationSet>
+
+    <!-- Audio Adaptation Set -->
+    <AdaptationSet mimeType="audio/mp4" codecs="mp4a.40.2" lang="en" segmentAlignment="true">
+      <Representation id="a1" bandwidth="128000">
+        <BaseURL>audio_chunk.mp4</BaseURL>
+      </Representation>
+    </AdaptationSet>
+  </Period>
+</MPD>
