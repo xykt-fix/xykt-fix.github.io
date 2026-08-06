@@ -1,0 +1,19 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="" ,CGTN Espanol
+https://xykt-fix.github.io/TV/cgtnesp.m3u8
+#EXTINF:-1 tvg-id="" ,AsianBox
+https://xykt-fix.github.io/TV/asianbox.m3u8
+#EXTINF:-1 tvg-id="" ,Cbeebies [Not 24/7]
+https://xykt-fix.github.io/XYKT-PLUS/CH304/index.m3u8
+#EXTINF:-1 tvg-id="" ,Mikro [Not 24/7]
+https://xykt-fix.github.io/XYKT-PLUS/CH645/video.m3u8
+#EXTINF:-1 tvg-id="" ,1+1 [Not 24/7]
+https://xykt-fix.github.io/XYKT-PLUS/CH676/index.m3u8
+#EXTINF:-1 tvg-id="" ,fxx
+https://xykt-fix.github.io/XYKT-PLUS/CH816/index.m3u8
+#EXTINF:-1 tvg-id="" ,ZBJ
+https://xykt-fix.github.io/banana:9452/tv/reality/zbj/roots.m3u8
+#EXTINF:-1 tvg-id="" ,Nickelodeon Espana
+https://xykt-fix.github.io/catv/OXV/1.php?id=fre24567654368
+
+
