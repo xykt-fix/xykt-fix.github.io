@@ -4,9 +4,12 @@
 #EXT-X-MEDIA-SEQUENCE:35642455
 #EXT-X-INDEPENDENT-SEGMENT
 #EXTINF:5
-https://lowa8026-cmyk.github.io/602/PRUA534726.ts
+https://lowa8026-cmyk.github.io/video-62430098532.ts
+
 
 #EXT-X-DISCONTINUITY
+#EXTINF:3
+https://lowa8026-cmyk.github.io/streamid/f32cb91ce7291a2/82764552.ts
 #EXTINF:3
 https://xykt-fix.github.io/media/Cbeebies-avc1_3000000=25-mp4a_128000_eng=13-begin=3659613646400000-dur=40000000-seq=91490342.ts
 #EXTINF:3
