@@ -1,9 +1,9 @@
 #EXTM3U
 #EXT-X-VERSION:5
-#EXT-X-TARGETDURATION:10
+#EXT-X-TARGETDURATION:24
 #EXT-X-MEDIA-SEQUENCE:35642455
 #EXT-X-INDEPENDENT-SEGMENTS
-#EXTINF:10
-https://xykt-fix.github.io/media/Cbeebies-avc1_3000000=25-mp4a_128000_eng=13-begin=3659613646400000-dur=40000000-seq=91490342.ts
-#EXTINF:10
-https://xykt-fix.github.io/media/Cbeebies-avc1_3000000=25-mp4a_128000_eng=13-begin=3659613686400000-dur=40000000-seq=91490343.ts
+#EXTINF:24
+https://raw.githubusercontent.com/xykt-fix/mediatool/refs/heads/main/dream-box/m3u8.dev-live-2026-08-12-22-41-04.mp4
+#EXTINF:16
+https://raw.githubusercontent.com/xykt-fix/mediatool/refs/heads/main/dream-box/m3u8.dev-live-2026-08-12-22-41-20.mp4
