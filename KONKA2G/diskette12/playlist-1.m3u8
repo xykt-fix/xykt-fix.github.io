@@ -5,15 +5,15 @@
 #EXT-X-INDEPENDENT-SEGMENTS
 
 #EXTINF:2,
-segment-1-1.ts
+https://xykt-fix.github.io/ts/segment-1-1.ts
 #EXTINF:2.014652777778,
-segment-1-2.ts
+https://xykt-fix.github.io/ts/segment-1-2.ts
 #EXTINF:2,
-segment-1-3.ts
+https://xykt-fix.github.io/ts/segment-1-3.ts
 #EXTINF:2.003993055556,
-segment-1-4.ts
+https://xykt-fix.github.io/ts/segment-1-4.ts
 #EXTINF:2,
-segment-1-5.ts
+https://xykt-fix.github.io/ts/segment-1-5.ts
 #EXTINF:2.014635416667,
 segment-1-6.ts
 #EXTINF:2,
