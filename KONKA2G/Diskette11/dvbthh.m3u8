@@ -1,0 +1,9 @@
+#EXTM3U
+#EXT-X-VERSION:5
+#EXT-X-TARGETDURATION:5
+#EXTINF:5
+https://lowa8026-cmyk.github.io/PL/POLSATSERIALE_4511.ts
+
+#EXT-X-DISCONTINUITY
+#EXTINF:3
+https://cdn4.skygo.mn/live/disk1/Dreambox/HLSv3-FTA/Dreambox-avc1_2089200=6-mp4a_256000=5-begin=3666944490000000-dur=40000000-seq=91673613.ts
