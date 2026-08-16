@@ -1,9 +1,9 @@
 #EXTM3U
 #EXT-X-VERSION:5
-#EXT-X-TARGETDURATION:8
+#EXT-X-TARGETDURATION:4
 #EXT-X-MEDIA-SEQUENCE:35642455
 #EXT-X-INDEPENDENT-SEGMENTS
-#EXTINF:5
-https://streams.comclark.com/pknsd/nickjr/l_97258_1476464_543301.ts?nimblesessionid=99189658
-#EXTINF:5
-https://streams.comclark.com/pknsd/nickjr/l_97258_1482464_543302.ts?nimblesessionid=99189658
+#EXTINF:44,
+https://xykt-fix.github.io/KONKA2G/cbeebies-1.ts
+#EXTINF:4.
+https://xykt-fix.github.io/media/Cbeebies-avc1_3000000=25-mp4a_128000_eng=13-begin=3659613686400000-dur=40000000-seq=91490343.ts
