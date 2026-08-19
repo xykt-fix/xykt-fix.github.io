@@ -1,0 +1,14 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-MEDIA-SEQUENCE:14584327
+#EXT-X-TARGETDURATION:4
+#EXTINF:4,
+https://cdn4.skygo.mn/live/disk1/Cbeebies/_shared_058c9d47af5e92e47efeac4a31338f08/Cbeebies-avc1_2000000=24-mp4a_128000_eng=13-begin=3670563690000000-dur=40000000-seq=91764093.ts?e
+#EXTINF:4,
+https://cdn4.skygo.mn/live/disk1/Cbeebies/_shared_058c9d47af5e92e47efeac4a31338f08/Cbeebies-avc1_2000000=24-mp4a_128000_eng=13-begin=3670563730000000-dur=40000000-seq=91764094.ts?f
+#EXTINF:4,
+https://cdn4.skygo.mn/live/disk1/Cbeebies/_shared_058c9d47af5e92e47efeac4a31338f08/Cbeebies-avc1_2000000=24-mp4a_128000_eng=13-begin=3670563770000000-dur=40000000-seq=91764095.ts?g
+#EXTINF:4,
+https://cdn4.skygo.mn/live/disk1/Cbeebies/_shared_058c9d47af5e92e47efeac4a31338f08/Cbeebies-avc1_2000000=24-mp4a_128000_eng=13-begin=3670563810000000-dur=40000000-seq=91764096.ts?h
+#EXTINF:4,
+https://cdn4.skygo.mn/live/disk1/Cbeebies/_shared_058c9d47af5e92e47efeac4a31338f08/Cbeebies-avc1_2000000=24-mp4a_128000_eng=13-begin=3670563850000000-dur=40000000-seq=91764097.ts?i
