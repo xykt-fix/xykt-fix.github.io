@@ -1,0 +1,14 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:5
+#EXT-X-MEDIA-SEQUENCE:100
+#EXT-X-INDEPENDENT-SEGMENTS
+#EXT-X-PROGRAM-DATE-TIME:2026-08-19T08:13:01.000Z
+#EXTINF:5,
+https://xykt-fix.github.io/media/kj-100.ts
+#EXTINF:5,
+https://xykt-fix.github.io/media/kj-101.ts
+#EXTINF:5,
+https://xykt-fix.github.io/media/kj-102.ts
+#EXTINF:5,
+https://xykt-fix.github.io/media/kj-103.ts
