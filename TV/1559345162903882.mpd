@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<MPD
+  type="dynamic"
+  xmlns="urn:mpeg:dash:schema:mpd:2011"
+  xmlns:xsi="http://www.w3.org/2011/XMLSchema-instance"
+  xsi:schemaLocation="urn:mpeg:DASH:schema:MPD:2011 DASH-MPD.xsd"
+  profiles="urn:mpeg:dash:profile:isoff-live:2011"
+  availabilityStartTime="2026-08-21T04:02:22-07:00"
+  availabilityEndTime="2026-08-21T05:19:23-07:00"
+  timeShiftBufferDepth="PT20S"
+  suggestedPresentationDelay="PT2S"
+  minBufferTime="PT1S"
+  publishTime="2026-08-21T04:02:22-07:00"
+  minimumUpdatePeriod="PT1S"
+  validationErrors=""
+  FBIsLiveTemplated="true"
+  currentServerTimeMs="1787314282207"
+  firstAvTimeMs="1787310072765"
+  lastVideoFrameTs="4217747"
+  loapStreamId="1559345162903882"
+  publishFrameTime="69365"
+  usingASRCaptions="1">
+  <Period id="dash-abr-ibr-audio" start="PT0S">
+    <AdaptationSet
+      segmentAlignment="true"
+      maxWidth="1280"
+      maxHeight="720"
+      maxFrameRate="30">
+      <Representation
+        id="dash-lp-md-v"
+        mimeType="video/mp4"
+        codecs="avc1.4d401e"
+        width="640"
+        height="360"
+        frameRate="30"
+        startWithSAP="1"
+        bandwidth="307276"
+        FBMaxBandwidth="570984"
+        FBPlaybackResolutionMos="720:60.49,144:92.04,360:72.01"
+        FBQualityClass="sd"
+        FBQualityLabel="360p">
+        <SegmentTemplate
+          presentationTimeOffset="0"
+          timescale="1000"
+          initialization="../dash-lp-md-v/1559345162903882_0-init.m4v?ms=m_C&amp;sc_t=1&amp;ccb=2-4"
+          media="../dash-lp-md-v/1559345162903882_0-$Time$.m4v?ms=m_C&amp;sc_t=1&amp;ccb=2-4">
+          <SegmentTimeline
+            FBAverageDuration="2000"
+            FBPredictedMedia="../ID/dash-lp-md-v/1559345162903882_0-$Number$.m4v?ms=m_C&amp;sc_t=1&amp;ccb=2-4"
+            FBPredictedMediaEndNumber="2173"
+            FBPredictedMediaStartNumber="100"
+            FBStartPts="69365">
+            <S t="4197365" d="2000"/>
+            <S t="4199365" d="2000"/>
+            <S t="4201365" d="2000"/>
+            <S t="4203365" d="2000"/>
+            <S t="4205365" d="2000"/>
+            <S t="4207365" d="2000"/>
+            <S t="4209365" d="2000"/>
+            <S t="4211365" d="2000"/>
+            <S t="4213365" d="2000"/>
+            <S t="4215365" d="2000"/>
+          </SegmentTimeline>
+        </SegmentTemplate>
+      </Representation>
+      <Representation
+        id="dash-lp-qd-v"
+        mimeType="video/mp4"
+        codecs="avc1.4d401e"
+        width="256"
+        height="144"
+        frameRate="30"
+        startWithSAP="1"
+        bandwidth="81341"
+        FBMaxBandwidth="148368"
+        FBPlaybackResolutionMos="360:28.01,720:20.72,144:63.79"
+        FBQualityClass="sd"
+        FBQualityLabel="144p">
+        <SegmentTemplate
+          presentationTimeOffset="0"
+          timescale="1000"
+          initialization="../dash-lp-qd-v/1559345162903882_0-init.m4v?ms=m_C&amp;sc_t=1&amp;ccb=2-4"
+          media="../dash-lp-qd-v/1559345162903882_0-$Time$.m4v?ms=m_C&amp;sc_t=1&amp;ccb=2-4">
+          <SegmentTimeline
+            FBAverageDuration="2000"
+            FBPredictedMedia="../ID/dash-lp-qd-v/1559345162903882_0-$Number$.m4v?ms=m_C&amp;sc_t=1&amp;ccb=2-4"
+            FBPredictedMediaEndNumber="2173"
+            FBPredictedMediaStartNumber="100"
+            FBStartPts="69365">
+            <S t="4197365" d="2000"/>
+            <S t="4199365" d="2000"/>
+            <S t="4201365" d="2000"/>
+            <S t="4203365" d="2000"/>
+            <S t="4205365" d="2000"/>
+            <S t="4207365" d="2000"/>
+            <S t="4209365" d="2000"/>
+            <S t="4211365" d="2000"/>
+            <S t="4213365" d="2000"/>
+            <S t="4215365" d="2000"/>
+          </SegmentTimeline>
+        </SegmentTemplate>
+      </Representation>
+      <Representation
+        id="dash-lp-hd1-v"
+        mimeType="video/mp4"
+        codecs="avc1.4d401e"
+        width="1280"
+        height="720"
+        frameRate="30"
+        startWithSAP="1"
+        bandwidth="894792"
+        FBMaxBandwidth="1776376"
+        FBPlaybackResolutionMos="360:89.44,144:96.53,720:77.81"
+        FBQualityClass="hd"
+        FBQualityLabel="720p">
+        <SegmentTemplate
+          presentationTimeOffset="0"
+          timescale="1000"
+          initialization="../dash-lp-hd1-v/1559345162903882_0-init.m4v?ms=m_C&amp;sc_t=1&amp;ccb=2-4"
+          media="../dash-lp-hd1-v/1559345162903882_0-$Time$.m4v?ms=m_C&amp;sc_t=1&amp;ccb=2-4">
+          <SegmentTimeline
+            FBAverageDuration="2000"
+            FBPredictedMedia="../ID/dash-lp-hd1-v/1559345162903882_0-$Number$.m4v?ms=m_C&amp;sc_t=1&amp;ccb=2-4"
+            FBPredictedMediaEndNumber="2173"
+            FBPredictedMediaStartNumber="100"
+            FBStartPts="69365">
+            <S t="4197365" d="2000"/>
+            <S t="4199365" d="2000"/>
+            <S t="4201365" d="2000"/>
+            <S t="4203365" d="2000"/>
+            <S t="4205365" d="2000"/>
+            <S t="4207365" d="2000"/>
+            <S t="4209365" d="2000"/>
+            <S t="4211365" d="2000"/>
+            <S t="4213365" d="2000"/>
+            <S t="4215365" d="2000"/>
+          </SegmentTimeline>
+        </SegmentTemplate>
+      </Representation>
+    </AdaptationSet>
+    <AdaptationSet segmentAlignment="true">
+      <Representation
+        id="dash-lp-md-a"
+        mimeType="audio/mp4"
+        codecs="mp4a.40.2"
+        audioSamplingRate="48000"
+        startWithSAP="1"
+        bandwidth="67022"
+        FBMaxBandwidth="67924">
+        <SegmentTemplate
+          presentationTimeOffset="0"
+          timescale="1000"
+          initialization="../dash-lp-md-a/1559345162903882_0-init.m4a?ms=m_C&amp;sc_t=1&amp;ccb=2-4"
+          media="../dash-lp-md-a/1559345162903882_0-$Time$.m4a?ms=m_C&amp;sc_t=1&amp;ccb=2-4">
+          <SegmentTimeline
+            FBAverageDuration="2000"
+            FBPredictedMedia="../ID/dash-lp-md-a/1559345162903882_0-$Number$.m4a?ms=m_C&amp;sc_t=1&amp;ccb=2-4"
+            FBPredictedMediaEndNumber="2173"
+            FBPredictedMediaStartNumber="100"
+            FBStartPts="69365">
+            <S t="4197365" d="2000"/>
+            <S t="4199365" d="2000"/>
+            <S t="4201365" d="2000"/>
+            <S t="4203365" d="2000"/>
+            <S t="4205365" d="2000"/>
+            <S t="4207365" d="2000"/>
+            <S t="4209365" d="2000"/>
+            <S t="4211365" d="2000"/>
+            <S t="4213365" d="2000"/>
+            <S t="4215365" d="2000"/>
+          </SegmentTimeline>
+        </SegmentTemplate>
+      </Representation>
+      <Representation
+        id="dash-lp-qd-a"
+        mimeType="audio/mp4"
+        codecs="mp4a.40.2"
+        audioSamplingRate="48000"
+        startWithSAP="1"
+        bandwidth="99025"
+        FBMaxBandwidth="100520">
+        <SegmentTemplate
+          presentationTimeOffset="0"
+          timescale="1000"
+          initialization="../dash-lp-qd-a/1559345162903882_0-init.m4a?ms=m_C&amp;sc_t=1&amp;ccb=2-4"
+          media="../dash-lp-qd-a/1559345162903882_0-$Time$.m4a?ms=m_C&amp;sc_t=1&amp;ccb=2-4">
+          <SegmentTimeline
+            FBAverageDuration="2000"
+            FBPredictedMedia="../ID/dash-lp-qd-a/1559345162903882_0-$Number$.m4a?ms=m_C&amp;sc_t=1&amp;ccb=2-4"
+            FBPredictedMediaEndNumber="2173"
+            FBPredictedMediaStartNumber="100"
+            FBStartPts="69365">
+            <S t="4197365" d="2000"/>
+            <S t="4199365" d="2000"/>
+            <S t="4201365" d="2000"/>
+            <S t="4203365" d="2000"/>
+            <S t="4205365" d="2000"/>
+            <S t="4207365" d="2000"/>
+            <S t="4209365" d="2000"/>
+            <S t="4211365" d="2000"/>
+            <S t="4213365" d="2000"/>
+            <S t="4215365" d="2000"/>
+          </SegmentTimeline>
+        </SegmentTemplate>
+      </Representation>
+    </AdaptationSet>
+    <AdaptationSet
+      segmentAlignment="true"
+      mimeType="application/mp4"
+      lang="es">
+      <Role schemeIdUri="urn:mpeg:dash:role:2011" value="subtitle"/>
+      <Representation
+        id="text-default"
+        mimeType="application/mp4"
+        codecs="wvtt"
+        startWithSAP="1"
+        bandwidth="67036"
+        FBCaptionLabel="Spanish">
+        <SegmentTemplate
+          presentationTimeOffset="0"
+          timescale="1000"
+          initialization="../text-default/1559345162903882_0-init.m4t?ms=m_C&amp;sc_t=1&amp;ccb=2-4"
+          media="../text-default/1559345162903882_0-$Time$.m4t?ms=m_C&amp;sc_t=1&amp;ccb=2-4">
+          <SegmentTimeline
+            FBAverageDuration="2000"
+            FBPredictedMedia="../ID/text-default/1559345162903882_0-$Number$.m4t?ms=m_C&amp;sc_t=1&amp;ccb=2-4"
+            FBPredictedMediaEndNumber="2173"
+            FBPredictedMediaStartNumber="100"
+            FBStartPts="69365">
+            <S t="4197365" d="2000"/>
+            <S t="4199365" d="2000"/>
+            <S t="4201365" d="2000"/>
+            <S t="4203365" d="2000"/>
+            <S t="4205365" d="2000"/>
+            <S t="4207365" d="2000"/>
+            <S t="4209365" d="2000"/>
+            <S t="4211365" d="2000"/>
+            <S t="4213365" d="2000"/>
+            <S t="4215365" d="2000"/>
+          </SegmentTimeline>
+        </SegmentTemplate>
+      </Representation>
+    </AdaptationSet>
+  </Period>
+</MPD>
