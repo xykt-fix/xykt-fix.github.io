@@ -1,0 +1,14 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:5
+#EXT-X-MEDIA-SEQUENCE:1000
+#EXT-X-INDEPENDENT-SEGMENTS
+#EXT-X-PROGRAM-DATE-TIME:2026-08-19T08:13:01.000Z
+#EXTINF:5,
+https://xykt-fix.github.io/asar-1000.ts
+#EXTINF:5,
+https://xykt-fix.github.io/asar-1001.ts
+#EXTINF:5,
+https://xykt-fix.github.io/media/asar-1002.ts
+#EXTINF:5,
+https://xykt-fix.github.io/media/asar-1003.ts
