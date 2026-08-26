@@ -1,0 +1,14 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:420
+#EXT-X-MEDIA-SEQUENCE:0
+#EXT-X-INDEPENDENT-SEGMENTS
+#EXT-X-PROGRAM-DATE-TIME:2026-08-19T08:13:01.000Z
+#EXTINF:420,
+https://ia601000.us.archive.org/15/items/supertato-2022-series-4/Supertato%20%28S4%20EP02%29%20Young%20Veggies%20Part%202.mp4
+#EXTINF:420,
+https://ia801000.us.archive.org/15/items/supertato-2022-series-4/Supertato%20%28S4%20EP02%29%20Young%20Veggies%20Part%202.mp4
+#EXTINF:420,
+https://ia801000.us.archive.org/15/items/supertato-2022-series-4/Supertato%20%28S4%20EP03%29%20Freezy%20Sprinklers.mp4
+#EXTINF:420,
+https://ia601000.us.archive.org/15/items/supertato-2022-series-4/Supertato%20%28S4%20EP04%29%20Melon%20Melon.mp4
