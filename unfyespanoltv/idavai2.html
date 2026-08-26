@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xykt-fix IPTV Channel ID Repository</title>
+    <script src="https://tailwindcss.com"></script>
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; }
+        .channel-card { transition: all 0.2s ease-in-out; }
+        .channel-card:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body class="p-6 md:p-12">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- Header Section -->
+        <header class="mb-12 border-b border-slate-800 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h1 class="text-3xl font-extrabold text-blue-500 tracking-tight">xykt-fix Repository</h1>
+                <p class="text-slate-400 mt-1">Registry Guide for TVBox Dashboard IDs (1-64)</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="filterTier('all')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-semibold text-sm">All Channels</button>
+                <button onclick="filterTier('free')" class="bg-emerald-600 hover:bg-emerald-700 px-4 py-2 rounded-lg font-semibold text-sm">Free-To-Air Only</button>
+                <button onclick="filterTier('premium')" class="bg-rose-600 hover:bg-rose-700 px-4 py-2 rounded-lg font-semibold text-sm">Premium Pack</button>
+            </div>
+        </header>
+
+        <!-- Search Utility Bar -->
+        <div class="mb-8">
+            <input type="text" id="searchBar" onkeyup="searchChannels()" placeholder="Search by Channel ID, Name or Call Sign..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Channel Identification Grid -->
+        <div id="channelGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- JavaScript will populate channels dynamically here -->
+        </div>
+    </div>
+
+    <!-- Scripting Layer for Automated Repository Indexing -->
+    <script>
+        // Database Registry of Channels 1 through 64
+        const repositoryData = [
+            { id: 1, name: "NOT RENTED", tvgId: "NU", logo: "NU", tier: "in development ", type: "comingsoon", url: "https://xykt-fix.github.io/pay/a017" },
+            { id: 2, name: "UBS Fast", tvgId: "UBS.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 3, name: "NOT RENTED", tvgId: "NU", logo: "NU", tier: "in development", type: "comingsoon", url: "https://xykt-fix.github.io/pay/a017" },
+            { id: 4, name: "SBN", tvgId: "SBN.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 5, name: "TV9", tvgId: "TV9.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 6, name: "Central Television FAST", tvgId: "CentralTV.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 7, name: "Mongol TV FAST", tvgId: "MongolTV.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 8, name: "NTV Fast", tvgId: "NTV.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 9, name: "MN25 FAST", tvgId: "MN25.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 10, name: "Eagle FAST", tvgId: "EagleNews.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 11, name: "ETVF HD", tvgId: "ETV.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 12, name: "Tenger HD", tvgId: "TengerTV.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 13, name: "MNB Mongoliin Medee", tvgId: "MNBMongoliinMedee.mn", logo: "https://skytel.mn", tier: "free", type: "HLS", url: "https://skygo.mn" },
+            { id: 14, name: "MNB Sport", tvgId: "MNBSport.mn", logo: "https://imgur.com", tier: "free", type: "HLS", url: "https://mnb.mn" },
+            { id: 15, name: "Bloomberg TV Mongolia HD", tvgId: "BloombergTVMongolia.mn", logo: "https://skytel.mn", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 16, name: "C1", tvgId: "C1.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 17, name: "MN25 HD", tvgId: "MN25HD.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 18, name: "StarTV", tvgId: "StarTV.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 19, name: "SULD TV", tvgId: "SuldTV.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 20, name: "TV5 HD", tvgId: "TV5.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 21, name: "Malchin", tvgId: "MalchinTV.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 24, name: "MNB WORLD", tvgId: "MNBWorld.mn", logo: "https://imgur.com", tier: "free", type: "HLS", url: "https://skygo.mn" },
+            { id: 31, name: "Parlament", tvgId: "Parlament.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 32, name: "MovieBox", tvgId: "Moviebox.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 35, name: "AsianBox", tvgId: "Asianbox.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 36, name: "Aist Global", tvgId: "AistGlobal.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 38, name: "Dreambox", tvgId: "Dreambox.mn", logo: "https://zuragt.mn", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 42, name: "BANTAN", tvgId: "Bantan.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 45, name: "LuxeTV", tvgId: "LuxeTV.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 46, name: "Ulzii", tvgId: "UlziiTV.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 48, name: "MNC", tvgId: "MNC.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 51, name: "Soyon", tvgId: "SoyonGegeeruulegch.mn", logo: "https://imgur.com", tier: "premium", type: "HLS", url: "https://skygo.mn" },
+            { id: 54, name: "KHUGJIM", tvgId: "Khugjim.mn", logo: "https://mnbctv.mn", tier: "premium", type: "HLS", url: "https://skygo.mn" },
