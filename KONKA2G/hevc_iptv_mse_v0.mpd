@@ -1,0 +1,32 @@
+<MPD xmlns="urn:mpeg:dash:schema:mpd:2011" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:mpeg:dash:schema:mpd:2011 http://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-DASH_schema_files/DASH-MPD.xsd" profiles="urn:dvb:dash:profile:dvb-dash:2014,urn:dvb:dash:profile:dvb-dash:isoff-ext-live:2014" type="dynamic" availabilityStartTime="1970-01-01T00:00:12Z" publishTime="2026-08-04T10:05:48.014Z" minimumUpdatePeriod="PT8H" minBufferTime="PT10S" timeShiftBufferDepth="PT2H" maxSegmentDuration="PT4S">
+  <Period id="1" start="PT0S">
+    <AdaptationSet id="1" contentType="audio" mimeType="audio/mp4" segmentAlignment="true" audioSamplingRate="48000" codecs="mp4a.40.2" startWithSAP="1" group="1" lang="en">
+      <AudioChannelConfiguration schemeIdUri="urn:mpeg:dash:23003:3:audio_channel_configuration:2011" value="2"/>
+      <Role schemeIdUri="urn:mpeg:dash:role:2011" value="main"/>
+      <Representation id="pa6" bandwidth="320000">
+        <SegmentTemplate initialization="a=pa6/al=en-GB/ap=main/b=320000/segment.init" media="t=3840/a=pa6/al=en-GB/ap=main/b=320000/$Number$.m4s" timescale="48000" duration="184320"/>
+      </Representation>
+    </AdaptationSet>
+    <AdaptationSet id="2" contentType="video" mimeType="video/mp4" segmentAlignment="true" sar="1:1" startWithSAP="1" group="2" par="16:9">
+      <Role schemeIdUri="urn:mpeg:dash:role:2011" value="main"/>
+      <Representation id="pv64" bandwidth="1800000" width="960" height="540" codecs="hev1.1.6.L93.B0" frameRate="50" scanType="progressive">
+        <SegmentTemplate initialization="v=pv64/b=1800000/segment.init" media="t=3840/v=pv64/b=1800000/$Number$.m4s" timescale="200" duration="768"/>
+      </Representation>
+      <Representation id="pv65" bandwidth="3600000" width="1280" height="720" codecs="hev1.1.6.L120.B0" frameRate="50" scanType="progressive">
+        <SegmentTemplate initialization="v=pv65/b=3600000/segment.init" media="t=3840/v=pv65/b=3600000/$Number$.m4s" timescale="200" duration="768"/>
+      </Representation>
+      <Representation id="pv66" bandwidth="6500000" width="1920" height="1080" codecs="hev1.1.6.L123.B0" frameRate="50" scanType="progressive">
+        <SegmentTemplate initialization="v=pv66/b=6500000/segment.init" media="t=3840/v=pv66/b=6500000/$Number$.m4s" timescale="200" duration="768"/>
+      </Representation>
+    </AdaptationSet>
+    <AdaptationSet id="232" contentType="audio" mimeType="audio/mp4" segmentAlignment="true" audioSamplingRate="48000" codecs="mp4a.40.2" startWithSAP="1" group="1" lang="en">
+      <AudioChannelConfiguration schemeIdUri="urn:mpeg:dash:23003:3:audio_channel_configuration:2011" value="2"/>
+      <Accessibility schemeIdUri="urn:tva:metadata:cs:AudioPurposeCS:2007" value="1"/>
+      <Role schemeIdUri="urn:mpeg:dash:role:2011" value="alternate"/>
+      <Representation id="a=pa6/al=en-GB/ap=adb" bandwidth="320000">
+        <SegmentTemplate initialization="a=pa6/al=en-GB/ap=adb/b=320000/segment.init" media="t=3840/a=pa6/al=en-GB/ap=adb/b=320000/$Number$.m4s" timescale="48000" duration="184320"/>
+      </Representation>
+    </AdaptationSet>
+  </Period>
+  <UTCTiming schemeIdUri="urn:mpeg:dash:utc:http-xsdate:2014" value="https://time.akamai.com/?iso"/>
+</MPD>
