@@ -1,0 +1,12 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:4
+#EXT-X-MEDIA-SEQUENCE:1
+#EXTINF:4,
+https://cignalplaymaxcdn.qzz.io/planetfun/1.ts
+#EXTINF:4,
+https://cignalplaymaxcdn.qzz.io/planetfun/2.ts
+#EXTINF:4,
+https://cignalplaymaxcdn.qzz.io/planetfun/3.ts
+#EXTINF:4,
+https://cignalplaymaxcdn.qzz.io/planetfun/4.ts
