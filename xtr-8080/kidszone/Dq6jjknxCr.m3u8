@@ -1,0 +1,10 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:4
+#EXT-X-MEDIA-SEQUENCE:123
+#EXTINF:4,
+https://cdn.coss.xyz/kidszone-123.ts?duration=5
+#EXTINF:4,
+https://cdn.coss.xyz/kidszone-124.ts?duration=5
+#EXTINF:4,
+https://cdn.coss.xyz/kidszone-125.ts?duration=5
