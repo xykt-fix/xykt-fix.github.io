@@ -1,5 +1,127 @@
-Aziza Plus
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aziza Plus - Premium Innovations</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://tailwindcss.com"></script>
+    <style>
+        @import url('https://googleapis.com');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 antialiased">
 
-TV ---- Configuración
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-bold tracking-wider text-indigo-400">AZIZA<span class="text-emerald-400 font-extrabold">+</span></span>
+            </div>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#features" class="hover:text-white transition">Features</a>
+                <a href="#about" class="hover:text-white transition">About</a>
+                <a href="#pricing" class="hover:text-white transition">Pricing</a>
+                <a href="#contact" class="hover:text-white transition">Contact</a>
+            </nav>
+            <div>
+                <a href="#contact" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">Get Started</a>
+            </div>
+        </div>
+    </header>
 
-Coming soon...
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden py-24 lg:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-6">Introducing Aziza Plus</span>
+                <h1 class="text-4xl sm:text-6xl font-bold tracking-tight text-white mb-6">
+                    Elevate Your Workflow to the <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-emerald-400">Next Generation</span>
+                </h1>
+                <p class="text-lg text-slate-400 mb-8 leading-relaxed">
+                    Experience unmatched performance, smarter intelligence, and an intuitive UI designed completely around your efficiency. Discover what Aziza Plus can do for you.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#features" class="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white px-8 py-3 rounded-xl font-medium shadow-lg shadow-indigo-600/20 transition text-center">Explore Ecosystem</a>
+                    <a href="#contact" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-8 py-3 rounded-xl font-medium transition text-center">Request a Demo</a>
+                </div>
+            </div>
+        </div>
+        <!-- Decorative blurred background elements -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="py-20 border-t border-slate-800 bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">Why Choose Aziza Plus?</h2>
+                <p class="text-slate-400">Engineered with precision tools and optimized frameworks to deliver peak business value right out of the box.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-slate-800/40 border border-slate-800 p-8 rounded-2xl hover:border-slate-700 transition">
+                    <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 rounded-xl flex items-center justify-center text-indigo-400 mb-6 font-bold text-xl">⚡</div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Blazing Performance</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Built on lightning-fast engines that guarantee sub-millisecond response times under any workload load.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-slate-800/40 border border-slate-800 p-8 rounded-2xl hover:border-slate-700 transition">
+                    <div class="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-400 mb-6 font-bold text-xl">🛡️</div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Enterprise Security</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">End-to-end encrypted structural pipelines ensuring your proprietary operational data remains entirely yours.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-slate-800/40 border border-slate-800 p-8 rounded-2xl hover:border-slate-700 transition">
+                    <div class="w-12 h-12 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center text-amber-400 mb-6 font-bold text-xl">📊</div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Advanced Analytics</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Deep visual metrics and automated insights charts tracking every core business variable effortlessly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Action Form Section -->
+    <section id="contact" class="py-20 border-t border-slate-800">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-slate-800/50 border border-slate-800 rounded-3xl p-8 sm:p-12">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-white mb-2">Connect with Aziza Plus</h2>
+                    <p class="text-slate-400">Ready to transform your enterprise ecosystem? Leave us a message.</p>
+                </div>
+                <form class="space-y-6" action="#" method="POST" onsubmit="event.preventDefault(); alert('Thank you for connecting with Aziza Plus! We will reach out shortly.');">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="first-name" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">First Name</label>
+                            <input type="text" id="first-name" name="first-name" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition">
+                        </div>
+                        <div>
+                            <label for="last-name" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Last Name</label>
+                            <input type="text" id="last-name" name="last-name" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Message</label>
+                        <textarea id="message" name="message" rows="4" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition" placeholder="Tell us about your project..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 px-6 rounded-lg transition shadow-md">Send Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-8 text-center text-xs text-slate-600">
+        <p>&copy; 2026 Aziza Plus. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
