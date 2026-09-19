@@ -17,5 +17,5 @@ https://xykt-fix.github.io/banana:9452/tv/reality/zbj/roots.m3u8
 https://xykt-fix.github.io/catv/OXV/1.php?id=fre24567654368
 #EXTINF:-1 tvg-id="" , Xuo 
 https://xyktmobile00.s.gy/rec-a035?xuo_zi-3732.ts
-`
-
+#EXTINF:-1 tvg-id="" , Disney channel
+http://23.237.104.106:8080/USA_DISNEY_JUNIOR/index.m3u8
