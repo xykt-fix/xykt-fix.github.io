@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<tv generator-info-name="Original XML Generated with Tempest EPG Generator (made by Kvanc) - Processed by Open-EPG Visual Processor v0.9" generator-info-url="https://github.com/K-vanc/Tempest-EPG-Generator.git">
+<channel id="Cbeebies.uk"><display-name>"Cbeebies.uk</display-name></channel>
+<programme start="20261103000000 +0000" stop="20261101001000 +0000" channel="Cbeebies.uk"><title>Teletubbies S1E106 -Three</title></programme>
+<programme start="20261103001000 +0000" stop="20261101001500 +0000" channel="Cbeebies.uk"><title>Yakka Dee S3E14 -Swing</title></programme>
+<programme start="20261103001500 +0000" stop="20261101002500 +0000" channel="Cbeebies.uk"><title>Messy Goes To Okido - Space Cucumber</title></programme>
+<programme start="20261103002500 +0000" stop="20261101004000 +0000" channel="Cbeebies.uk"><title>Mojo Swoptops S1E33 -Turbo Ted</title></programme>
+<programme start="20261103004000 +0000" stop="20261101004700 +0000" channel="Cbeebies.uk"><title>Bluey S3E43 -Dragon</title></programme>
+<programme start="20261103004000 +0000" stop="20261101010000 +0000" channel="Cbeebies.uk"><title>Bluey S3E42 - Show & Tell</title></programme>
+<programme start="20261103004000 +0000" stop="20261101010000 +0000" channel="Cbeebies.uk"><title>Bluey S3E42 - Show & Tell</title></programme>
+<programme start="20261103010000 +0000" stop="20261101010700 +0000" channel="Cbeebies.uk"><title>Hey Duggee S5E11 -The Cheerleading Badge</title></programme>
+<programme start="20261103010700 +0000" stop="20261103011500 +0000" channel="Cbeebies.uk"><title>Hey Duggee S5E10 -The Metal Detector Badge</title></programme>
+<programme start="20261103011500 +0000" stop="20261101012200 +0000" channel="Cbeebies.uk"><title>Hey Duggee's Squirrel Club S1E15 -Say Cheese</title></programme>
+<programme start="20261103012200 +0000" stop="20261101013000 +0000" channel="Cbeebies.uk"><title>Hey Duggee's Squirrel Club S1E14 -Night And Day</title></programme>
+<programme start="20261103013000 +0000" stop="20261101014500 +0000" channel="Cbeebies.uk"><title>Go Jetters S3E11 -Himalayan Heroes, Nepaly</title></programme>
+<programme start="20261103014500 +0000" stop="20261101015200 +0000" channel="Cbeebies.uk"><title>Bluey S1E29 -The Creek</title></programme>
+<programme start="20261103015200 +0000" stop="20261101020000 +0000" channel="Cbeebies.uk"><title>Bluey S2E45 -Road Trip</title></programme> 
+<programme start="20261103020000 +0000" stop="20261101020700 +0000" channel="Cbeebies.uk"><title>Bluey S3E6 -Mini Bluey</title></programme>  
+<programme start="20261103020700 +0000" stop="20261101021500 +0000" channel="Cbeebies.uk"><title>Bluey S3E7</title></programme>  
+<programme start="20261103021500 +0000" stop="20261101023000 +0000" channel="Cbeebies.uk"><title>Andy's Dino Island S1E6 -Andy And The Mischevous Dino</title></programme>  
+<programme start="20261103023000 +0000" stop="20261101025500 +0000" channel="Cbeebies.uk"><title>Playtime Towers S1E11 -Cats</title></programme>  
+<programme start="20261103025500 +0000" stop="20261101030200 +0000" channel="Cbeebies.uk"><title>Hey Duggee S2E16 -The Medicine Badge</title></programme>  
+<programme start="20261103030200 +0000" stop="20261101030900 +0000" channel="Cbeebies.uk"><title>Hey Duggee S2E15 -The Pizza Badge</title></programme>  
+<programme start="20261103030900 +0000" stop="20261101031500 +0000" channel="Cbeebies.uk"><title>Hey Duggee S2E14 -The Train Badge</title></programme>
+<programme start="20261103031500 +0000" stop="20261101032500 +0000" channel="Cbeebies.uk"><title>Go Jetters S2E18 -Terracotta Army, Chinae</title></programme>
+<programme start="20261103032500 +0000" stop="20261101034000 +0000" channel="Cbeebies.uk"><title>Go Jetters S2E19</title></programme>
+<programme start="20261103034000 +0000" stop="20261101035000 +0000" channel="Cbeebies.uk"><title>Thomas & friend Temporada 2</title></programme>
+<programme start="20261103035000 +0000" stop="20261101035700 +0000" channel="Cbeebies.uk"><title>Lucas and friend Temporada 1</title></programme> 
+<programme start="20261103035000 +0000" stop="20261101040500 +0000" channel="Cbeebies.uk"><title>Sarah And Duck S3E16 -Shallot Boat</title></programme>
+<programme start="20261103040500 +0000" stop="20261101041100 +0000" channel="Cbeebies.uk"><title>Stan Can S1E40 -Snow</title></programme> 
+<programme start="20261103041100 +0000" stop="20261101042000 +0000" channel="Cbeebies.uk"><title>Stan Can S1E39</title></programme> 
+<programme start="20261103042000 +0000" stop="20261101042500 +0000" channel="Cbeebies.uk"><title>Funny Talking Animals Series 1</title></programme> 
+<programme start="20261103042500 +0000" stop="20261101043800 +0000" channel="Cbeebies.uk"><title>Jojo & Gran Gran S1E24 -It's Time To Make A Movie</title></programme> 
+<programme start="20261103043800 +0000" stop="20261101045000 +0000" channel="Cbeebies.uk"><title>Bluey Temporada 3</title></programme> 
+<programme start="20261103045000 +0000" stop="20261101050700 +0000" channel="Cbeebies.uk"><title>Hey Duggee! Series 2</title></programme> 
+<programme start="20261103050700 +0000" stop="20261101052000 +0000" channel="Cbeebies.uk"><title>Hey Duggee! SQ Series 1</title></programme> 
+<programme start="20261103052000 +0000" stop="20261101053000 +0000" channel="Cbeebies.uk"><title>My Friend Maisy TV Show</title></programme>
+<programme start="20261103053000 +0000" stop="20261101054500 +0000" channel="Cbeebies.uk"><title>Root & fruit series 1</title></programme>
+<programme start="20261103054500 +0000" stop="20261101060000 +0000" channel="Cbeebies.uk"><title>Supertato Series 1</title></programme>
