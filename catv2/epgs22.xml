@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<tv generator-info-name="Original XML Generated with Tempest EPG Generator (made by Kvanc) - Processed by Open-EPG Visual Processor v0.9" generator-info-url="https://github.com/K-vanc/Tempest-EPG-Generator.git">
+<channel id="МNB.mn"><display-name>МNB.mn</display-name></channel>
+<channel id="UBS.mn"><display-name>UBS.mn</display-name></channel>
+<programme start="20261104073000 +0000" stop="20261104083000 +0000" channel="MNB.mn"><title>Ugluu hutulbur</title></programme>
+<programme start="20261104083000 +0000" stop="20261104093000 +0000" channel="MNB.mn"><title>Цагийн хүрд мэдээллийн хөтөлбөр /давталт/</title></programme>
+<programme start="20261104093000 +0000" stop="20261104100000 +0000" channel="MNB.mn"><title>Сайн байна уу? Дундад орон </title></programme>
+<programme start="20261104100000 +0000" stop="20261104103000 +0000" channel="MNB.mn"><title>Ургацын далай</title></programme>
+<programme start="20261104103000 +0000" stop="20261104110000 +0000" channel="MNB.mn"><title>“Цойлуур” шинжлэх ухаан, танин мэдэхүйн нэвтрүүлэг #4</title></programme>
+<programme start="20261104110000 +0000" stop="20261104130000 +0000" channel="MNB.mn"><title>“Монголын мэдээ” мэдээллийн хөтөлбөр /шууд/</title></programme>
+<programme start="20261104130000 +0000" stop="20261104140000 +0000" channel="MNB.mn"><title>Олон нийтийн цаг /шууд/</title></programme>
+<programme start="20261104140000 +0000" stop="20261104145000 +0000" channel="MNB.mn"><title>“Катюша” ОАУСК 8-р анги</title></programme>
+<programme start="20261104145000 +0000" stop="20261104152000 +0000" channel="MNB.mn"><title>Монгол өв соёл: Говь мэргэн вангийн хошууны дуу хуураас</title></programme>
+<programme start="20261104152000 +0000" stop="20261104154000 +0000" channel="MNB.mn"><title>Монгол өв соёл: Говь мэргэн вангийн хошууны дуу хуураас</title></programme> 
+<programme start="20261104152000 +0000" stop="20261104154000 +0000" channel="MNB.mn"><title>Зах зээлийн нүүдэл</title></programme> 
+<programme start="20261104154000 +0000" stop="20261104164000 +0000" channel="MNB.mn"><title>“Соёл-Эрдэнэ” хөтөлбөр</title></programme> 
+<programme start="20261104164000 +0000" stop="20261104165500 +0000" channel="MNB.mn"><title>Оюундалай</title></programme> 
+<programme start="20261104165500 +0000" stop="20261104171500 +0000" channel="MNB.mn"><title>Томилолтоос ирлээ: “Түүхэн айлчлал” /Бүгд Найрамдах Беларусь улсаас бэлтгэв/</title></programme> 
+<programme start="20261104171500 +0000" stop="20261104175500 +0000" channel="MNB.mn"><title>MNB архив 4к төсөл: “Солонго” концерт 1984 он</title></programme> 
+<programme start="20261104175500 +0000" stop="20261104181500 +0000" channel="MNB.mn"><title>АТГ-ын мэдээлэл</title></programme> 
+<programme start="20261104181500 +0000" stop="20261104182500 +0000" channel="MNB.mn"><title>Монголчууд-Чехэд: #3 Н.Баярмагнай</title></programme> 
+<programme start="20261104182500 +0000" stop="20261104183500 +0000" channel="MNB.mn"><title>Хүүхэлдэйн кино: “Ёо ёо” 2-2-40-р анги</title></programme> 
+<programme start="20261104183500 +0000" stop="20261104190500 +0000" channel="MNB.mn"><title>“Цойлуур” шинжлэх ухаан, танин мэдэхүйн нэвтрүүлэг #4</title></programme> 
+<programme start="20261104190500 +0000" stop="20261104195500 +0000" channel="MNB.mn"><title>“Хүү” ОАУСК 1-р анги</title></programme> 
+<programme start="20261104195500 +0000" stop="20261104200000 +0000" channel="MNB.mn"><title>MNB энэ 7 хоногт</title></programme> 
+<programme start="20261104200000 +0000" stop="20261104210000 +0000" channel="MNB.mn"><title>“Цагийн хүрд” мэдээллийн хөтөлбөр /шууд/</title></programme> 
+<programme start="20261104210000 +0000" stop="20261104210500 +0000" channel="MNB.mn"><title>MNB энэ 7 хоногт</title></programme> 
+<programme start="20261104210500 +0000" stop="20261104215500 +0000" channel="MNB.mn"><title>“Алтантуяагийн төлөөх шударга ёсны эрэл” баримтат кино</title></programme> 
+<programme start="20261104215500 +0000" stop="20261104225500 +0000" channel="MNB.mn"><title>"Улаанбаатар театр-20 жил” /Улаанбаатар театрын ойн нэвтрүүлэг/</title></programme> 
+<programme start="20261104225500 +0000" stop="20261104230500 +0000" channel="MNB.mn"><title>“Шударга ёс” ОАУСК 8-р анги</title></programme> 
+<programme start="20261104230500 +0000" stop="20261105000500 +0000" channel="MNB.mn"><title> Залуу хөгжимчдийн Олон улсын ХII уралдаан: Монгол Улсын Ардын жүжигчин Ж.Чулууны нэрэмжит /2-р хэсэг/</title></programme> 
+<programme start="20261105000500 +0000" stop="20261105073000 +0000" channel="MNB.mn"><title>Emision Acabada</title></programme>
