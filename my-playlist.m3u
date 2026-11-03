@@ -1,0 +1,7 @@
+#EXTM3U x-tvg-url="https://raw.githubusercontent.com/xykt-fix/xykt-fix.github.io/refs/heads/main/catv2/epgs22.xml" url-tvg="https://raw.githubusercontent.com/xykt-fix/xykt-fix.github.io/refs/heads/main/catv2/epgs22.xml"
+#PLAYLIST:my-playlist
+# Built with the CODECS.COM Playlist Builder
+
+#EXTINF:-1 tvg-id="Mnb.mn" group-title="Mnb",Mnb
+http://tock.hs:2829/mnv
+
