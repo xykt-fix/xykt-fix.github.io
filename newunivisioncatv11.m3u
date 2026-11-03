@@ -1,0 +1,196 @@
+#EXTM3U
+#PLAYLIST:newunivisioncatv11
+# Built with the CODECS.COM Playlist Builder
+
+#EXTINF:-1 tvg-id="MNB.mn" tvg-logo="https://new.skytel.mn/uploads/channel/Mnbundsen-67613db083c15.jpeg" group-title="Монгол улсын ТВ",MNB
+https://cdn4.skygo.mn/live/disk1/MNB/HLSv3-FTA/MNB.m3u8
+
+#EXTINF:-1 tvg-id="UBS.mn" tvg-logo="https://new.skytel.mn/uploads/channel/ubs-6790c5bec2085.jpeg" group-title="Монгол улсын ТВ",UBS HD
+https://cdn4.skygo.mn/live/disk1/UBSHD/HLSv3-FTA/UBSHD.m3u8
+
+#EXTINF:-1 tvg-id="EagleNews.mn" tvg-logo="https://new.skytel.mn/uploads/channel/eagle-6790ccafaa3a8.jpeg" group-title="Монгол улсын ТВ",Eagle News
+https://cdn4.skygo.mn/live/disk1/Eagle/HLSv3-FTA/Eagle.m3u8
+
+#EXTINF:-1 tvg-id="EduTV.mn" tvg-logo="https://new.skytel.mn/uploads/channel/edutv-6790c6b33a579.jpeg" group-title="Монгол улсын ТВ",Edu TV
+https://cdn4.skygo.mn/live/disk1/Education/HLSv3-FTA/Education.m3u8
+
+#EXTINF:-1 tvg-id="NTV.mn" tvg-logo="https://new.skytel.mn/uploads/channel/ntv-67613ddcc3c2e.jpeg" group-title="Монгол улсын ТВ",NTV HD
+https://cdn4.skygo.mn/live/disk1/NTVHD/HLSv3-FTA/NTVHD.m3u8
+
+#EXTINF:-1 tvg-id="MN25.mn" tvg-logo="https://new.skytel.mn/uploads/channel/25-6790c64bbc14a.jpeg" group-title="Монгол улсын ТВ",MN25 HD
+https://cdn4.skygo.mn/live/disk1/MN25/HLSv3-FTA/MN25.m3u8
+
+#EXTINF:-1 tvg-id="CentralTV.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/Central-6790c7780028d.jpeg" group-title="Монгол улсын ТВ",Central Television
+https://cdn4.skygo.mn/live/disk1/Ekh_Oron/HLSv3-FTA/Ekh_Oron.m3u8
+
+#EXTINF:-1 tvg-id="SBN.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/sbn-67613aeba8951.jpeg" group-title="Монгол улсын ТВ",SBN HD
+https://cdn4.skygo.mn/live/disk1/SBN/HLSv3-FTA/SBN.m3u8
+
+#EXTINF:-1 tvg-id="C1.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/c12-676139bf47022.jpeg" group-title="Монгол улсын ТВ",C1 HD
+https://cdn4.skygo.mn/live/disk1/C1/HLSv3-FTA/C1.m3u8
+
+#EXTINF:-1 tvg-id="MongolTV.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/bb9ac2mongoltv-6736b430c5cac.jpeg" group-title="Монгол улсын ТВ",Монгол ТВ
+https://cdn4.skygo.mn/live/disk1/VolumePlus/HLSv3-FTA/VolumePlus.m3u8
+
+#EXTINF:-1 tvg-id="Tenger.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/tenger-6790ca2e09a8d.jpeg" group-title="Монгол улсын ТВ",Tenger TV
+https://cdn4.skygo.mn/live/disk1/VTV/HLSv3-FTA/VTV.m3u8
+
+#EXTINF:-1 tvg-id="Star.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/startv-6790c4feccea1.jpeg" group-title="Монгол улсын ТВ",Star TV Bayanzurkh
+https://cdn4.skygo.mn/live/disk1/Star/HLSv3-FTA/Star.m3u8
+
+#EXTINF:-1 tvg-id="MalchinTV.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/Malchin-67613bb2d9539.jpeg" group-title="Монгол улсын ТВ",Malchin TV
+https://cdn4.skygo.mn/live/disk1/Malchin/HLSv3-FTA/Malchin.m3u8
+
+#EXTINF:-1 tvg-id="TV8.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/tv8-6791bb74ae0d2.jpeg" group-title="Монгол улсын ТВ",TV8 HD
+https://cdn4.skygo.mn/live/disk1/TV5HD/HLSv3-FTA/TV5HD.m3u8
+
+#EXTINF:-1 tvg-id="ETV.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/etv-67613a7d2f83c.jpeg" group-title="Монгол улсын ТВ",ETV HD
+https://cdn4.skygo.mn/live/disk1/ETV/HLSv3-FTA/ETV.m3u8
+
+#EXTINF:-1 tvg-id="TM.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/TM-67613b414f7b4.jpeg" group-title="Монгол улсын ТВ",Tanin Medehgue
+https://cdn4.skygo.mn/live/disk1/TM/HLSv3-FTA/TM.m3u8
+
+#EXTINF:-1 tvg-id="TV8.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/tv8-6791bb74ae0d2.jpeg" group-title="Монгол улсын ТВ",TV8 HD
+https://cdn4.skygo.mn/live/disk1/TV8HD/HLSv3-FTA/TV8HD.m3u8
+
+#EXTINF:-1 tvg-id="MNBMongoliinMedee.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/mnb2-67613e23805ca.jpeg" group-title="Монгол улсын ТВ",MNB Mongoliin Medee
+https://cdn4.skygo.mn/live/disk1/MNB2/HLSv3-FTA/MNB2.m3u8
+
+#EXTINF:-1 tvg-id="SuldTV.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/suld-6791bb16a8a96.jpeg" group-title="Монгол улсын ТВ",Сүлд
+https://cdn4.skygo.mn/live/disk1/SuldTV/HLSv3-FTA/SuldTV.m3u8
+
+#EXTINF:-1 tvg-id="TV9.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/tv9-6791badd22fdb.jpeg" group-title="Монгол улсын ТВ",TV9 HD
+https://cdn4.skygo.mn/live/disk1/TV9HD/HLSv3-FTA/TV9HD.m3u8
+
+#EXTINF:-1 tvg-id="MNBSport.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/mnbsports-67613d71dca84.jpeg" group-title="Монгол улсын ТВ",MNB Спорт
+https://live.mnb.mn/hls/mnb_sport.stream.m3u8
+
+#EXTINF:-1 tvg-id="MNBWorld.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/mnbworld-67613e56a1e4e.jpeg" group-title="Монгол улсын ТВ",MNB World
+https://cdn4.skygo.mn/live/disk1/MNB_World/HLSv3-FTA/MNB_World.m3u8
+
+#EXTINF:-1 tvg-id="MNBGerBul.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/mnbfamily-67613eb8bdf35.jpeg" group-title="Монгол улсын ТВ",MNB Гар бул
+https://cdn4.skygo.mn/live/disk1/MNB_Family/HLSv3-FTA/MNB_Family.m3u8
+
+#EXTINF:-1 tvg-id="BloombergMon.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/bloomberg-6791beef03e6a.jpeg" group-title="Монгол улсын ТВ",Bloomb MGL
+https://cdn4.skygo.mn/live/disk1/BloombergMon/HLSv3-FTA/BloombergMon.m3u8
+
+#EXTINF:-1 tvg-id="Parliament.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/parlament-6793668231ead.jpeg" group-title="Монгол улсын ТВ",Parliament
+https://cdn4.skygo.mn/live/disk1/Parliament/HLSv3-FTA/Parliament.m3u8
+
+#EXTINF:-1 tvg-id="MNC.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/mnc-676141d1ed536.jpeg" group-title="Монгол улсын ТВ",MNC
+https://cdn4.skygo.mn/live/disk1/MNCTV/HLSv3-FTA/MNCTV.m3u8
+
+#EXTINF:-1 tvg-id="DreamTV.mn" tvg-logo="https://new.skytel.mn/uploads/channel/dreamtv-67613f96b010f.jpeg" group-title="Монгол улсын ТВ",Dreambox HD Infantiles
+https://cdn4.skygo.mn/live/disk1/Dreambox/HLSv3-FTA/Dreambox.m3u8
+
+#EXTINF:-1 tvg-id="Moviebox.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/moviebox-6791bdc77c5a1.jpeg" group-title="Монгол улсын ТВ",Moviebox HD Peliculas
+https://cdn4.skygo.mn/live/disk1/Moviebox/HLSv3-FTA/Moviebox.m3u8
+
+#EXTINF:-1 tvg-id="Asianbox.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/asianbox-6791be9c4ef39.jpeg" group-title="Монгол улсын ТВ",CajaAsia
+https://cdn4.skygo.mn/live/disk1/AsianBOX/HLSv3-FTA/AsianBOX.m3u8
+
+#EXTINF:-1 tvg-id="TV7.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/tv7-676143ffe0ff9.jpeg" group-title="Монгол улсын ТВ",TV7
+https://cdn4.skygo.mn/live/disk1/TV4/HLSv3-FTA/TV4.m3u8
+
+#EXTINF:-1 tvg-id="UlziiTV.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/ulzii-676142477ec72.jpeg" group-title="Монгол улсын ТВ",Ulzii Canal
+https://cdn4.skygo.mn/live/disk1/UlziiTV/HLSv3-FTA/UlziiTV.m3u8
+
+#EXTINF:-1 tvg-id="CanalOnce.mn@SD" tvg-logo="https://th.bing.com/th/id/OIP.DVCYWNX5iSgI7u7pXsLqjwAAAA?w=201&h=230&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3" group-title="Монгол улсын ТВ",Canal Once
+http://168.228.44.241:9999/play/a01m/index.m3u8
+
+#EXTINF:-1 tvg-id="Bantan.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/popcorn-676146160da33.jpeg" group-title="Монгол улсын ТВ",Bantan
+https://cdn4.skygo.mn/live/disk1/Popcorn/HLSv3-FTA/Popcorn.m3u8
+
+#EXTINF:-1 tvg-id="Cinema.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/cinema-67936332458e7.jpeg" group-title="Монгол улсын ТВ",Cinema TV9 Peliculas
+https://cdn4.skygo.mn/live/disk1/CinemaTV/HLSv3-FTA/CinemaTV.m3u8
+
+#EXTINF:-1 tvg-id="AistGlobal.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/aistglobal-67614290ba120.jpeg" group-title="Монгол улсын ТВ",Aist Global
+https://cdn4.skygo.mn/live/disk1/GlobalTV/HLSv3-FTA/GlobalTV.m3u8
+
+#EXTINF:-1 tvg-id="NSports.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/nsports-687e021d6187a.jpeg" group-title="Монгол улсын ТВ",N Sport
+https://cdn4.skygo.mn/live/disk1/ONTV/HLSv3-FTA/ONTV.m3u8
+
+#EXTINF:-1 tvg-id="Khugjim.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/muzika-676bcf3493f99.jpeg" group-title="Монгол улсын ТВ",Musica mongola
+https://cdn4.skygo.mn/live/disk1/Khugjim/HLSv3-FTA/Khugjim.m3u8
+
+#EXTINF:-1 tvg-id="AutoTV.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/autotv-676147607e387.jpeg" group-title="Монгол улсын ТВ",AutoTV
+https://cdn4.skygo.mn/live/disk1/AutoTV/HLSv3-FTA/AutoTV.m3u8
+
+#EXTINF:-1 tvg-id="LuxeTVMongolia.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/likehd-6792225cd73be.jpeg" group-title="Монгол улсын ТВ",Luxe tv
+https://cdn4.skygo.mn/live/disk1/LuxeTV/HLSv3-FTA/LuxeTV.m3u8
+
+#EXTINF:-1 tvg-id="LucasFriends.us@SD" tvg-logo="https://tse2.mm.bing.net/th/id/OIP.gRAuOOCET82N-St4KCt4lgHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" group-title="Хуухэд",Lucas and friends
+https://app.viloud.tv/hls/channel/ae1a88f9c4ae28c06eb1f6ff5419ff97.m3u8
+
+#EXTINF:-1 tvg-id="Pakapaka.ar@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Paka-Paka-2025.svg/1920px-Paka-Paka-2025.svg.png" group-title="Хуухэд",Pakapaka
+http://138.59.227.20:8000/play/a05t/index.m3u8
+
+#EXTINF:-1 tvg-id="Tooncast.us" tvg-logo="https://i.imgur.com/3yXRbQy.png" group-title="Хуухэд",Tooncast
+http://45.173.231.22:8000/play/a01i/index.m3u8
+
+#EXTINF:-1 tvg-id="DiscoveryKidsLatinAmerica.us" tvg-logo="https://i.imgur.com/C0VEHXU.png" group-title="Хуухэд",Discovery KID
+http://181.224.200.5:2277/play/a00o/index.m3u8
+
+#EXTINF:-1 tvg-id="CBeebies.uk@SD" tvg-logo="https://new.skytel.mn/uploads/channel/cbeeb-676d1cf2626ae.jpeg" group-title="Хуухэд",Cbeebie
+https://cdn4.skygo.mn/live/disk1/Cbeebies/HLSv3-FTA/Cbeebies.m3u8
+
+#EXTINF:-1 tvg-id="MoonbugKids.uk@SD" tvg-logo="https://new.skytel.mn/uploads/channel/moonbug-676d1c28b0cb1.jpeg" group-title="Хуухэд",Moonbug
+https://cdn4.skygo.mn/live/disk1/Moonbug/HLSv3-FTA/Moonbug.m3u8
+
+#EXTINF:-1 tvg-id="PSN1.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/ps1-6736b602502d4.jpeg" group-title="Спорт",PSN 1
+https://cdn1.skygo.mn/live/disk1/SPSPrime/STRM-WkLE-1/SPSPrime.mpd
+
+#EXTINF:-1 tvg-id="PSN2.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/ps2-6736b61127d55.jpeg" group-title="Спорт",PSN 2
+https://cdn1.skygo.mn/live/disk1/SPSPlay/STRM-WkLE-1/SPSPlay.mpd
+
+#EXTINF:-1 tvg-id="PSN3.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/p3-6736b61ceacea.jpeg" group-title="Спорт",PSN3
+https://cdn1.skygo.mn/live/disk1/PSN3/STRM-WkLE-1/PSN3.mpd
+
+#EXTINF:-1 tvg-id="PSN4.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/ps4-6736b62ab2927.jpeg" group-title="Спорт",PSN 4
+https://cdn4.skygo.mn/live/disk1/SPSFight/STRM-WkLE-1/SPSFight.mpd
+
+#EXTINF:-1 tvg-id="PSN5.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/ps5-6736b63594026.jpeg" group-title="Спорт",PSN 5
+https://cdn4.skygo.mn/live/disk1/SPSPlus/STRM-WkLE-1/SPSPlus.mpd
+
+#EXTINF:-1 tvg-id="TNTSports.cl" tvg-logo="https://th.bing.com/th/id/OIP.QZVF_xu0ifSMuJO9ZY12NQHaEm?w=430&h=267&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3" group-title="Спорт",TNT Sport
+http://209.45.101.130:8040/play/a03s/index.m3u8
+
+#EXTINF:-1 tvg-id="SkySports1.mx" tvg-logo="https://tse3.mm.bing.net/th/id/OIP.3mM6AI-BZUesWVYOnl2J_gAAAA?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" group-title="Спорт",Sky Sport
+http://45.228.234.9:8000/play/a06b/index.m3u8
+
+#EXTINF:-1 tvg-id="TNTSportsPremium.cl@ArgentinaHD" tvg-logo="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/TNT_Sports_Premium_%28Argentina%29.png/960px-TNT_Sports_Premium_%28Argentina%29.png" group-title="Спорт",TNT Sport Premium
+http://181.78.79.131:8000/play/a0q9
+
+#EXTINF:-1 tvg-id="HBOFamily.sg" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/HBO_Family_Asia_logo.svg/960px-HBO_Family_Asia_logo.svg.png" group-title="Кинонууд",HBO Familia
+http://202.150.165.66:8088/play/103-HBOFamily/index.m3u8
+
+#EXTINF:-1 tvg-id="HBOAsia.sg" tvg-logo="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/HBO_Asia.png/960px-HBO_Asia.png" group-title="Кинонууд",HBO
+http://202.150.165.66:8088/play/100-HBO/index.m3u8
+
+#EXTINF:-1 tvg-id="HBOSignatureAsia.sg" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/HBO_Signature_Asia.png/960px-HBO_Signature_Asia.png" group-title="Кинонууд",HBO Signature
+http://202.150.165.66:8088/play/101-HBOSignature/index.m3u8
+
+#EXTINF:-1 tvg-id="HBOHitsAsia.sg" tvg-logo="https://i.ibb.co/Mkzs7g3J/IMG-2195.png" group-title="Кинонууд",HBO Hit
+http://202.150.165.66:8088/play/102-HBOHits/index.m3u8
+
+#EXTINF:-1 tvg-id="CinemaxAsia.sg" tvg-logo="https://i.imgur.com/c8crJfA.png" group-title="Кинонууд",Cinemax
+http://202.150.165.66:8088/play/104-Cinemax/index.m3u8
+
+#EXTINF:-1 tvg-id="CineSony.us@SD" tvg-logo="https://i.imgur.com/bZWoDTg.png" group-title="Кинонууд",Sony Cine
+http://186.148.196.82:8001/play/a0a4
+
+#EXTINF:-1 tvg-id="vijuTV1000action.ru" tvg-logo="https://i.imgur.com/TMmyuzh.png" group-title="Кинонууд",viju TV1000 action
+https://stream8.cinerama.uz/1225/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="HGTVLatinAmerica.us" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/HGTV_US_Logo_2015.svg/960px-HGTV_US_Logo_2015.svg.png" group-title="Ахуй соёл",HGTV
+https://streaming.onnethn.com/HGTV/index.m3u8
+
+#EXTINF:-1 tvg-id="AsianFoodNetwork.sg" tvg-logo="https://i.imgur.com/pux6WN8.png" group-title="Ахуй соёл",HGTV
+https://freem3u.xyz/api/live/play.m3u8?vid=215
+
+#EXTINF:-1 tvg-id="Homeshop.ek" group-title="Ахуй соёл",hyundai shop
+https://dtvstreaming.hyundaihmall.com/newcjp3/_definst_/newcjpstream.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="BBCLifestyle.uk" tvg-logo="https://i.imgur.com/9mzJJ3y.png" group-title="Ахуй соёл",BBC Lifestyle
+https://cdn4.skygo.mn/live/disk1/BBC_lifestyle/HLSv3-FTA/BBC_lifestyle.m3u8
+
