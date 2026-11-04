@@ -11,16 +11,16 @@ https://cdn4.skygo.mn/live/disk1/UBSHD/HLSv3-FTA/UBSHD.m3u8
 #EXTINF:-1 tvg-id="018" tvg-logo="https://new.skytel.mn/uploads/channel/eagle-6790ccafaa3a8.jpeg" group-title="Монгол улсын ТВ",Eagle News
 https://cdn4.skygo.mn/live/disk1/Eagle/HLSv3-FTA/Eagle.m3u8
 
-#EXTINF:-1 tvg-id="EduTV.mn" tvg-logo="https://new.skytel.mn/uploads/channel/edutv-6790c6b33a579.jpeg" group-title="Монгол улсын ТВ",Edu TV
+#EXTINF:-1 tvg-id="010" tvg-logo="https://new.skytel.mn/uploads/channel/edutv-6790c6b33a579.jpeg" group-title="Монгол улсын ТВ",Edu TV
 https://cdn4.skygo.mn/live/disk1/Education/HLSv3-FTA/Education.m3u8
 
-#EXTINF:-1 tvg-id="NTV.mn" tvg-logo="https://new.skytel.mn/uploads/channel/ntv-67613ddcc3c2e.jpeg" group-title="Монгол улсын ТВ",NTV HD
+#EXTINF:-1 tvg-id="003" tvg-logo="https://new.skytel.mn/uploads/channel/ntv-67613ddcc3c2e.jpeg" group-title="Монгол улсын ТВ",NTV HD
 https://cdn4.skygo.mn/live/disk1/NTVHD/HLSv3-FTA/NTVHD.m3u8
 
 #EXTINF:-1 tvg-id="MN25.mn" tvg-logo="https://new.skytel.mn/uploads/channel/25-6790c64bbc14a.jpeg" group-title="Монгол улсын ТВ",MN25 HD
 https://cdn4.skygo.mn/live/disk1/MN25/HLSv3-FTA/MN25.m3u8
 
-#EXTINF:-1 tvg-id="CentralTV.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/Central-6790c7780028d.jpeg" group-title="Монгол улсын ТВ",Central Television
+#EXTINF:-1 tvg-id="092" tvg-logo="https://new.skytel.mn/uploads/channel/Central-6790c7780028d.jpeg" group-title="Монгол улсын ТВ",Central Television
 https://cdn4.skygo.mn/live/disk1/Ekh_Oron/HLSv3-FTA/Ekh_Oron.m3u8
 
 #EXTINF:-1 tvg-id="SBN.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/sbn-67613aeba8951.jpeg" group-title="Монгол улсын ТВ",SBN HD
@@ -80,13 +80,13 @@ https://cdn4.skygo.mn/live/disk1/Parliament/HLSv3-FTA/Parliament.m3u8
 #EXTINF:-1 tvg-id="MNC.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/mnc-676141d1ed536.jpeg" group-title="Монгол улсын ТВ",MNC
 https://cdn4.skygo.mn/live/disk1/MNCTV/HLSv3-FTA/MNCTV.m3u8
 
-#EXTINF:-1 tvg-id="DreamTV.mn" tvg-logo="https://new.skytel.mn/uploads/channel/dreamtv-67613f96b010f.jpeg" group-title="Монгол улсын ТВ",Dreambox HD Infantiles
+#EXTINF:-1 tvg-id="021" tvg-logo="https://new.skytel.mn/uploads/channel/dreamtv-67613f96b010f.jpeg" group-title="Монгол улсын ТВ",Dreambox HD Infantiles
 https://cdn4.skygo.mn/live/disk1/Dreambox/HLSv3-FTA/Dreambox.m3u8
 
-#EXTINF:-1 tvg-id="Moviebox.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/moviebox-6791bdc77c5a1.jpeg" group-title="Монгол улсын ТВ",Moviebox HD Peliculas
+#EXTINF:-1 tvg-id="034" tvg-logo="https://new.skytel.mn/uploads/channel/moviebox-6791bdc77c5a1.jpeg" group-title="Монгол улсын ТВ",Moviebox HD Peliculas
 https://cdn4.skygo.mn/live/disk1/Moviebox/HLSv3-FTA/Moviebox.m3u8
 
-#EXTINF:-1 tvg-id="Asianbox.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/asianbox-6791be9c4ef39.jpeg" group-title="Монгол улсын ТВ",CajaAsia
+#EXTINF:-1 tvg-id="035" tvg-logo="https://new.skytel.mn/uploads/channel/asianbox-6791be9c4ef39.jpeg" group-title="Монгол улсын ТВ",CajaAsia
 https://cdn4.skygo.mn/live/disk1/AsianBOX/HLSv3-FTA/AsianBOX.m3u8
 
 #EXTINF:-1 tvg-id="TV7.mn@SD" tvg-logo="https://new.skytel.mn/uploads/channel/tv7-676143ffe0ff9.jpeg" group-title="Монгол улсын ТВ",TV7
