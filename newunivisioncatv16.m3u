@@ -1,4 +1,4 @@
-#EXTM3U x-tvg-url="https://raw.githubusercontent.com/BTuguldur/epgmn/refs/heads/main/goplus_epg.xml" url-tvg="https://raw.githubusercontent.com/BTuguldur/epgmn/refs/heads/main/goplus_epg.xml"
+#EXTM3U x-tvg-url="https://raw.githubusercontent.com/BTuguldur/epgmn/refs/heads/main/goplus_epg.xml,https://iptv-epg.org/files/epg-ar.xml,https://iptv-epg.org/files/epg-sg.xml" url-tvg="https://raw.githubusercontent.com/BTuguldur/epgmn/refs/heads/main/goplus_epg.xml,https://iptv-epg.org/files/epg-ar.xml,https://iptv-epg.org/files/epg-sg.xml"
 #PLAYLIST:newunivisioncatv14
 # Built with the CODECS.COM Playlist Builder
 
